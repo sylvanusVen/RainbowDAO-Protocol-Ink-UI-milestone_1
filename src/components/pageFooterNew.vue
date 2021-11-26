@@ -135,7 +135,7 @@
 
     </div>
     <div class="page-footer-part3">
-      Copyright@2021 rainbowcity.io
+      Copyright@2021 www.rainbowdao.io
     </div>
   </div>
 </template>
@@ -148,9 +148,6 @@ export default {
 
 <style lang="scss" scoped>
 $blehness:50%;
-$size: 40px;
-$duration: 2s;
-$background: #10101B;
 $radius: 10px;
 
 
@@ -188,8 +185,8 @@ $radius: 10px;
 .page-footer {
   box-sizing: border-box;
   padding-bottom: 10px;
-  background: #10101B;
-
+  background: url("../assets/imgs/footer_bg.png");
+  background-size: 100%  100%;
   .line {
     width: 1100px;
     height: 1px;
@@ -259,8 +256,8 @@ $radius: 10px;
         position: relative;
         z-index: 2;
         border-radius: $radius;
-        background: #141423;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: #1a1f5d;
+        border: 1px solid rgba(255,255,255,0.20);
         padding: 11px 15px;
 
 
@@ -364,6 +361,7 @@ $radius: 10px;
 
   .page-footer-part3 {
     margin: 30px 0;
+    color: white;
     text-align: center;
   }
 }

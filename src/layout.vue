@@ -1,16 +1,20 @@
 <template>
   <div class="layout">
     <div id="resize-box">
+      <rainbow-nav></rainbow-nav>
       <div class="layout-content">
         <router-view/>
       </div>
+      <pageFooter></pageFooter>
     </div>
   </div>
 </template>
 
 <script>
+import pageFooter from "./components/pageFooter";
 export default {
   name: "layout",
+  components:{pageFooter},
   data() {
     return {}
   },
@@ -58,9 +62,31 @@ export default {
     text-shadow: 0 0 20px #F64F59;
   }
 }
-
+//public css
+::v-deep .rainbow-panel{
+  position: relative;
+  color: black;
+  width: 1120px;
+  z-index: 1000;
+  top: -130px;
+  margin: 0px auto 0;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0px 20px 20px 3px rgba(156,156,156,0.10);
+  .title{
+    width: 157px;
+    height: 37px;
+    font-size: 26px;
+    font-family: Arial, Arial-Black;
+    font-weight: 900;
+    text-align: left;
+    color: #333333;
+    line-height: 37px;
+  }
+}
 .layout {
-  overflow: hidden;
   background: #10101B;
 
   ::v-deep .swiper-container, .swiper-slide {
@@ -94,7 +120,9 @@ export default {
 
   .layout-content {
     height: calc(100% - 52px);
-    overflow: hidden;
+    min-height: 500px;
+    background: #fff url("./assets/imgs/content_bg.png");
+    background-size: 100% 100%;
   }
 
 

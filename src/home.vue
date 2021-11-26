@@ -139,7 +139,7 @@
               <img class="link-img" src="./assets/imgs/github.png" alt="">
             </a>
           </div>
-          <div class="building" v-if="isShow" @click="$router.push('/rainbowDao')">
+          <div class="building" v-if="isShow" @click="$router.push('/RainbowCity')">
             ENTER
           </div>
         </div>

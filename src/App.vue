@@ -193,7 +193,6 @@ export default {
 }
 #app {
   font-family: Times New Roman,sans-serif;
-  color: white;
   ::-webkit-scrollbar{
     width: 0;
   }

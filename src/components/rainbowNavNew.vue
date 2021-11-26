@@ -4,21 +4,27 @@
     <div class="nav-box">
       <img class="logo" src="../assets/imgs/RainbowDAOLogo.png" @click="$router.push('/')"/>
       <ul class="navbar-nav">
-        <li :class="{'active':$route.name=='RainbowCity'}" @click="openNew('/RainbowCity')">
-          <a class="w-font" href="#RainbowCity">HOME</a>
-          <a class="re-active" href="#RainbowCity">HOME</a>
+        <li :class="{'active':$route.name=='Proposal'}" @click="openNew('/Proposal')">
+          <a class="w-font" >Proposal</a>
+          <a class="re-active" >Proposal</a>
+        </li>
+        <li :class="{'active':$route.name=='RainbowCore'}" @click="openNew('/RainbowCore')">
+          <a class="w-font">Rainbow core</a>
+          <a class="re-active" >Rainbow core</a>
         </li>
 
 
-        <li :class="{'active':$route.name=='RainbowWarrior'}" @click="openNew('/RainbowWarrior')">
-          <a class="w-font" href="#RainbowWarrior">RAINBOW WARRIOR</a>
-          <a class="re-active" href="#RainbowWarrior">RAINBOW WARRIOR</a>
+        <li :class="{'active':$route.name=='MemberManagement'}" @click="openNew('/MemberManagement')">
+          <a class="w-font" href="#RainbowWarrior">Member Management</a>
+          <a class="re-active" href="#RainbowWarrior">Member Management</a>
         </li>
 
+        <li :class="{'active':$route.name=='MemberManagement'}" @click="openNew('/RevenueManagement')">
+          <a class="w-font" href="#RainbowWarrior">Revenue Management</a>
+          <a class="re-active" href="#RainbowWarrior">Revenue Management</a>
+        </li>
         <li>
-          <div class="language">
-            EN
-          </div>
+          <ConnectWallet></ConnectWallet>
         </li>
       </ul><!-- /.navbar-nav -->
     </div>
@@ -26,11 +32,17 @@
 </template>
 
 <script>
+import ConnectWallet from "./ConnectWallet";
 export default {
   name: "rainbowNav",
   props: ['isShowMore'],
+  components:{
+    ConnectWallet
+  },
   data() {
-    return {}
+    return {
+
+    }
   },
   methods: {
     openNew(pathStr) {
@@ -42,52 +54,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@mixin backlight($x, $y, $spread, $size, $colorA, $colorB, $duration) {
-  &:after {
-    position: absolute;
-    content: "";
-    top: $y;
-    left: $x;
-    right: 0;
-    z-index: -10;
-    height: 100%;
-    width: 100%;
-    margin: 0 auto;
-    transform: scale($size);
-    -webkit-filter: blur($spread);
-    -moz-filter: blur($spread);
-    -ms-filter: blur($spread);
-    filter: blur($spread);
-    background: linear-gradient(270deg, $colorA, $colorB);
-    background-size: 200% 200%;
-    animation: animateGlow $duration ease infinite;
-
-    @keyframes animateGlow {
-      0% {
-        background-position: 0% 50%
-      }
-      50% {
-        background-position: 100% 50%
-      }
-      100% {
-        background-position: 0% 50%
-      }
-    }
-  }
-}
 
 .rainbow-nav {
+  background: url("../assets/imgs/header_bg.png");
+  height: 230px;
+  background-size: 100% 100%;
   color: white;
   .nav-box {
     display: flex;
     margin: 0 auto;
     width: 100%;
     min-width: 1180px;
-    padding: 0 200px;
+    padding: 0 60px;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.3);
 
     .logo {
       cursor: pointer;
@@ -121,7 +102,9 @@ export default {
       line-height: 50px;
       position: relative;
       overflow: hidden;
-
+      display: flex;
+      align-items: center;
+      font-weight: bold;
       &:hover {
         .re-active {
           top: 0;
@@ -152,37 +135,6 @@ export default {
       }
     }
 
-    .more-box {
-      position: absolute;
-      left: -40px;
-      top: 60px;
-      width: 150px;
-      height: 162px;
-      font-size: 12px;
-      border: 1px solid #333333;
-      border-radius: 10px;
-      z-index: 2;
-
-      .more-box-content {
-        border-radius: 10px;
-        width: 100%;
-        height: 100%;
-        background: #141423;
-      }
-
-      @include backlight(0, 30px, 5vw, 0.75, #0fffc1, #7e0fff, 3s);
-
-      .more-item {
-        z-index: 10;
-        text-align: center;
-        cursor: pointer;
-        height: 50px;
-        font-size: 12px;
-        &:hover {
-          background: #000;
-        }
-      }
-    }
     .w-font{
       position: relative;
       top: 0;

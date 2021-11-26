@@ -129,12 +129,12 @@ export default {
   display: flex;
 
   .button-connect {
+    padding: 0 10px;
+    width: 130px;
     cursor: pointer;
     line-height: 0;
-    width: 100px;
     height: 30px;
-    opacity: 1;
-    background: linear-gradient(270deg, #ec0b6a, #ec0b6a);
+    background: linear-gradient(90deg,#12c2e9, #c471ed 53%, #f64f59);
     border-radius: 10px;
     color: white;
     border: none;

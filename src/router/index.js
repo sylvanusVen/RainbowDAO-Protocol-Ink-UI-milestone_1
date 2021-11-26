@@ -10,10 +10,29 @@ const routes = [
         component: () => import('@/home.vue'),
     },
     {
-        path: '/rainbow',
+        path: '/',
         name: "rainbow",
         component: () => import('@/layout.vue'),
         redirect: '/RainbowCity',
+        children: [
+            {
+                path: '/RainbowCity',
+                name: "RainbowCity",
+                component:()=> import('@/views/rainbowCity/rainbowCityPage')
+            },
+
+            {
+                path: '/RainbowWarrior',
+                name: "RainbowWarrior",
+                component:()=> import('@/views/rainbowWarrior/rainbowWarriorPage')
+            },
+            {
+                path: '/Proposal',
+                name: "Proposal",
+                component:()=> import('@/views/proposal.vue')
+            },
+
+        ]
     },
 
 ]
