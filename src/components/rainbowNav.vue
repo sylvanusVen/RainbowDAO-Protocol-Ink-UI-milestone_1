@@ -87,7 +87,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(58,0,105,0.40);
 
     .logo {
       cursor: pointer;

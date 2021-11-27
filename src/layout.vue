@@ -1,20 +1,18 @@
 <template>
   <div class="layout">
     <div id="resize-box">
-      <rainbow-nav></rainbow-nav>
       <div class="layout-content">
         <router-view/>
       </div>
-      <pageFooter></pageFooter>
     </div>
   </div>
 </template>
 
 <script>
-import pageFooter from "./components/pageFooter";
+
 export default {
   name: "layout",
-  components:{pageFooter},
+
   data() {
     return {}
   },

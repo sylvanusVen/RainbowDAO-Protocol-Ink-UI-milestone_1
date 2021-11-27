@@ -4,7 +4,7 @@ import "./style/index.scss"
 import router from "./router";
 import "animate.css"
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-import rainbowNav from "@/components/rainbowNavNew";
+import rainbowNav from "@/components/rainbowNav";
 // Import Swiper styles
 
 Vue.config.debug = false

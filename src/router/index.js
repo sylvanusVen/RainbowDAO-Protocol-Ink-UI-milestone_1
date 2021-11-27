@@ -31,7 +31,11 @@ const routes = [
                 name: "Proposal",
                 component:()=> import('@/views/proposal.vue')
             },
-
+            {
+                path: '/RainbowDao',
+                name: "RainbowDao",
+                component:()=> import('@/views/rainbowDao/rainbowDao.vue')
+            },
         ]
     },
 
