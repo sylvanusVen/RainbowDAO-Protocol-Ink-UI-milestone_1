@@ -132,14 +132,14 @@
             <a href="https://medium.com/rainbowcity" target="_blank">
               <img class="link-img" src="./assets/imgs/medium.png" alt="">
             </a>
-            <a href="https://discord.gg/SUBJAcdhS4" target="_blank">
+            <a href="https://discord.gg/vbnvFEeYRr" target="_blank">
               <img class="link-img" src="./assets/imgs/Discord.png" alt="">
             </a>
             <a href="https://github.com/RainbowDAO" target="_blank">
               <img class="link-img" src="./assets/imgs/github.png" alt="">
             </a>
           </div>
-          <div class="building" v-if="isShow" @click="$router.push('/RainbowCity')">
+          <div class="building" v-if="isShow" @click="$router.push('/index')">
             ENTER
           </div>
         </div>

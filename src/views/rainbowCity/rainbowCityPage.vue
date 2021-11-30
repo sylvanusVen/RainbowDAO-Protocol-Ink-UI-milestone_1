@@ -85,7 +85,7 @@
                   <img src="../../assets/imgs/rainbow_protocol.png" alt="">
                 </div>
                 <div class="btc-icon">
-                  <img src="../../assets/imgs/B_home.png" alt="">
+                  <img src="../../assets/imgs/btc_icon.png" alt="">
                 </div>
                 <div class="dot-icon">
                   <img src="../../assets/imgs/Dot_coin.png" alt="">

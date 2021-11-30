@@ -86,7 +86,113 @@ export default {
 }
 .layout {
   background: #10101B;
+  .rainbow-panel {
+    .nav-list {
+      display: flex;
+      margin-left: -10px;
+      padding: 10px 0;
 
+      .nav-item {
+        cursor: pointer;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-family: Arial, Arial-Black;
+        font-weight: 900;
+        text-align: left;
+        color: #333333;
+        line-height: 17px;
+
+        &.active {
+          border-bottom: 2px solid #db1f7e;
+          color: #DB1F7E;
+        }
+      }
+    }
+
+    .rainbow-list {
+      .list-item {
+        width: 1060px;
+        padding: 12px;
+        background: #fbfcfe;
+        border: 1px solid #eaeaea;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        &:hover{
+          box-shadow: 0px 0px 15px 3px rgba(218,0,127,0.25);
+          cursor: pointer;
+        }
+        .index {
+          width: 30px;
+          height: 30px;
+          background: #f0effe;
+          border-radius: 5px;
+          font-size: 14px;
+          text-align: center;
+          line-height: 30px;
+          font-family: PingFangSC, PingFangSC-Semibold;
+          font-weight: 600;
+          color: #6919bb;
+        }
+
+        .name-box {
+          margin-left: 10px;
+          padding-right: 10px;
+          border-right: 1px solid #eaeaea;
+          display: flex;
+          align-items: center;
+
+          .header-icon {
+            width: 30px;
+            height: 30px;
+
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          .name {
+            color: #6919bb;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 20px;
+          }
+        }
+
+        .item-content {
+          margin-left: 10px;
+          .content{
+            font-size: 16px;
+            font-family: PingFangSC, PingFangSC-Semibold;
+            font-weight: 600;
+            text-align: left;
+            color: #333333;
+            line-height: 22px;
+          }
+          .floor {
+            display: flex;
+            align-items: center;
+            color: #ffae25;
+            font-size: 12px;
+            margin-top: 10px;
+            .stage {
+              width: 120px;
+              height: 24px;
+              background: rgba(255, 174, 37, 0.20);
+              border: 1px solid rgba(255, 174, 37, 0.50);
+              border-radius: 5px;
+              text-align: center;
+              line-height: 24px;
+            }
+            .date {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
   ::v-deep .swiper-container, .swiper-slide {
     height: 100% !important;
   }

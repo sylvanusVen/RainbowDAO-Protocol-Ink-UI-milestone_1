@@ -4,23 +4,19 @@
     <div class="nav-box">
       <img class="logo" src="../assets/imgs/RainbowDAOLogo.png" @click="$router.push('/')"/>
       <ul class="navbar-nav">
-        <li :class="{'active':$route.name=='RainbowCity'}" @click="openNew('/RainbowCity')">
-          <a class="w-font" href="#RainbowCity">HOME</a>
-          <a class="re-active" href="#RainbowCity">HOME</a>
-        </li>
-
-
-        <li :class="{'active':$route.name=='RainbowWarrior'}" @click="openNew('/RainbowWarrior')">
-          <a class="w-font" href="#RainbowWarrior">RAINBOW WARRIOR</a>
-          <a class="re-active" href="#RainbowWarrior">RAINBOW WARRIOR</a>
-        </li>
-
-        <li>
-          <div class="language">
-            EN
-          </div>
-        </li>
-      </ul><!-- /.navbar-nav -->
+<!--        <li :class="{'active':$route.name=='RainbowDao'}" @click="openNew('/RainbowDao')">-->
+<!--          <span class="w-font">Protocol Management</span>-->
+<!--          <span class="re-active" >Protocol Management</span>-->
+<!--        </li>-->
+<!--        <li :class="{'active':$route.name=='RainbowWarrior'}" @click="openNew('/RainbowDao')">-->
+<!--          <span class="w-font">Token Mint</span>-->
+<!--          <span class="re-active" >Token Mint</span>-->
+<!--        </li>-->
+<!--        <li :class="{'active':$route.name=='RainbowWarrior'}" @click="openNew('/RainbowDao')">-->
+<!--          <span class="w-font">Multisig Wallet</span>-->
+<!--          <span class="re-active" >Multisig Wallet</span>-->
+<!--        </li>-->
+      </ul>
     </div>
   </div>
 </template>
@@ -78,6 +74,9 @@ export default {
 
 .rainbow-nav {
   color: white;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
   .nav-box {
     display: flex;
     margin: 0 auto;
@@ -86,8 +85,7 @@ export default {
     padding: 0 200px;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(58,0,105,0.40);
+    background: rgba(41, 0, 76, 0.4);
 
     .logo {
       cursor: pointer;
@@ -121,7 +119,17 @@ export default {
       line-height: 50px;
       position: relative;
       overflow: hidden;
-
+      cursor: pointer;
+      padding-right: 23px;
+      &:nth-child(1):before,&:nth-child(2):before{
+        height: 17px;
+        width: 1px;
+        background: rgba(255,255,255,0.4);
+        position: absolute;
+        content: "";
+        right: 0px;
+        top: 16px;
+      }
       &:hover {
         .re-active {
           top: 0;
@@ -217,10 +225,10 @@ export default {
       &:after {
         content: '';
         position: absolute;
-        width: 100%;
+        width: 100px;
+        left: calc(50% - 60px);
         height: 1px;
         bottom: 0;
-        left: 0;
         background: linear-gradient(90deg, #12c2e9 0%, #c471ed 64%, #f64f59 100%);
       }
     }

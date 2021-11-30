@@ -15,11 +15,6 @@ const routes = [
         component: () => import('@/layout.vue'),
         redirect: '/RainbowCity',
         children: [
-            {
-                path: '/RainbowCity',
-                name: "RainbowCity",
-                component:()=> import('@/views/rainbowCity/rainbowCityPage')
-            },
 
             {
                 path: '/RainbowWarrior',
@@ -29,13 +24,19 @@ const routes = [
             {
                 path: '/Proposal',
                 name: "Proposal",
-                component:()=> import('@/views/proposal.vue')
+                component:()=> import('@/views/proposal/proposal.vue')
             },
             {
-                path: '/RainbowDao',
-                name: "RainbowDao",
+                path: '/ProposalDetail',
+                name: "ProposalDetail",
+                component:()=> import('@/views/proposal/proposalDetail.vue')
+            },
+            {
+                path: '/index',
+                name: "index",
                 component:()=> import('@/views/rainbowDao/rainbowDao.vue')
             },
+
         ]
     },
 

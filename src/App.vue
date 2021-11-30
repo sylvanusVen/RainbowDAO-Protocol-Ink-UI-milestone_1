@@ -206,13 +206,13 @@ export default {
   }
   .part-title-l{
     margin-top: 80px;
-    font-size: 30px;
+    font-size: 32px;
     font-weight: bold;
     text-align: center;
     padding: 30px 0 16px;
-    color: #D0DDFF;
+    color: #ff238b;
     line-height: 40px;
-    text-shadow: 0px 0px 16px #e9eeff;
+    text-shadow: 0px 0px 1px #ff238b;;
     position: relative;
     &:after{
       content: '';
@@ -221,7 +221,8 @@ export default {
       position: absolute;
       left: calc(50% - 30px);
       bottom: 0;
-      background: #db1f7e;
+      background:#ff238b;
+      border-radius: 3px;
     }
   }
   .part-title {
@@ -230,7 +231,7 @@ export default {
     font-weight: bold;
     text-align: center;
     padding: 30px 0 10px;
-    color: #333;
+    color: #fff;
     line-height: 40px;
 
     position: relative;
@@ -241,7 +242,8 @@ export default {
       position: absolute;
       left: calc(50% - 30px);
       bottom: 0;
-      background: #db1f7e;
+      background: #fff;
+      border-radius: 3px;
     }
   }
   .footer-box{

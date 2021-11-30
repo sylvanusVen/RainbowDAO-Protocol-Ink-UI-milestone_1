@@ -3,98 +3,74 @@
     <div class="line"></div>
     <div class="page-footer-part1">
       <div class="footer-part2-item  animate__animated animate__zoomIn">
-        <div class="item-box">
+        <div class="item-box" @click="navTo('https://www.rainbowcity.io')">
           <div class="title">
             Rainbow City
           </div>
           <div class="link">https://www.rainbowcity.io</div>
-          <a href="http://www.rainbowcity.io" target="_blank">
-            <img src="../assets/imgs/row.png" alt="">
-          </a>
         </div>
       </div>
       <div class="footer-part2-item  animate__animated animate__zoomIn animate__delay-0_1s">
-        <div class="item-box">
+        <div class="item-box" @click="navTo('https://www.rainbowdao.io')">
           <div class="title">
             Rainbow DAO
           </div>
           <div class="link">https://www.rainbowdao.io</div>
-          <a href="https://www.rainbowdao.io" target="_blank">
-            <img src="../assets/imgs/row.png" alt="">
-          </a>
         </div>
       </div>
       <div class=" footer-part2-item animate__animated animate__zoomIn animate__delay-0_2s">
-        <div class="item-box">
+        <div class="item-box" @click="navTo('https://www.rainbowswap.io')">
           <div class="title">
             Rainbow Swap
           </div>
           <div class="link">https://www.rainbowswap.io</div>
-          <a href="https://www.rainbowswap.io" target="_blank">
-            <img src="../assets/imgs/row.png" alt="">
-          </a>
         </div>
       </div>
       <div class=" footer-part2-item animate__animated animate__zoomIn animate__delay-0_3s">
-        <div class="item-box">
+        <div class="item-box" @click="navTo('https://www.rainbowbank.io')">
           <div class="title">
             Rainbow Bank
           </div>
           <div class="link">https://www.rainbowbank.io</div>
-          <a href="https://www.rainbowbank.io" target="_blank">
-            <img src="../assets/imgs/row.png" alt="">
-          </a>
         </div>
       </div>
       <div class=" footer-part2-item animate__animated animate__zoomIn animate__delay-0_4s">
-        <div class="item-box">
+        <div class="item-box" @click="navTo('https://www.rainbowusd.io')">
           <div class="title">
             Rainbow Mint
           </div>
           <div class="link">https://www.rainbowusd.io</div>
-          <a href="https://www.rainbowusd.io" target="_blank">
-            <img src="../assets/imgs/row.png" alt="">
-          </a>
         </div>
       </div>
       <div class=" footer-part2-item animate__animated animate__zoomIn animate__delay-0_5s">
-        <div class="item-box">
+        <div class="item-box" @click="navTo('https://www.rainbowbridge.io')">
           <div class="title">
             Rainbow Bridge
           </div>
           <div class="link">https://www.rainbowbridge.io</div>
-          <a href="https://www.rainbowbridge.io" target="_blank">
-            <img src="../assets/imgs/row.png" alt="">
-          </a>
         </div>
       </div>
       <div class=" footer-part2-item animate__animated animate__zoomIn animate__delay-0_6s">
-        <div class="item-box">
+        <div class="item-box" @click="navTo('https://www.rainbowisland.io')">
           <div class="title">
             Rainbow Island
           </div>
           <div class="link">https://www.rainbowisland.io</div>
-          <a href="https://www.rainbowisland.io" target="_blank">
-            <img src="../assets/imgs/row.png" alt="">
-          </a>
         </div>
       </div>
       <div class=" footer-part2-item animate__animated animate__zoomIn animate__delay-0_7s">
-        <div class="item-box">
+        <div class="item-box" @click="navTo('https://www.rainbowchain.io')">
           <div class="title">
             Rainbow Chain
           </div>
           <div class="link">https://www.rainbowchain.io</div>
-          <a href="https://www.rainbowchain.io" target="_blank">
-            <img src="../assets/imgs/row.png" alt="">
-          </a>
         </div>
       </div>
     </div>
     <div class="page-footer-part2 ">
       <div class="icon-box">
         <span></span>
-        <a class="icon" href="https://t.me/rainbowcity_en" target="_blank">
+        <a class="icon" href="https://t.me/RainbowDAO" target="_blank">
           <svg t="1630481964879" class="icon" viewBox="0 0 1223 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                p-id="3604" width="48" height="48">
             <path
@@ -105,7 +81,7 @@
       </div>
       <div class="icon-box">
         <span></span>
-        <a class="icon" href="https://twitter.com/RainbowCityio" target="_blank">
+        <a class="icon" href="https://twitter.com/RainbowcityDAO" target="_blank">
           <svg t="1630482035608" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                p-id="4479" width="48" height="48">
             <path
@@ -122,20 +98,20 @@
       </div>
       <div class="icon-box">
         <span></span>
-        <a class="icon" href="https://discord.gg/VvdrBzF9sN" target="_blank">
+        <a class="icon" href="https://discord.gg/vbnvFEeYRr" target="_blank">
           <svg t="1630482260015" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12198" width="48" height="48"><path d="M512.028 171.577a721.806 721.806 0 0 0-346.851 87.467c78.336-69.974 215.267-110.28 215.267-110.28l-12.942-12.942c-128.54 2.276-244.906 91.278-244.906 91.278A1199.73 1199.73 0 0 0 0.142 735.8a331.89 331.89 0 0 0 264.704 127.773l54.045-68.465a289.252 289.252 0 0 1-155.165-104.96 671.915 671.915 0 0 0 696.718 0 289.252 289.252 0 0 1-155.164 104.96l54.044 68.465a331.89 331.89 0 0 0 264.704-127.772 1199.73 1199.73 0 0 0-122.453-508.843S785.21 137.956 656.668 135.68l-12.942 12.942s136.903 40.306 215.24 110.28a721.806 721.806 0 0 0-346.852-87.467M354.588 459.89a92.416 92.416 0 0 1 89.003 96.71 88.946 88.946 0 1 1-177.209 0 92.302 92.302 0 0 1 88.178-96.71m317.184 0a96.996 96.996 0 1 1-88.178 96.71 92.9 92.9 0 0 1 88.206-96.71z" p-id="12199" fill="#1296db"></path></svg>
         </a>
       </div>
       <div class="icon-box">
         <span></span>
-        <a class="icon" href="" target="_blank">
+        <a class="icon" href="https://github.com/RainbowDAO" target="_blank">
           <svg t="1630482394010" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="16649" width="48" height="48"><path d="M905.55 174.86q26.29-60.57 12.01-115.43Q903.27 4.57 898.69 0q-80 4.57-129.14 34.86-49.14 30.28-50.28 34.85-37.72-16-102.86-20t-72-4q-6.86 0-72 4t-102.86 20q-1.14-4.57-50.29-34.85Q270.12 4.57 190.12 0q-4.57 4.57-18.86 59.43-14.28 54.86 13.15 115.43-6.86 0-42.29 66.85t-16 206.28q29.72 129.14 117.14 176.57 87.43 47.43 167.43 44-2.28 1.14-19.43 25.14-17.14 24-16 68.58-1.15 2.28-36 14.28t-79.43-2.86q-43.43-20.57-65.71-49.71-22.28-29.14-22.28-31.43-1.15-5.71-36-34.28-34.86-28.58-79.43-12.58-3.43 0-1.14 12.58 2.28 12.57 46.86 34.28l26.29 40q22.86 36.57 38.28 69.71 15.43 33.14 73.14 50.86 57.72 17.72 129.72 1.72v133.71q1.14 1.14-2.29 6.85-3.43 5.72-20.57 10.86t-18.86 10.86q-1.72 5.72 7.43 6.86h418.28q9.14-1.14 7.43-6.86-1.71-5.72-18.86-10.86-17.14-5.14-20.58-10.86-3.43-5.71-2.28-6.85V762.28q-3.43-44.58-21.14-68.58-17.72-24-20-25.14 80 3.43 167.43-44t117.14-176.57q19.43-139.43-15.43-206.28t-41.72-66.85z" p-id="16650" fill="#1296db"></path></svg>
         </a>
       </div>
 
     </div>
     <div class="page-footer-part3">
-      Copyright@2021 rainbowcity.io
+      Copyright@2021 www.rainbowdao.io
     </div>
   </div>
 </template>
@@ -143,14 +119,16 @@
 <script>
 export default {
   name: "pageFooter",
+  methods:{
+    navTo(url){
+      // window.open(url)
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 $blehness:50%;
-$size: 40px;
-$duration: 2s;
-$background: #10101B;
 $radius: 10px;
 
 
@@ -162,17 +140,7 @@ $radius: 10px;
     filter: hue-rotate(360deg) grayscale($blehness);
   }
 }
-@keyframes twinkle {
-  0% {
-    box-shadow: 0 0 0 #db1f7e;
-  }
-  50% {
-    box-shadow: 0px 0px 50px #db1f7e;
-  }
-  100% {
-    box-shadow: 0 0 0 #db1f7e;
-  }
-}
+
 @keyframes twinkleWhite {
   0% {
     box-shadow: 0 0 0 #eee;
@@ -188,8 +156,8 @@ $radius: 10px;
 .page-footer {
   box-sizing: border-box;
   padding-bottom: 10px;
-  background: #10101B;
-
+  background: url("../assets/imgs/footer_bg.png");
+  background-size: 100%  100%;
   .line {
     width: 1100px;
     height: 1px;
@@ -201,11 +169,12 @@ $radius: 10px;
     width: 1000px;
     margin:  20px auto;
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
 
     .footer-part2-item {
       position: relative;
-      width: 230px;
+      width: 220px;
       height: 80px;
       border-radius: 10px;
       margin: 14px auto;
@@ -253,36 +222,37 @@ $radius: 10px;
       }
 
       .item-box {
+        cursor: pointer;
         width: 100%;
         height: 100%;
         box-sizing: border-box;
         position: relative;
         z-index: 2;
         border-radius: $radius;
-        background: #141423;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 11px 15px;
+        background: #1a1f5d;
+        border: 1px solid rgba(255,255,255,0.20);
+        padding: 16px 15px;
 
 
       }
       &:hover{
-        box-shadow: 0 0 18px #db1f7e;
+        box-shadow: 0 0 18px #8f92fc;
         //animation: twinkleWhite 3s infinite;
       }
 
       .title {
-        height: 21px;
         font-size: 18px;
         font-weight: 700;
-        text-align: left;
-        color: #db1f7e;
+        text-align: center;
+
+        color: #fff;
         line-height: 21px;
       }
 
       .link {
-        margin-top: 14px;
-        color: #d0d0d0;
-        text-align: left;
+        margin-top: 6px;
+        color: #fff;
+        text-align: center;
       }
 
       a {
@@ -364,6 +334,7 @@ $radius: 10px;
 
   .page-footer-part3 {
     margin: 30px 0;
+    color: white;
     text-align: center;
   }
 }
