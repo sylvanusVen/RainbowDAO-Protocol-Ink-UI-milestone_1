@@ -15,7 +15,11 @@ const routes = [
         component: () => import('@/layout.vue'),
         redirect: '/RainbowCity',
         children: [
-
+            {
+                path: '/management',
+                name: "index",
+                component:()=> import('@/views/manage/management.vue')
+            },
             {
                 path: '/RainbowWarrior',
                 name: "RainbowWarrior",

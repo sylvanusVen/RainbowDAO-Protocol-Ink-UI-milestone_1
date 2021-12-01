@@ -65,7 +65,7 @@ export default {
   position: relative;
   color: black;
   width: 1120px;
-  z-index: 1000;
+  z-index: 100;
   top: -130px;
   margin: 0px auto 0;
   padding: 30px;
@@ -74,16 +74,36 @@ export default {
   border-radius: 10px;
   box-shadow: 0px 20px 20px 3px rgba(156,156,156,0.10);
   .title{
-    width: 157px;
-    height: 37px;
     font-size: 26px;
-    font-family: Arial, Arial-Black;
     font-weight: 900;
     text-align: left;
     color: #333333;
     line-height: 37px;
   }
 }
+::v-deep .rainbow-dialog-box{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  z-index: 101;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .mask{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.50);
+  }
+  .rainbow-dialog{
+    position: absolute;
+    z-index: 102;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+  }
+}
+
 .layout {
   background: #10101B;
   .rainbow-panel {
@@ -96,7 +116,6 @@ export default {
         cursor: pointer;
         padding: 6px 10px;
         font-size: 12px;
-        font-family: Arial, Arial-Black;
         font-weight: 900;
         text-align: left;
         color: #333333;
@@ -130,7 +149,6 @@ export default {
           font-size: 14px;
           text-align: center;
           line-height: 30px;
-          font-family: PingFangSC, PingFangSC-Semibold;
           font-weight: 600;
           color: #6919bb;
         }
@@ -164,7 +182,6 @@ export default {
           margin-left: 10px;
           .content{
             font-size: 16px;
-            font-family: PingFangSC, PingFangSC-Semibold;
             font-weight: 600;
             text-align: left;
             color: #333333;
@@ -189,6 +206,32 @@ export default {
               margin-left: 10px;
             }
           }
+        }
+      }
+    }
+  }
+  ::v-deep .rainbow-nav-box{
+    display: flex;
+    border-bottom: 2px solid #eaeaea;
+    .nav-item{
+      padding: 10px 20px 16px 0;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 900;
+      text-align: left;
+      color: #333333;
+      line-height: 17px;
+      &.active{
+        color: #DB1F7E;
+        position: relative;
+        &::after{
+          content: '';
+          position: absolute;
+          bottom: 0;
+          width: calc(100% - 20px);
+          height: 2px;
+          background: #DB1F7E;
+          left: 0;
         }
       }
     }
