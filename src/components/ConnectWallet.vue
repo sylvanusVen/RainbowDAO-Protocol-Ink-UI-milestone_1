@@ -1,9 +1,9 @@
 <template>
   <div class="connectWallet">
-    <button @click="showWallet" v-show="account.length>1" class="button-connect">
+    <button @click="showWallet" v-show="account.length>1" class="rainbow-btn button-connect">
       {{ account.substr(0, 6) + '...' + account.substr(39, 3) }}
     </button>
-    <button size="mini" @click="showWallet" v-show="account.length<1" class="button-connect">
+    <button size="mini" @click="showWallet" v-show="account.length<1" class="rainbow-btn button-connect">
       connect
     </button>
     <div v-show="isShowConnectStatus" class="connect-panel " @click="isShowConnectStatus=false;$emit('changeState')">

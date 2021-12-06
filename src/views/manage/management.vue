@@ -31,7 +31,7 @@
               </div>
             </div>
           </div>
-          <div class="confirm-btn">
+          <div class="confirm-btn rainbow-btn">
             confirm
           </div>
         </div>
@@ -52,7 +52,7 @@
               </div>
             </div>
           </div>
-          <div class="confirm-btn">
+          <div class="confirm-btn rainbow-btn">
             confirm
           </div>
         </div>
@@ -73,7 +73,7 @@
               </div>
             </div>
           </div>
-          <div class="confirm-btn">
+          <div class="confirm-btn rainbow-btn">
             confirm
           </div>
         </div>

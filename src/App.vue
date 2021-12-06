@@ -6,7 +6,6 @@
 
 <script>
 
-
 export default {
   name: 'App',
   components: {
@@ -16,6 +15,7 @@ export default {
 
   },
   mounted() {
+
   }
 }
 </script>

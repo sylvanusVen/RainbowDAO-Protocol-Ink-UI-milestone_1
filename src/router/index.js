@@ -16,6 +16,11 @@ const routes = [
         redirect: '/RainbowCity',
         children: [
             {
+                path: '/referral',
+                name: "index",
+                component:()=> import('@/views/referral/referral.vue')
+            },
+            {
                 path: '/management',
                 name: "index",
                 component:()=> import('@/views/manage/management.vue')
@@ -40,7 +45,11 @@ const routes = [
                 name: "index",
                 component:()=> import('@/views/rainbowDao/rainbowDao.vue')
             },
-
+            {
+                path: '/income',
+                name: "income",
+                component:()=> import('@/views/income/incomeManage.vue')
+            },
         ]
     },
 

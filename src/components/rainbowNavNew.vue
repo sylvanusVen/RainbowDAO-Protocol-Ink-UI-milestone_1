@@ -8,23 +8,23 @@
           <a class="w-font" >Proposal</a>
           <a class="re-active" >Proposal</a>
         </li>
-        <li :class="{'active':$route.name=='RainbowCore'}" @click="openNew('/RainbowCore')">
+        <li :class="{'active':$route.name=='management'}" @click="openNew('/management')">
           <a class="w-font">Rainbow core</a>
           <a class="re-active" >Rainbow core</a>
         </li>
 
 
-        <li :class="{'active':$route.name=='MemberManagement'}" @click="openNew('/MemberManagement')">
-          <a class="w-font" href="#RainbowWarrior">Member Management</a>
-          <a class="re-active" href="#RainbowWarrior">Member Management</a>
+        <li :class="{'active':$route.name=='referral'}" @click="openNew('/referral')">
+          <a class="w-font">Member Management</a>
+          <a class="re-active" >Member Management</a>
         </li>
 
-        <li :class="{'active':$route.name=='MemberManagement'}" @click="openNew('/RevenueManagement')">
-          <a class="w-font" href="#RainbowWarrior">Revenue Management</a>
-          <a class="re-active" href="#RainbowWarrior">Revenue Management</a>
+        <li :class="{'active':$route.name=='income'}" @click="openNew('/income')">
+          <a class="w-font" >Revenue Management</a>
+          <a class="re-active" >Revenue Management</a>
         </li>
         <li>
-          <ConnectWallet></ConnectWallet>
+          <ConnectWallet class="connect"></ConnectWallet>
         </li>
       </ul><!-- /.navbar-nav -->
     </div>
@@ -60,6 +60,8 @@ export default {
   height: 230px;
   background-size: 100% 100%;
   color: white;
+  position: relative;
+
   .nav-box {
     display: flex;
     margin: 0 auto;
