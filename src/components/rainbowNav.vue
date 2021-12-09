@@ -4,10 +4,10 @@
     <div class="nav-box">
       <img class="logo" src="../assets/imgs/RainbowDAOLogo.png" @click="$router.push('/')"/>
       <ul class="navbar-nav">
-<!--        <li :class="{'active':$route.name=='RainbowDao'}" @click="openNew('/RainbowDao')">-->
-<!--          <span class="w-font">Protocol Management</span>-->
-<!--          <span class="re-active" >Protocol Management</span>-->
-<!--        </li>-->
+        <li :class="{'active':$route.name=='RainbowDao'}" @click="openNew('/Hackathon')">
+          <span class="w-font">DAO Global Hackathon 2021</span>
+          <span class="re-active" >DAO Global Hackathon 2021</span>
+        </li>
 <!--        <li :class="{'active':$route.name=='RainbowWarrior'}" @click="openNew('/RainbowDao')">-->
 <!--          <span class="w-font">Token Mint</span>-->
 <!--          <span class="re-active" >Token Mint</span>-->

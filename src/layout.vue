@@ -17,11 +17,7 @@ export default {
     return {}
   },
   mounted() {
-    // let screenWidth = document.documentElement.clientWidth; //窗口宽度
-    // let oIframe = document.getElementById("resize-box");
-    // if ((screenWidth / 1620) > 1) {
-    //   oIframe.style.zoom = `${screenWidth / 1620}`;
-    // }
+
 
   },
   methods: {

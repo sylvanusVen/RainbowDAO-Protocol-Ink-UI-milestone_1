@@ -50,6 +50,11 @@ const routes = [
                 name: "income",
                 component:()=> import('@/views/income/incomeManage.vue')
             },
+            {
+                path: '/Hackathon',
+                name: "Hackathon",
+                component:()=> import('@/views/Hackathon.vue')
+            },
         ]
     },
 
