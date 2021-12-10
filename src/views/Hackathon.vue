@@ -10,7 +10,7 @@
       DAO Global Hackathon 2021
     </div>
     <div class="list">
-      <a href="https://nftbank.rainbowdao.io" class="item" target="_blank">
+      <a href="http://nftbank.rainbowdao.io" class="item" target="_blank">
         <div class="icon">
           <img src="../assets/imgs/hack_icon1.png" alt="">
         </div>
@@ -18,7 +18,7 @@
           DAO NFT Bank
         </div>
       </a>
-      <a href="https://multisign.rainbowdao.io" class="item" target="_blank">
+      <a href="http://multisign.rainbowdao.io" class="item" target="_blank">
         <div class="icon">
           <img src="../assets/imgs/hack_icon2.png" alt="">
         </div>
@@ -27,7 +27,7 @@
           Management Committee
         </div>
       </a>
-      <a href="https://committee.rainbowdao.io" class="item" target="_blank">
+      <a href="http://committee.rainbowdao.io" class="item" target="_blank">
         <div class="icon">
           <img src="../assets/imgs/hack_icon3.png" alt="">
         </div>
@@ -35,7 +35,7 @@
           Multi-signature Wallet
         </div>
       </a>
-      <a href="https://factory.rainbowdao.io" class="item" target="_blank">
+      <a href="http://factory.rainbowdao.io" class="item" target="_blank">
         <div class="icon">
           <img src="../assets/imgs/hack_icon4.png" alt="">
         </div>
