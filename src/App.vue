@@ -15,7 +15,7 @@ export default {
 
   },
   mounted() {
-
+    this.$store.dispatch("app/getWeb3")
   }
 }
 </script>

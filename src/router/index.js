@@ -17,12 +17,22 @@ const routes = [
         children: [
             {
                 path: '/referral',
-                name: "index",
+                name: "referral",
                 component:()=> import('@/views/referral/referral.vue')
             },
             {
+                path: '/createMultisign',
+                name: "createMultisign",
+                component:()=> import('@/views/multisign/createMultiSign.vue')
+            },
+            {
+                path: '/multiSignPanel',
+                name: "multiSignPanel",
+                component:()=> import('@/views/multisign/multiSignPanel.vue')
+            },
+            {
                 path: '/management',
-                name: "index",
+                name: "management",
                 component:()=> import('@/views/manage/management.vue')
             },
             {

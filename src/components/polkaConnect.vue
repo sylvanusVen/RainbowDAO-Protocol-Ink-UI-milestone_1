@@ -1,5 +1,5 @@
 <template>
-  <div class="connectWallet">
+  <div class="polkaConnect">
     <button @click="showWallet" v-show="account.length>1" class="rainbow-btn button-connect">
       {{ account.substr(0, 6) + '...' + account.substr(39, 3) }}
     </button>
@@ -9,7 +9,7 @@
     <div v-show="isShowConnectStatus" class="connect-panel " @click="isShowConnectStatus=false;$emit('changeState')">
       <div class="mask"></div>
       <div class="connect-status-box animate__animated  animate__backInDown" @click.stop>
-        Connected with {{ connectArr[connectIdx] }}
+        Connected
         <div class="connect-status" @click="disConnect" v-show="connectIdx!=1">
           unConnect
         </div>
@@ -19,10 +19,8 @@
     <div class="connect-panel" v-show="isShowConnect" @click="isShowConnect=false;$emit('changeState')">
       <div class="mask"></div>
       <div class="content  animate__animated  animate__backInDown" @click.stop>
-        <div class="item" @click="connectWallet(1)">
-          <div class="img"></div>
-          <div class="name">MetaMask</div>
-          <div class="info">Connect to your MetaMask Wallet</div>
+        <div class="item" @click="polkaConnect(item.address)" v-for="item in accountlist" :key="item">
+          <div class="address">{{item.address}}</div>
         </div>
       </div>
     </div>
@@ -30,78 +28,46 @@
 </template>
 
 <script>
-
-import getWeb3 from "@/utils/getWeb3";
+import Account from "../api/Account";
+import Accounts from "../api/Account";
 export default {
-  name: "ConnectWallet",
+  name: "polkaConnect",
   props:['changeState','getWeb3'],
   data() {
     return {
       account:"",
-      connectIdx: 0,
-      connectArr: ['', 'MetaMask', 'WalletConnect', 'Fortmatic'],
+      chooseIndex:0,
       isShowConnectStatus: false,
       isLoading: false,
-      isShowConnect: false
+      isShowConnect: false,
+      accountlist:[],
+
     }
   },
   computed: {
 
   },
-  created() {
-    if(localStorage.getItem('wallet')=='mateMask'){
-      this.connectWallet(1)
+  async created() {
+    let accountlist = await Accounts.accountlist();
+    this.accountlist = accountlist.allAccounts
+    let account = sessionStorage.getItem('currentAccount')
+    if(account){
+      this.account = account
     }
+    console.log(this.accountlist)
+    sessionStorage.setItem('account', JSON.stringify(this.accountlist));
   },
   methods: {
     loginOut() {
       this.$store.dispatch('app/loginOutWeb3')
     },
-    async connectWallet(idx) {
-      this.connectIdx = idx
-      this.isLoading = true
-      //
-      // window.ethereum.request({
-      //   method: 'wallet_addEthereumChain',
-      //   params: [{
-      //     chainId: "0x29a",
-      //     chainName: "Rainbow",
-      //     rpcUrls: [
-      //       "https://rpcapi.rainbow.kim",
-      //     ],
-      //     iconUrls: [
-      //       "https://uni-rb.oss-ap-southeast-1.aliyuncs.com/images/rblogo.png"
-      //     ],
-      //     blockExplorerUrls: [
-      //       "https://rainbow.kim"
-      //     ],
-      //     nativeCurrency: {
-      //       name: "RBS",
-      //       symbol: "RBS",
-      //       decimals: 18
-      //     }
-      //   }]
-      // })
-      if (idx == 1) {
-        localStorage.setItem('wallet', 'mateMask')
-        if (typeof window.ethereum == 'undefined') {
-          alert("please download metamask")
-        }
-        await window.ethereum.enable()
-        window.ethereum.on('accountsChanged', (accounts) => {
-          // Handle the new accounts, or lack thereof.
-          // "accounts" will always be an array, but it can be empty.
-
-        });
-        let _this = this
-        getWeb3().then((res) => {
-          this.isShowConnect = false
-          _this.account= res.account
-          this.$emit('getWeb3',res)
-        })
+    async polkaConnect(address) {
+      if(address){
+        this.account = address
+        sessionStorage.setItem('currentAccount', address);
         this.isShowConnect = false
-        this.$emit('changeState')
       }
+
     },
     showWallet() {
       this.$emit('changeState',true)
@@ -117,14 +83,13 @@ export default {
         this.isShowConnectStatus = false
         this.connectIdx = 0
       }
-      this.$emit('changeState')
     }
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.connectWallet {
+.polkaConnect {
   color: #2c3e50;
   display: flex;
 

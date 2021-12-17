@@ -368,7 +368,7 @@ export default {
       .member-item {
         display: flex;
         align-items: center;
-        padding: 16px 20px 16px 0;
+        padding: 6px 20px 16px 0;
         position: relative;
 
         .icon {

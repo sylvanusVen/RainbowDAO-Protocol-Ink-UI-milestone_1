@@ -19,19 +19,25 @@
             Role management
           </div>
           <div class="role-list">
-            <div class="role-item">
+            <div class="role-item" v-for="role in listRoles">
               <div class="icon">
                 <img src="" alt="">
               </div>
               <div class="name">
-                Issuer
+                {{ role }}
               </div>
-              <div class="detail">
-                This is the token originator
+<!--              <div class="detail">-->
+<!--                This is the token originator-->
+<!--              </div>-->
+            </div>
+            <div class="role-item">
+              <div class="name">
+                Add
               </div>
+              <input class="add-input" type="text"v-model="roleInfo" placeholder="Add role name">
             </div>
           </div>
-          <div class="confirm-btn rainbow-btn">
+          <div class="confirm-btn rainbow-btn" @click="addRole">
             confirm
           </div>
         </div>
@@ -78,7 +84,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <pageFooter></pageFooter>
   </div>
@@ -89,7 +94,20 @@ export default {
   name: "management",
   data() {
     return {
-      activeIndex: 0
+      activeIndex: 0,
+      roleInfo: undefined,
+      listRoles:[]
+    }
+  },
+  mounted() {
+    this.$store.dispatch("roleManage/listRoles").then(res=>{
+      console.log(res , "list")
+      this.listRoles = res
+    })
+  },
+  methods:{
+    addRole(){
+      this.$store.dispatch("core/addRole",this.roleInfo)
     }
   }
 }
@@ -113,7 +131,14 @@ export default {
         margin-top: 20px;
         display: flex;
         align-items: center;
-
+        .add-input{
+          width: 280px;
+          height: 38px;
+          background: #fbfcfe;
+          padding: 0 10px;
+          border: 1px solid #eaeaea;
+          border-radius: 10px;
+        }
         .icon {
           width: 30px;
           height: 30px;

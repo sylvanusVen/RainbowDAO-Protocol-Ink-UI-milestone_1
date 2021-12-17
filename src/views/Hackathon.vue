@@ -18,7 +18,7 @@
           DAO NFT Bank
         </div>
       </a>
-      <a href="http://multisign.rainbowdao.io" class="item" target="_blank">
+      <a href="http://committee.rainbowdao.io" class="item" target="_blank">
         <div class="icon">
           <img src="../assets/imgs/hack_icon2.png" alt="">
         </div>
@@ -27,7 +27,7 @@
           Management Committee
         </div>
       </a>
-      <a href="http://committee.rainbowdao.io" class="item" target="_blank">
+      <a href="http://multisign.rainbowdao.io" class="item" target="_blank">
         <div class="icon">
           <img src="../assets/imgs/hack_icon3.png" alt="">
         </div>

@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import ConnectWallet from "./ConnectWallet";
+import ConnectWallet from "./polkaConnect";
 export default {
   name: "rainbowNav",
   props: ['isShowMore'],
@@ -43,6 +43,8 @@ export default {
     return {
 
     }
+  },
+  created(){
   },
   methods: {
     openNew(pathStr) {
