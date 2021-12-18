@@ -1,7 +1,6 @@
 import connectContract from "../../api/connectContract"
 import {formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
-const address = "5GHhDtpb36ikhpedynbBXK59nVo2BfkevtDz3sSHzeKAVe6K"
 const state = {
     web3:{},
     contract:null
@@ -10,7 +9,7 @@ const value = 0;
 const gasLimit = -1;
 async function  judgeContract(web3){
     if(!state.contract){
-        state.contract = await connectContract(web3, "factory", address)
+        state.contract = await connectContract(web3, "factory")
     }
 }
 const mutations = {

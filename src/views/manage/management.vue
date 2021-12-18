@@ -26,15 +26,15 @@
               <div class="name">
                 {{ role }}
               </div>
-<!--              <div class="detail">-->
-<!--                This is the token originator-->
-<!--              </div>-->
+              <!--              <div class="detail">-->
+              <!--                This is the token originator-->
+              <!--              </div>-->
             </div>
             <div class="role-item">
               <div class="name">
                 Add
               </div>
-              <input class="add-input" type="text"v-model="roleInfo" placeholder="Add role name">
+              <input class="add-input" type="text" v-model="roleInfo" placeholder="Add role name">
             </div>
           </div>
           <div class="confirm-btn rainbow-btn" @click="addRole">
@@ -45,16 +45,18 @@
           <div class="title">
             Authority management
           </div>
-          <div class="role-list">
-            <div class="role-item">
+          <div class="manager-list">
+            <div class="manager-item">
               <div class="icon">
                 <img src="" alt="">
               </div>
               <div class="name">
                 Issuer
               </div>
-              <div class="detail">
-                This is the token originator
+              <div class="manager-roles">
+                <div class="item">
+
+                </div>
               </div>
             </div>
           </div>
@@ -66,20 +68,25 @@
           <div class="title">
             Route management
           </div>
-          <div class="role-list">
-            <div class="role-item">
+          <div class="route-list">
+            <div class="route-item" v-for="role in listRoles">
               <div class="icon">
                 <img src="" alt="">
               </div>
               <div class="name">
-                Issuer
+                {{ role }}
               </div>
-              <div class="detail">
-                This is the token originator
-              </div>
+              <!--              <div class="detail">-->
+              <!--                This is the token originator-->
+              <!--              </div>-->
+            </div>
+            <div class="route-item">
+              <input class="add-input" type="text" v-model="routerName" placeholder="Add route name">
+
+              <input class="add-input" type="text" v-model="routerValue" placeholder="Add route value">
             </div>
           </div>
-          <div class="confirm-btn rainbow-btn">
+          <div class="confirm-btn rainbow-btn" @click="addRoute">
             confirm
           </div>
         </div>
@@ -96,18 +103,26 @@ export default {
     return {
       activeIndex: 0,
       roleInfo: undefined,
-      listRoles:[]
+      listRoles: [],
+      routerName:undefined,
+      routerValue:undefined
     }
   },
   mounted() {
-    this.$store.dispatch("roleManage/listRoles").then(res=>{
-      console.log(res , "list")
+    this.$store.dispatch("roleManage/listRoles").then(res => {
+      console.log(res, "list")
       this.listRoles = res
     })
   },
-  methods:{
-    addRole(){
-      this.$store.dispatch("core/addRole",this.roleInfo)
+  methods: {
+    addRoute() {
+      this.$store.dispatch("core/addRoute", {
+        name:this.routerName,
+        value:this.routerValue
+      })
+    },
+    addRole() {
+      this.$store.dispatch("core/addRole", this.roleInfo)
     }
   }
 }
@@ -131,7 +146,8 @@ export default {
         margin-top: 20px;
         display: flex;
         align-items: center;
-        .add-input{
+
+        .add-input {
           width: 280px;
           height: 38px;
           background: #fbfcfe;
@@ -139,6 +155,7 @@ export default {
           border: 1px solid #eaeaea;
           border-radius: 10px;
         }
+
         .icon {
           width: 30px;
           height: 30px;
@@ -166,7 +183,27 @@ export default {
         }
       }
     }
-
+    .route-list{
+      .route-item{
+        input{
+          width: 280px;
+          height: 38px;
+          margin-right: 20px;
+          padding: 0 20px;
+          background: #fbfcfe;
+          border: 1px solid #eaeaea;
+          border-radius: 10px;
+        }
+      }
+    }
+    .manager-list{
+      .manager-item{
+        .icon{
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
     .confirm-btn {
       margin-top: 30px;
       width: 80px;

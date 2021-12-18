@@ -4,9 +4,8 @@ import {
     web3FromAddress
 } from '@polkadot/extension-dapp';
 
-const accountlist = async () => {
-    const allInjected = await web3Enable('RainbowDao');
-    console.log("accountlist++++++++++++++++++++++++++++++++++++++++++++++",allInjected)
+const accountList = async () => {
+    const allInjected = await web3Enable('RainbowDaoProtocol');
 
     if (allInjected.length === 0) {
         console.error("!!!!! No wallet extention detected!!");
@@ -17,7 +16,6 @@ const accountlist = async () => {
         } ;
     }
     const allAccounts = await web3Accounts();
-    console.log("ALLACCOUNTS++++++++++++++++++++++++++++++++++++++++++++++",allAccounts)
     if (!allAccounts) {
         console.error("no valid accounts available!");
         return{
@@ -39,12 +37,10 @@ const accountAddress = async () =>{
         // return;
     }
     const Accounts = JSON.parse(sessionStorage.getItem('account'));
-    console.log("Accounts+++++++++++++++++++++++++++++++++++++++++++" + Accounts)
-
     if (Accounts && Accounts.length > 0) {
         accountAddress = Accounts[0].address;
     } else {
-        let accounts = await accountlist
+        let accounts = await accountList
         accountAddress = accounts.allAccounts[0].address;
 
     }
@@ -82,7 +78,7 @@ const accountInjector = async () => {
 
 }
 export default {
-    accountlist,
+    accountList,
     accountAddress,
     accountName,
     accountInjector,

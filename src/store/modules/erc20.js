@@ -20,8 +20,8 @@ const mutations = {
 const actions = {
     async getBalance({rootState},address){
         await judgeContract(rootState.app.web3, address)
-        const accountlist = await Accounts.accountlist();
-        let AccountId = accountlist.allAccounts[0].address
+        const accountList = await Accounts.accountList();
+        let AccountId = accountList.allAccounts[0].address
         console.log("AccountId++++++++++++++++++++++++++++++",AccountId)
         let data = await state.contract.query.balanceOf(AccountId, {value, gasLimit}, AccountId)
         console.log(data)

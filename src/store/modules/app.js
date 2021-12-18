@@ -17,7 +17,7 @@ const actions = {
             api.rpc.system.name(),
             api.rpc.system.version()
         ]);
-        const accoutlist = await Accounts.accountlist();
+        const accoutlist = await Accounts.accountList();
         console.log(api,chain, nodeName, nodeVersion)
         commit("SET_WEB3", api)
     },

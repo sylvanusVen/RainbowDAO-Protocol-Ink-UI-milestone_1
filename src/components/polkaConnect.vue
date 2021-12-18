@@ -19,7 +19,7 @@
     <div class="connect-panel" v-show="isShowConnect" @click="isShowConnect=false;$emit('changeState')">
       <div class="mask"></div>
       <div class="content  animate__animated  animate__backInDown" @click.stop>
-        <div class="item" @click="polkaConnect(item.address)" v-for="item in accountlist" :key="item">
+        <div class="item" @click="polkaConnect(item.address)" v-for="item in accountList" :key="item">
           <div class="address">{{item.address}}</div>
         </div>
       </div>
@@ -40,7 +40,7 @@ export default {
       isShowConnectStatus: false,
       isLoading: false,
       isShowConnect: false,
-      accountlist:[],
+      accountList:[],
 
     }
   },
@@ -48,14 +48,14 @@ export default {
 
   },
   async created() {
-    let accountlist = await Accounts.accountlist();
-    this.accountlist = accountlist.allAccounts
+    let accountList = await Accounts.accountList();
+    this.accountList = accountList.allAccounts
     let account = sessionStorage.getItem('currentAccount')
     if(account){
       this.account = account
     }
-    console.log(this.accountlist)
-    sessionStorage.setItem('account', JSON.stringify(this.accountlist));
+    console.log(this.accountList)
+    sessionStorage.setItem('account', JSON.stringify(this.accountList));
   },
   methods: {
     loginOut() {
@@ -69,7 +69,9 @@ export default {
       }
 
     },
-    showWallet() {
+    async showWallet() {
+      let accountList = await Accounts.accountList();
+      this.accountList = accountList.allAccounts
       this.$emit('changeState',true)
       if (this.isConnected) {
         this.isShowConnectStatus = true

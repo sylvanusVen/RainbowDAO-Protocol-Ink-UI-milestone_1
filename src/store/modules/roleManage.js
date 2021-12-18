@@ -19,11 +19,8 @@ const mutations = {
     }
 }
 const actions = {
-
-    async listRoles({rootState}){
-        await judgeContract(rootState.app.web3)
-        const accountlist = await Accounts.accountlist();
-        let AccountId = accountlist.allAccounts[0].address
+    async listRoles({}){
+        const AccountId = await Accounts.accountAddress();
         let data = await state.contract.query.listRoles(AccountId, {value, gasLimit})
         data = formatResult(data);
         return data

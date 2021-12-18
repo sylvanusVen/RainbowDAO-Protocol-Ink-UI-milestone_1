@@ -1,7 +1,6 @@
 import connectContract from "../../api/connectContract"
 import {formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
-const address = "5FbUtTVK1CofRbSz4Wg2Emw1piGvq4wi8NGVP7oo2fit7Tpb"
 const state = {
     web3:{},
     contract:null
@@ -10,7 +9,7 @@ const value = 0;
 const gasLimit = -1;
 async function  judgeContract(web3){
     if(!state.contract){
-        state.contract = await connectContract(web3, "core", address)
+        state.contract = await connectContract(web3, "core")
     }
 }
 const mutations = {
@@ -46,8 +45,7 @@ const actions = {
     async addRole({rootState}, name){
         const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3)
-        const accountlist = await Accounts.accountlist();
-        let AccountId = accountlist.allAccounts[0].address
+        const AccountId = await Accounts.accountAddress();
         console.log(AccountId,injector)
         let data = await state.contract.tx.addRole(AccountId, {value, gasLimit},name).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
@@ -60,8 +58,10 @@ const actions = {
     },
     async addRoute({rootState}, {name,value}){
         const injector = await Accounts.accountInjector();
+        console.log(injector,injector.signer)
         await judgeContract(rootState.app.web3)
-        let data = await state.contract.tx.addRoute(AccountId, {value, gasLimit},name,value).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        const AccountId = await Accounts.accountAddress();
+        let data = await state.contract.tx.addRoute(AccountId, {value, gasLimit},"test","1").signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
                 return true
@@ -83,8 +83,7 @@ const actions = {
         return data
     },
     async getAuthAddr({rootState},addr){
-        const accountlist = await Accounts.accountlist();
-        let AccountId = accountlist.allAccounts[0].address
+        const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
         let data = await state.contract.query.getAuthAddr(AccountId, {value, gasLimit})
         data = formatResult(data);
@@ -92,8 +91,7 @@ const actions = {
     },
     async getRoleAddr({rootState},addr){
         await judgeContract(rootState.app.web3)
-        const accountlist = await Accounts.accountlist();
-        let AccountId = accountlist.allAccounts[0].address
+        const AccountId = await Accounts.accountAddress();
         let data = await state.contract.query.getRoleAddr(AccountId, {value, gasLimit},addr)
         data = formatResult(data);
         return data
