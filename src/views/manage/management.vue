@@ -20,9 +20,9 @@
           </div>
           <div class="role-list">
             <div class="role-item" v-for="role in listRoles">
-              <div class="icon">
-                <img src="" alt="">
-              </div>
+<!--              <div class="icon">-->
+<!--                <img src="" alt="">-->
+<!--              </div>-->
               <div class="name">
                 {{ role }}
               </div>
@@ -46,12 +46,12 @@
             Authority management
           </div>
           <div class="manager-list">
-            <div class="manager-item">
+            <div class="manager-item" v-for="(item, index) in manageList" :key="index">
               <div class="icon">
                 <img src="" alt="">
               </div>
               <div class="name">
-                Issuer
+                {{item.name}}
               </div>
               <div class="manager-roles">
                 <div class="item">
@@ -97,6 +97,8 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex"
+
 export default {
   name: "management",
   data() {
@@ -104,21 +106,46 @@ export default {
       activeIndex: 0,
       roleInfo: undefined,
       listRoles: [],
-      routerName:undefined,
-      routerValue:undefined
+      routerName: undefined,
+      routerValue: undefined,
+      privilege:undefined,
+      manageList:[],
     }
   },
   mounted() {
-    this.$store.dispatch("roleManage/listRoles").then(res => {
-      console.log(res, "list")
-      this.listRoles = res
-    })
+    this.getData()
+  },
+  computed: {
+    ...mapGetters(['account', 'isConnected'])
+  },
+  watch: {
+    isConnected() {
+      this.getData()
+    }
   },
   methods: {
+    getData() {
+      if (this.isConnected) {
+        this.$store.dispatch("roleManage/listRoles").then(res => {
+          console.log(res, "list")
+          this.listRoles = res
+        })
+        this.$store.dispatch("roleManage/getUserPrivilege").then(res => {
+          console.log(res, "list")
+          this.manageList = res
+        })
+      }
+    },
+    roleInsertPrivilege(){
+      this.$store.dispatch("core/roleInsertPrivilege", {
+        name: this.routerName,
+        privilege: this.privilege
+      })
+    },
     addRoute() {
       this.$store.dispatch("core/addRoute", {
-        name:this.routerName,
-        value:this.routerValue
+        name: this.routerName,
+        routeValue: this.routerValue
       })
     },
     addRole() {
@@ -183,9 +210,10 @@ export default {
         }
       }
     }
-    .route-list{
-      .route-item{
-        input{
+
+    .route-list {
+      .route-item {
+        input {
           width: 280px;
           height: 38px;
           margin-right: 20px;
@@ -196,14 +224,16 @@ export default {
         }
       }
     }
-    .manager-list{
-      .manager-item{
-        .icon{
+
+    .manager-list {
+      .manager-item {
+        .icon {
           width: 30px;
           height: 30px;
         }
       }
     }
+
     .confirm-btn {
       margin-top: 30px;
       width: 80px;

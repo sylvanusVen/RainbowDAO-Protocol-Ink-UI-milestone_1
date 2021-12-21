@@ -1,67 +1,39 @@
 import connectContract from "../../api/connectContract"
 import {formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
+
 const state = {
-    web3:{},
-    contract:null
+    web3: {},
+    contract: null
 }
 const value = 0;
 const gasLimit = -1;
-async function  judgeContract(web3){
-    if(!state.contract){
-        state.contract = await connectContract(web3, "core")
+
+async function judgeContract(web3) {
+    if (!state.contract) {
+        state.contract = await connectContract(web3, "proposal")
     }
 }
+
 const mutations = {
-    SET_WEB3(state,web3){
+    SET_WEB3(state, web3) {
         state.web3 = web3
     }
 }
 const actions = {
-    async roleInsertPrivilege({rootState}, {name,privilege }){
-        const injector = await Accounts.accountInjector();
-        await judgeContract(rootState.app.web3)
-        let data = await state.contract.query.roleInsertPrivilege(AccountId, {value, gasLimit},name,privilege ).signAndSend(AccountId, { signer: injector.signer }, (result) => {
-            console.error(result)
-            if (result.status.isInBlock ||result.status.isFinalized) {
-                return true
-            }
-        });
-        data = formatResult(data);
-        return data
-    },
-    async addPrivilege({rootState},name){
-        const injector = await Accounts.accountInjector();
-        await judgeContract(rootState.app.web3)
-        let data = await state.contract.tx.addPrivilege(AccountId, {value, gasLimit},name).signAndSend(AccountId, { signer: injector.signer }, (result) => {
-            console.error(result)
-            if (result.status.isInBlock ||result.status.isFinalized) {
-                return true
-            }
-        });
-        data = formatResult(data);
-        return data
-    },
-    async addRole({rootState}, name){
-        const injector = await Accounts.accountInjector();
+    async listProposals({rootState}) {
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        let data = await state.contract.tx.addRole({value, gasLimit},name).signAndSend(AccountId, { signer: injector.signer }, (result) => {
-            console.error(result)
-            if (result.status.isInBlock ||result.status.isFinalized) {
-                return true
-            }
-        });
+        let data = await state.contract.query.listProposals(AccountId, {value, gasLimit})
         data = formatResult(data);
         return data
     },
-
-    async addRoute({rootState}, {name,routeValue}){
+    async propose({rootState}, {title,desc,transaction }) {
         const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
         console.log(AccountId)
-        let data = await state.contract.tx.addRoute({value, gasLimit},name,routeValue).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        let data = await state.contract.tx.propose({value, gasLimit},title,desc,transaction ).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
                 return true
@@ -70,11 +42,12 @@ const actions = {
         data = formatResult(data);
         return data
     },
-    async changeRoute({rootState}, {name,value}){
+    async ProposalCreated({rootState},{proposal_id,creator}) {
         const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        let data = await state.contract.tx.changeRoute( {value, gasLimit},name,value).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        console.log(AccountId)
+        let data = await state.contract.tx.ProposalCreated({value, gasLimit},proposal_id,creator).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
                 return true
@@ -83,28 +56,41 @@ const actions = {
         data = formatResult(data);
         return data
     },
-    async getAuthAddr({rootState},addr){
-        const AccountId = await Accounts.accountAddress();
+    async castVote({rootState},{proposal_id,support}) {
+        const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3)
-        let data = await state.contract.query.getAuthAddr(AccountId, {value, gasLimit})
+        const AccountId = await Accounts.accountAddress();
+        console.log(AccountId)
+        let data = await state.contract.tx.castVote({value, gasLimit},proposal_id,support).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+            console.error(result)
+            if (result.status.isInBlock ||result.status.isFinalized) {
+                return true
+            }
+        });
         data = formatResult(data);
         return data
     },
-    async getRoleAddr({rootState},addr){
+    async cancel({rootState},proposal_id) {
+        const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        let data = await state.contract.query.getRoleAddr(AccountId, {value, gasLimit},addr)
+        console.log(AccountId)
+        let data = await state.contract.tx.cancel({value, gasLimit},proposal_id).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+            console.error(result)
+            if (result.status.isInBlock ||result.status.isFinalized) {
+                return true
+            }
+        });
         data = formatResult(data);
         return data
     },
-    async getRouteAddr({rootState}){
+    async ProposalState({rootState},proposal_id) {
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        let data = await state.contract.query.getRouteAddr(AccountId, {value, gasLimit})
+        let data = await state.contract.query.ProposalState(AccountId, {value, gasLimit}, proposal_id)
         data = formatResult(data);
         return data
     },
-
 }
 export default {
     namespaced: true,

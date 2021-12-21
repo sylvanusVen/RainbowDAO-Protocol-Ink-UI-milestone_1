@@ -245,10 +245,10 @@
       </div>
     </div>
     <page-footer/>
-    <div class="rainbow-dialog-box">
+    <div class="rainbow-dialog-box"  v-show="isShowMembers">
       <div class="mask">
       </div>
-      <div class="rainbow-dialog" v-show="isShowMembers">
+      <div class="rainbow-dialog">
         <div class="title-box">
           <div class="title">
             Support
@@ -312,7 +312,7 @@ export default {
   name: "proposalDetail",
   data(){
     return{
-      isShowMembers:true
+      isShowMembers:false
     }
   }
 }

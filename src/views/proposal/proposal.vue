@@ -4,6 +4,9 @@
     <div class="rainbow-panel">
       <div class="title">
         PROPOSAL
+        <div class="create-btn" @click="$router.push({name:'createProposal'})">
+          new proposal
+        </div>
       </div>
       <div class="nav-list">
         <div class="nav-item" @click="chooseNav(item);activeIndex=index" :class="{'active':activeIndex == index}"
@@ -12,28 +15,28 @@
         </div>
       </div>
       <div class="rainbow-list">
-        <div class="list-item" @click="$router.push({name:'ProposalDetail'})">
+        <div class="list-item" @click="$router.push({name:'ProposalDetail'})" v-for="(item, index) in proposalList" :key="index">
           <div class="index">
-            01
+            {{ index }}
           </div>
           <div class="name-box">
             <div class="header-icon">
               <img src="../../assets/imgs/header-icon.png" alt="">
             </div>
             <div class="name">
-              Bruce Banner
+              {{item.name}}
             </div>
           </div>
           <div class="item-content">
             <div class="content">
-              Risk Parameter Updates for DAI, BAT, ZRX, and ETH
+              {{ item.desc }}
             </div>
             <div class="floor">
               <div class="stage">
-                Voting period
+                {{ item.status }}
               </div>
               <div class="date">
-                071 • 1 day, 20 hrs left
+                {{ item.update_time }}
               </div>
             </div>
           </div>
@@ -47,62 +50,98 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex"
 export default {
   name: "proposal",
   data() {
     return {
       activeIndex: 0,
+      proposalList:[],
       navList: [
         {
           name: "ALL",
-          number: 80
-        },
-        {
-          name: "In execution",
-          number: 2
-        },
-        {
-          name: "Voting period",
           number: 0
         },
         {
-          name: "Arbitration period",
+          name: "Active",
+          number: 0
+        },
+        {
+          name: "Pending",
+          number: 0
+        },
+        {
+          name: "Succeeded",
           number: 0
         },
         {
           name: "Executed",
-          number: 68
+          number: 0
         },
         {
-          name: "Rejected",
-          number: 10
+          name: "Canceled",
+          number: 0
+        },
+        {
+          name: "Defeated",
+          number: 0
+        },
+        {
+          name: "Expired",
+          number: 0
+        },
+        {
+          name: "Queued",
+          number: 0
         }
       ]
     }
   },
+  computed: {
+    ...mapGetters(['account', 'isConnected'])
+  },
+  watch:{
+    isConnected(){
+      this.getData()
+    },
+  },
   methods: {
+    getData(){
+      if(!this.isConnected){
+        return
+      }
+      this.$store.dispatch("proposal/listProposals").then(res=>{
+        console.log(res)
+        this.proposalList = res
+      })
+
+    },
     chooseNav() {
 
     }
   },
   mounted() {
-   this.$store.dispatch("app/getWeb3").then(()=>{
-     this.$store.dispatch("erc20/getBalance","5FPkpUMmsLubNDJBDeVMnFP6B9UnibjeLoGastnH1da9gKqD").then(res=>{
-       console.log(res)
-     })
-     // this.$store.dispatch("factory/newErc20").then(res=>{
-     //   console.log(res)
-     // })
-     this.$store.dispatch("routerMap/addRoute").then(res=>{
-       console.log(res)
-     })
-   })
+    this.getData()
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .proposal {
+  .create-btn{
+    float: right;
+    font-size: 14px;
+    font-weight: normal;
+    color: #ffffff;
+    padding: 0 10px;
+    user-select: none;
+    cursor: pointer;
+    text-align: center;
+    line-height: 30px;
+    height: 30px;
+    background: linear-gradient(90deg,#12c2e9, #c471ed 53%, #f64f59);
+    border-radius: 10px;
+  }
   .nav-list {
     display: flex;
     border-bottom: 1px solid #eaeaea;

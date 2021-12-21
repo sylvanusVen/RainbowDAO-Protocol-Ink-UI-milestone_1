@@ -8,6 +8,8 @@ import factory from "./modules/factory"
 import multisign from "./modules/multisign";
 import core from "./modules/core"
 import roleManage from "./modules/roleManage";
+import proposal from "./modules/proposal"
+import userManage from "./modules/userManage";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -19,6 +21,8 @@ export default new Vuex.Store({
     routerMap,
     multisign,
     core,
-    roleManage
+    roleManage,
+    userManage,
+    proposal
   }
 })

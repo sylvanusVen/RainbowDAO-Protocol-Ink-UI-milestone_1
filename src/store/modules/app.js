@@ -1,11 +1,13 @@
 import {ApiPromise,WsProvider} from "@polkadot/api";
 import Accounts from "../../api/Account"
 const state = {
-    web3:{}
+    web3:{},
+    isConnected:false
 }
 const mutations = {
     SET_WEB3(state,web3){
         state.web3 = web3
+        state.isConnected = true
     }
 }
 const actions = {

@@ -11,6 +11,26 @@
           <div class="nav-item" :class="{'active': 1 == activeIndex}" @click="activeIndex=1">
             Member information
           </div>
+          <div class="nav-item" :class="{'active': 2 == activeIndex}" @click="activeIndex=2">
+            Join Rainbow Protocol
+          </div>
+        </div>
+        <div class="join-panel"  v-show="activeIndex==2">
+          <div class="title">
+            Refer Code
+          </div>
+          <div class="input-box">
+            <input type="text" class="refer-code" v-model="joinForm.name" placeholder="your name">
+          </div>
+          <div class="input-box">
+            <input type="text" class="refer-code" v-model="joinForm.url" placeholder="your header path/url">
+          </div>
+          <div class="input-box">
+            <input type="text" class="refer-code"  v-model="joinForm.code" placeholder="refer code">
+          </div>
+          <div class="sub-btn" @click="join">
+            JOIN
+          </div>
         </div>
         <div class="referral-relationship" v-show="activeIndex==0">
           <div class="title">
@@ -118,7 +138,7 @@
             </div>
           </div>
         </div>
-        <div class="member-info">
+        <div class="member-info" v-show="activeIndex==1">
           <div class="title">
             Member information
           </div>
@@ -197,11 +217,43 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "referral",
   data() {
     return {
-      activeIndex: 0
+      activeIndex: 0,
+      memberList:[],
+      joinForm:{}
+    }
+  },
+  computed: {
+    ...mapGetters(['account', 'isConnected'])
+  },
+  mounted() {
+    this.getData()
+  },
+  watch:{
+    isConnected(){
+      this.getData()
+    },
+  },
+  methods:{
+    join(){
+      this.$store.dispatch("userManage/join",{
+        invitation_code:this.joinForm.code,
+        user_profile:this.joinForm.url,
+        name:this.joinForm.name
+      })
+    },
+    getData(){
+      if(!this.isConnected){
+        return
+      }
+      this.$store.dispatch("userManage/getUserReferer")
+      this.$store.dispatch("userManage/existsUser",this.AccountId)
+      this.$store.dispatch("userManage/listUser")
     }
   }
 }
@@ -253,7 +305,25 @@ export default {
       }
     }
   }
-
+  .join-panel{
+    text-align: center;
+    .refer-code{
+      margin-top: 20px;
+      font-size: 20px;
+      padding: 6px 10px;
+      border: 1px solid #eee;
+    }
+    .sub-btn{
+      width: 100px;
+      margin: 20px auto;
+      cursor: pointer;
+      padding: 10px 20px;
+      color: #fff;
+      background: linear-gradient(90deg,#12c2e9 0%, #c471ed 64%, #f64f59 100%);
+      border-radius: 10px;
+      box-shadow: 0px 3px 6px 0px rgba(128,4,149,0.30);
+    }
+  }
   .referral-relationship {
     .my-code {
       display: flex;

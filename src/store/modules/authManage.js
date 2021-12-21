@@ -21,17 +21,15 @@ const mutations = {
     }
 }
 const actions = {
-    async listRoles({rootState}) {
-        await judgeContract(rootState.app.web3)
+    async listPrivileges({}) {
         const AccountId = await Accounts.accountAddress();
-        let data = await state.contract.query.listRoles(AccountId, {value, gasLimit})
+        let data = await state.contract.query.listPrivileges(AccountId, {value, gasLimit})
         data = formatResult(data);
         return data
     },
-    async getUserPrivilege({rootState}) {
-        await judgeContract(rootState.app.web3)
+    async queryPrivilegeByIndex({}) {
         const AccountId = await Accounts.accountAddress();
-        let data = await state.contract.query.getUserPrivilege(AccountId, {value, gasLimit}, AccountId)
+        let data = await state.contract.query.queryPrivilegeByIndex(AccountId, {value, gasLimit}, AccountId)
         data = formatResult(data);
         return data
     },

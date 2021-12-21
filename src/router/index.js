@@ -41,6 +41,11 @@ const routes = [
                 component:()=> import('@/views/rainbowWarrior/rainbowWarriorPage')
             },
             {
+                path: '/createProposal',
+                name: "createProposal",
+                component:()=> import('@/views/proposal/createProposal.vue')
+            },
+            {
                 path: '/Proposal',
                 name: "Proposal",
                 component:()=> import('@/views/proposal/proposal.vue')
