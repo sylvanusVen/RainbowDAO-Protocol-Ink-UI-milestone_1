@@ -10,6 +10,7 @@ import core from "./modules/core"
 import roleManage from "./modules/roleManage";
 import proposal from "./modules/proposal"
 import userManage from "./modules/userManage";
+import incomeManage from "./modules/incomeManage";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     core,
     roleManage,
     userManage,
-    proposal
+    proposal,
+    incomeManage
   }
 })

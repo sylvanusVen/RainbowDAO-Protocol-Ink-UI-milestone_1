@@ -5,14 +5,14 @@
       <div class="rainbow-panel part1">
         <div class="left">
           <div class="content">
-            Risk Parameter Updates for DAI, BAT, ZRX, and ETH details.
+            {{ proposal.title }}
           </div>
           <div class="status-box">
             <div class="status">
-              Voting period
+              {{ proposal.state }}
             </div>
             <div class="date">
-              071 • 1 day, 20 hrs left
+              active block:{{ proposal.startBlock }} ~{{ proposal.endBlock}}
             </div>
           </div>
         </div>
@@ -21,13 +21,16 @@
             My votes
           </div>
           <div class="number">
-            500,000,000
+            {{ myVotes }}
           </div>
           <div class="btn-box">
-            <div class="support">
-              support
+            <div class="support" @click="delegate">
+              delegate
             </div>
-            <div class="Refuse">
+            <div class="support" @click="castVote(true)">
+              Support
+            </div>
+            <div class="Refuse" @click="castVote(false)">
               Refuse
             </div>
           </div>
@@ -46,7 +49,7 @@
             </div>
             <div class="vote-number">
               <div class="number">
-                500,000,000
+                {{proposal.forVotes}}
               </div>
               <div class="number-line">
                 <div class="active-number">
@@ -89,14 +92,14 @@
                 </div>
               </div>
             </div>
-            <div class="more-btn">
+            <div class="more-btn" @click="isShowMembers=true">
               MORE
             </div>
           </div>
           <div class="right">
             <div class="title-box">
               <div class="title">
-                Support
+                Refuse
               </div>
               <div class="address">
                 15 Address
@@ -147,7 +150,7 @@
                 </div>
               </div>
             </div>
-            <div class="more-btn">
+            <div class="more-btn" @click="isShowMembers=true">
               MORE
             </div>
           </div>
@@ -158,7 +161,7 @@
           </div>
           <div class="step-box">
             <div class="step">
-              <div class="icon">
+              <div class="icon" :class="{'active':statusIndex > 0}">
                 <img src="../../assets/imgs/right_icon.png" alt="">
               </div>
               <div class="name">
@@ -168,8 +171,8 @@
                 August 24, 2021 10:30
               </div>
             </div>
-            <div class="step">
-              <div class="icon">
+            <div class="step" >
+              <div class="icon"  :class="{'active':statusIndex > 1}">
                 <img src="../../assets/imgs/right_icon.png" alt="">
               </div>
               <div class="name">
@@ -179,8 +182,8 @@
                 1 day, 20 hrs left
               </div>
             </div>
-            <div class="step">
-              <div class="icon">
+            <div class="step" >
+              <div class="icon"  :class="{'active':statusIndex > 2}">
                 <img src="../../assets/imgs/right_icon.png" alt="">
               </div>
               <div class="name">
@@ -190,8 +193,8 @@
 
               </div>
             </div>
-            <div class="step">
-              <div class="icon">
+            <div class="step" >
+              <div class="icon" :class="{'active':statusIndex > 3}">
                 <img src="../../assets/imgs/right_icon.png" alt="">
               </div>
               <div class="name">
@@ -201,8 +204,8 @@
 
               </div>
             </div>
-            <div class="step">
-              <div class="icon">
+            <div class="step" >
+              <div class="icon"  :class="{'active':statusIndex > 4}">
                 <img src="../../assets/imgs/right_icon.png" alt="">
               </div>
               <div class="name">
@@ -220,35 +223,15 @@
           Details
         </div>
         <div class="part3-content">
-          DeFi means decentralized finance. DeFi combines traditional financial projects with blockchain and strengthens
-          the connection between financial products through functional contracts. After nearly two years of development,
-          DeFi has fully demonstrated its potential in the future economic field. DeFi is favored by many people due to
-          its openness, transparency, composability, and license-free features. DeFi creates unlimited imagination for
-          the financial system on the blockchain and meets market needs. Up to now, protocols of stablecoins, such as
-          public chains of Bitcoin, Ethereum and Polkadot, MakerDAO, FEI and Liquity, of transaction, such as bancor and
-          curve, of lending, such as aave and compound, of Oracle like link and of wallet like Metamask are all
-          flourishing, especially DeFi based on Ethereum. But those protocols are dissociated and competing, resultant
-          force is needed. No matter they are protocols of the same or different type in the same public chain, or in
-          different public chains. They are after all rivals, contending for and tearing up limited liquidity,
-          particularly at present when a cross-chain protocol of freedom hasn’t been made among major public chains.
-          Worse still, financial liquidity lacks loyalty greatly, it flows in coordination with high interest since a
-          previously prosperous protocol can fall mediocre overnight. Additionally, various blockchain protocols have
-          their own independent token and economy models. Though divergent DeFi protocols can quote and be overlaid with
-          each other like toy bricks. However, the superposition is confined to function, token and economy are not
-          involved in essence. Tokens of diverse kinds can not cooperate well, in fact, they affect each other. That
-          prevents the formation of a consolidated economy, so its internal value won’t rise with the improvement in
-          governance capabilities. To deal with that problem, we put forward “Rainbow City” today to establish a super
-          economy of harmony, unification and effective collaboration. Combined with a series of meticulous design of
-          tokens and diversified sorts of mining, Rainbow City will render Rainbow DAO as its kernel to unify scattered
-          economic behaviors of diverse usage and put them in one economy.
+          {{proposal.desc}}
         </div>
       </div>
     </div>
     <page-footer/>
     <div class="rainbow-dialog-box"  v-show="isShowMembers">
-      <div class="mask">
+      <div class="mask" @click="isShowMembers=false">
       </div>
-      <div class="rainbow-dialog">
+      <div class="rainbow-dialog" @click.stop>
         <div class="title-box">
           <div class="title">
             Support
@@ -308,11 +291,52 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "proposalDetail",
   data(){
     return{
-      isShowMembers:false
+      proposal:{},
+      isShowMembers:false,
+      statusIndex:0,
+      myVotes:0
+    }
+  },
+  computed: {
+    ...mapGetters(['account', 'isConnected'])
+  },
+  watch:{
+    isConnected(){
+      this.getData()
+    },
+  },
+  mounted() {
+    console.log(this.$route.params)
+    this.proposal = this.$route.params
+    switch (this.proposal.state){
+      case "Active": this.statusIndex = 1
+    }
+    this.getData()
+  },
+  methods:{
+    delegate(){
+      this.$store.dispatch("erc20/delegate", this.account).then(res=>{
+        this.myVotes = res
+      })
+    },
+    getData(){
+      this.$store.dispatch("erc20/getCurrentVotes", this.account).then(res=>{
+        console.log(res)
+      })
+    },
+    castVote(support){
+      this.$store.dispatch("proposal/castVote", {
+        proposal_id:this.proposal.proposalId,
+        support
+      }).then(res=>{
+        console.log(res)
+      })
     }
   }
 }
@@ -521,8 +545,11 @@ export default {
               width: 20px;
               height: 20px;
               border-radius: 50%;
-              background: #5EDBA6;
+              background: #eee;
 
+              &.active{
+                background: #5EDBA6;
+              }
               img {
                 margin: 10%;
                 width: 80%;

@@ -20,8 +20,9 @@ const mutations = {
 const actions = {
     async roleInsertPrivilege({rootState}, {name,privilege }){
         const injector = await Accounts.accountInjector();
+        const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
-        let data = await state.contract.query.roleInsertPrivilege(AccountId, {value, gasLimit},name,privilege ).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        let data = await state.contract.tx.roleInsertPrivilege( {value, gasLimit},name,privilege ).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
                 return true
@@ -32,8 +33,9 @@ const actions = {
     },
     async addPrivilege({rootState},name){
         const injector = await Accounts.accountInjector();
+        const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
-        let data = await state.contract.tx.addPrivilege(AccountId, {value, gasLimit},name).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        let data = await state.contract.tx.addPrivilege( {value, gasLimit},name).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
                 return true
@@ -47,7 +49,7 @@ const actions = {
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
         let data = await state.contract.tx.addRole({value, gasLimit},name).signAndSend(AccountId, { signer: injector.signer }, (result) => {
-            console.error(result)
+            console.log(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
                 return true
             }
@@ -60,7 +62,7 @@ const actions = {
         const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        console.log(AccountId)
+        console.log(name,routeValue)
         let data = await state.contract.tx.addRoute({value, gasLimit},name,routeValue).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {

@@ -11,41 +11,372 @@
       <div class="nav-list">
         <div class="nav-item" @click="chooseNav(item);activeIndex=index" :class="{'active':activeIndex == index}"
              v-for="(item, index) in navList" :key="index">
-          {{ item.name }}({{ item.number }})
+          {{ item.name }}
         </div>
       </div>
-      <div class="rainbow-list">
-        <div class="list-item" @click="$router.push({name:'ProposalDetail'})" v-for="(item, index) in proposalList" :key="index">
+      <div v-show="activeIndex==0" class="rainbow-list">
+        <div class="list-item" @click="$router.push({name:'ProposalDetail',params:item})" v-for="(item, index) in proposalList" :key="index">
           <div class="index">
-            {{ index }}
+            {{ index +1}}
           </div>
           <div class="name-box">
             <div class="header-icon">
               <img src="../../assets/imgs/header-icon.png" alt="">
             </div>
             <div class="name">
-              {{item.name}}
+              {{item.title}}
             </div>
           </div>
           <div class="item-content">
             <div class="content">
-              {{ item.desc }}
+              <div class="item">
+                <div class="name">desc</div>
+                <div class="value">
+                  {{ item.desc }}
+                </div>
+              </div>
+              <div class="item">
+                <div class="name">owner</div>
+                <div class="value">
+                  {{ item.owner }}
+                </div>
+              </div>
             </div>
+
             <div class="floor">
               <div class="stage">
-                {{ item.status }}
+                {{ item.state }}
               </div>
               <div class="date">
-                {{ item.update_time }}
+                block:{{ item.startBlock  }}~{{ item.endBlock}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-show="activeIndex==1" class="rainbow-list">
+        <div class="list-item" v-show="item.state=='Active'" @click="$router.push({name:'ProposalDetail',params:item})" v-for="(item, index) in proposalList" :key="index">
+          <div class="index">
+            {{ index +1}}
+          </div>
+          <div class="name-box">
+            <div class="header-icon">
+              <img src="../../assets/imgs/header-icon.png" alt="">
+            </div>
+            <div class="name">
+              {{item.title}}
+            </div>
+          </div>
+          <div class="item-content">
+            <div class="content">
+              <div class="item">
+                <div class="name">desc</div>
+                <div class="value">
+                  {{ item.desc }}
+                </div>
+              </div>
+              <div class="item">
+                <div class="name">owner</div>
+                <div class="value">
+                  {{ item.owner }}
+                </div>
+              </div>
+            </div>
+
+            <div class="floor">
+              <div class="stage">
+                {{ item.state }}
+              </div>
+              <div class="date">
+                {{ item.endBlock }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-show="activeIndex==2" class="rainbow-list">
+        <div class="list-item" v-show="item.state=='Pending'"@click="$router.push({name:'ProposalDetail',params:item})" v-for="(item, index) in proposalList" :key="index">
+          <div class="index">
+            {{ index + 1}}
+          </div>
+          <div class="name-box">
+            <div class="header-icon">
+              <img src="../../assets/imgs/header-icon.png" alt="">
+            </div>
+            <div class="name">
+              {{item.title}}
+            </div>
+          </div>
+          <div class="item-content">
+            <div class="content">
+              <div class="item">
+                <div class="name">desc</div>
+                <div class="value">
+                  {{ item.desc }}
+                </div>
+              </div>
+              <div class="item">
+                <div class="name">owner</div>
+                <div class="value">
+                  {{ item.owner }}
+                </div>
+              </div>
+            </div>
+
+            <div class="floor">
+              <div class="stage">
+                {{ item.state }}
+              </div>
+              <div class="date">
+                {{ item.endBlock }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-show="activeIndex==3" class="rainbow-list">
+        <div class="list-item" v-show="item.state=='Succeeded'" @click="$router.push({name:'ProposalDetail',params:item})" v-for="(item, index) in proposalList" :key="index">
+          <div class="index">
+            {{ index +1}}
+          </div>
+          <div class="name-box">
+            <div class="header-icon">
+              <img src="../../assets/imgs/header-icon.png" alt="">
+            </div>
+            <div class="name">
+              {{item.title}}
+            </div>
+          </div>
+          <div class="item-content">
+            <div class="content">
+              <div class="item">
+                <div class="name">desc</div>
+                <div class="value">
+                  {{ item.desc }}
+                </div>
+              </div>
+              <div class="item">
+                <div class="name">owner</div>
+                <div class="value">
+                  {{ item.owner }}
+                </div>
+              </div>
+            </div>
+
+            <div class="floor">
+              <div class="stage">
+                {{ item.state }}
+              </div>
+              <div class="date">
+                {{ item.endBlock }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-show="activeIndex==4" class="rainbow-list">
+        <div class="list-item" v-show="item.state=='Executed'" @click="$router.push({name:'ProposalDetail',params:item})" v-for="(item, index) in proposalList" :key="index">
+          <div class="index">
+            {{ index + 1}}
+          </div>
+          <div class="name-box">
+            <div class="header-icon">
+              <img src="../../assets/imgs/header-icon.png" alt="">
+            </div>
+            <div class="name">
+              {{item.title}}
+            </div>
+          </div>
+          <div class="item-content">
+            <div class="content">
+              <div class="item">
+                <div class="name">desc</div>
+                <div class="value">
+                  {{ item.desc }}
+                </div>
+              </div>
+              <div class="item">
+                <div class="name">owner</div>
+                <div class="value">
+                  {{ item.owner }}
+                </div>
+              </div>
+            </div>
+
+            <div class="floor">
+              <div class="stage">
+                {{ item.state }}
+              </div>
+              <div class="date">
+                {{ item.endBlock }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-show="activeIndex==5" class="rainbow-list">
+        <div class="list-item" v-show="item.state=='Canceled'" @click="$router.push({name:'ProposalDetail',params:item})" v-for="(item, index) in proposalList" :key="index">
+          <div class="index">
+            {{ index +1}}
+          </div>
+          <div class="name-box">
+            <div class="header-icon">
+              <img src="../../assets/imgs/header-icon.png" alt="">
+            </div>
+            <div class="name">
+              {{item.title}}
+            </div>
+          </div>
+          <div class="item-content">
+            <div class="content">
+              <div class="item">
+                <div class="name">desc</div>
+                <div class="value">
+                  {{ item.desc }}
+                </div>
+              </div>
+              <div class="item">
+                <div class="name">owner</div>
+                <div class="value">
+                  {{ item.owner }}
+                </div>
+              </div>
+            </div>
+
+            <div class="floor">
+              <div class="stage">
+                {{ item.state }}
+              </div>
+              <div class="date">
+                {{ item.endBlock }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-show="activeIndex==6" class="rainbow-list">
+        <div class="list-item" v-show="item.state=='Defeated'" @click="$router.push({name:'ProposalDetail',params:item})" v-for="(item, index) in proposalList" :key="index">
+          <div class="index">
+            {{ index + 1}}
+          </div>
+          <div class="name-box">
+            <div class="header-icon">
+              <img src="../../assets/imgs/header-icon.png" alt="">
+            </div>
+            <div class="name">
+              {{item.title}}
+            </div>
+          </div>
+          <div class="item-content">
+            <div class="content">
+              <div class="item">
+                <div class="name">desc</div>
+                <div class="value">
+                  {{ item.desc }}
+                </div>
+              </div>
+              <div class="item">
+                <div class="name">owner</div>
+                <div class="value">
+                  {{ item.owner }}
+                </div>
+              </div>
+            </div>
+
+            <div class="floor">
+              <div class="stage">
+                {{ item.state }}
+              </div>
+              <div class="date">
+                {{ item.endBlock }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-show="activeIndex==7" class="rainbow-list">
+        <div class="list-item" v-show="item.state=='Expired'" @click="$router.push({name:'ProposalDetail',params:item})" v-for="(item, index) in proposalList" :key="index">
+          <div class="index">
+            {{ index +1}}
+          </div>
+          <div class="name-box">
+            <div class="header-icon">
+              <img src="../../assets/imgs/header-icon.png" alt="">
+            </div>
+            <div class="name">
+              {{item.title}}
+            </div>
+          </div>
+          <div class="item-content">
+            <div class="content">
+              <div class="item">
+                <div class="name">desc</div>
+                <div class="value">
+                  {{ item.desc }}
+                </div>
+              </div>
+              <div class="item">
+                <div class="name">owner</div>
+                <div class="value">
+                  {{ item.owner }}
+                </div>
+              </div>
+            </div>
+
+            <div class="floor">
+              <div class="stage">
+                {{ item.state }}
+              </div>
+              <div class="date">
+                {{ item.endBlock }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-show="activeIndex==8" class="rainbow-list">
+        <div class="list-item" v-show="item.state=='Queued'" @click="$router.push({name:'ProposalDetail',params:item})" v-for="(item, index) in proposalList" :key="index">
+          <div class="index">
+            {{ index + 1}}
+          </div>
+          <div class="name-box">
+            <div class="header-icon">
+              <img src="../../assets/imgs/header-icon.png" alt="">
+            </div>
+            <div class="name">
+              {{item.title}}
+            </div>
+          </div>
+          <div class="item-content">
+            <div class="content">
+              <div class="item">
+                <div class="name">desc</div>
+                <div class="value">
+                  {{ item.desc }}
+                </div>
+              </div>
+              <div class="item">
+                <div class="name">owner</div>
+                <div class="value">
+                  {{ item.owner }}
+                </div>
+              </div>
+            </div>
+
+            <div class="floor">
+              <div class="stage">
+                {{ item.state }}
+              </div>
+              <div class="date">
+                {{ item.endBlock }}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <pageFooter>
+    <pageFooter/>
 
-    </pageFooter>
   </div>
 </template>
 
@@ -60,39 +391,30 @@ export default {
       navList: [
         {
           name: "ALL",
-          number: 0
         },
         {
           name: "Active",
-          number: 0
         },
         {
           name: "Pending",
-          number: 0
         },
         {
           name: "Succeeded",
-          number: 0
         },
         {
           name: "Executed",
-          number: 0
         },
         {
           name: "Canceled",
-          number: 0
         },
         {
           name: "Defeated",
-          number: 0
         },
         {
           name: "Expired",
-          number: 0
         },
         {
           name: "Queued",
-          number: 0
         }
       ]
     }
@@ -110,9 +432,15 @@ export default {
       if(!this.isConnected){
         return
       }
-      this.$store.dispatch("proposal/listProposals").then(res=>{
-        console.log(res)
-        this.proposalList = res
+      this.$store.dispatch("proposal/listProposals").then((res)=>{
+        res.forEach(async (item,index)=>{
+          await this.$store.dispatch("proposal/state",index).then(state=>{
+            item.state= state
+          })
+          if(index==res.length-1){
+            this.proposalList = res
+          }
+       })
       })
 
     },
@@ -175,10 +503,24 @@ export default {
         }
       }
       .item-content{
-        height: 60px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        .content{
+          .item{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .name{
+              line-height: 30px;
+              min-width:100px;
+              font-weight: bold;
+            }
+            .value{
+              color: #333;
+            }
+          }
+        }
         .floor{
           display: flex;
           align-items: center;
@@ -188,6 +530,8 @@ export default {
             width: 120px;
             height: 24px;
             text-align: center;
+            color: #333;
+            font-weight: bold;
             line-height: 24px;
             background: rgba(255,174,37,0.20);
             border: 1px solid rgba(255,174,37,0.50);

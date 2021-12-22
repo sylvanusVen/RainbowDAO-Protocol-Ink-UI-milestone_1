@@ -25,6 +25,7 @@ const actions = {
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
         let data = await state.contract.query.listProposals(AccountId, {value, gasLimit})
+        console.log(data)
         data = formatResult(data);
         return data
     },
@@ -56,6 +57,7 @@ const actions = {
         data = formatResult(data);
         return data
     },
+
     async castVote({rootState},{proposal_id,support}) {
         const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3)
@@ -84,10 +86,10 @@ const actions = {
         data = formatResult(data);
         return data
     },
-    async ProposalState({rootState},proposal_id) {
+    async state({rootState},proposal_id) {
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        let data = await state.contract.query.ProposalState(AccountId, {value, gasLimit}, proposal_id)
+        let data = await state.contract.query.state(AccountId, {value, gasLimit}, proposal_id)
         data = formatResult(data);
         return data
     },

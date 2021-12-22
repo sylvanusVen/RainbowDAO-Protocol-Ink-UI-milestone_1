@@ -55,6 +55,16 @@
               </div>
             </div>
           </div>
+          <div class="item">
+            <div class="left">
+              <input type="text" v-model="revenue" placeholder="addRevenue">
+            </div>
+            <div class="right">
+              <div class="add-btn"  @click="addRevenue">
+                Add Revenue
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -63,8 +73,49 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
-  name: "incomeManage"
+  name: "incomeManage",
+  data(){
+    return{
+      revenue:"",
+      incomeInfo:{
+        isUsed:true,
+        fee:0,
+        account:this.account
+      }
+    }
+  },
+  watch: {
+    isConnected() {
+      this.getData()
+    }
+  },
+  mounted() {
+    this.getData()
+  },
+  computed: {
+    ...mapGetters(['account', 'isConnected'])
+  },
+  methods:{
+    addRevenue(){
+      this.$store.dispatch("incomeManage/saveCategory",{
+        name:this.revenue,
+        incomeInfo:this.incomeInfo
+      }).then(res=>{
+        console.log(res)
+        this.getData()
+      })
+    },
+    getData() {
+      if (this.isConnected) {
+        this.$store.dispatch("incomeManage/listCategory").then(res=>{
+          console.log(res)
+        })
+      }
+    }
+  }
 }
 </script>
 
@@ -85,6 +136,26 @@ export default {
         border: 1px solid #eaeaea;
         display: flex;
         justify-content: space-between;
+        input {
+          width: 280px;
+          height: 38px;
+          margin-right: 20px;
+          padding: 0 20px;
+          background: #fbfcfe;
+          border: 1px solid #eaeaea;
+          border-radius: 10px;
+        }
+        .add-btn{
+          padding: 0 10px;
+          height: 32px;
+          background: linear-gradient(90deg, #12c2e9 0%, #c471ed 64%, #f64f59 100%);
+          border-radius: 10px;
+          box-shadow: 0px 3px 6px 0px rgba(128, 4, 149, 0.30);
+          color: #fff;
+          text-align: center;
+          line-height: 32px;
+          cursor: pointer;
+        }
         .left{
           .item-title{
             color: #999999;

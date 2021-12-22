@@ -39,7 +39,7 @@
           <div class="my-code">
             <span>Invitation code</span>
             <div class="number">
-              123456
+              {{ myRefer }}
             </div>
           </div>
           <div class="my-inviter">
@@ -143,71 +143,20 @@
             Member information
           </div>
           <div class="people-info-box">
-            <div class="people-info">
+            <div class="people-info" v-for="(item, index) in memberList" :key="index">
               <div class="title-box">
                 <div class="icon">
                   <img src="" alt="">
                 </div>
                 <div class="name">
-                  Bruce Banner
+                  {{ item.name }}
                 </div>
               </div>
               <div class="address">
-                0xf45c0A7e91c89aBF37b9b 0C274563AAf49cff83F
+                {{ item.address }}
               </div>
             </div>
-            <div class="people-info">
-              <div class="title-box">
-                <div class="icon">
-                  <img src="" alt="">
-                </div>
-                <div class="name">
-                  Bruce Banner
-                </div>
-              </div>
-              <div class="address">
-                0xf45c0A7e91c89aBF37b9b 0C274563AAf49cff83F
-              </div>
-            </div>
-            <div class="people-info">
-              <div class="title-box">
-                <div class="icon">
-                  <img src="" alt="">
-                </div>
-                <div class="name">
-                  Bruce Banner
-                </div>
-              </div>
-              <div class="address">
-                0xf45c0A7e91c89aBF37b9b 0C274563AAf49cff83F
-              </div>
-            </div>
-            <div class="people-info">
-              <div class="title-box">
-                <div class="icon">
-                  <img src="" alt="">
-                </div>
-                <div class="name">
-                  Bruce Banner
-                </div>
-              </div>
-              <div class="address">
-                0xf45c0A7e91c89aBF37b9b 0C274563AAf49cff83F
-              </div>
-            </div>
-            <div class="people-info">
-              <div class="title-box">
-                <div class="icon">
-                  <img src="" alt="">
-                </div>
-                <div class="name">
-                  Bruce Banner
-                </div>
-              </div>
-              <div class="address">
-                0xf45c0A7e91c89aBF37b9b 0C274563AAf49cff83F
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
@@ -223,6 +172,7 @@ export default {
   name: "referral",
   data() {
     return {
+      myRefer:"",
       activeIndex: 0,
       memberList:[],
       joinForm:{}
@@ -251,9 +201,13 @@ export default {
       if(!this.isConnected){
         return
       }
-      this.$store.dispatch("userManage/getUserReferer")
+      this.$store.dispatch("userManage/getUserReferer").then(res=>{
+        this.myRefer = res
+      })
       this.$store.dispatch("userManage/existsUser",this.AccountId)
-      this.$store.dispatch("userManage/listUser")
+      this.$store.dispatch("userManage/listUser").then(res=>{
+        this.memberList = res
+      })
     }
   }
 }

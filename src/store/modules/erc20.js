@@ -7,9 +7,9 @@ const state = {
 }
 const value = 0;
 const gasLimit = -1;
-async function  judgeContract(web3,address){
+async function  judgeContract(web3){
     if(!state.contract){
-        state.contract = await connectContract(web3, "erc20", address)
+        state.contract = await connectContract(web3, "erc20")
     }
 }
 const mutations = {
@@ -18,6 +18,26 @@ const mutations = {
     }
 }
 const actions = {
+    async getCurrentVotes({rootState}) {
+        await judgeContract(rootState.app.web3)
+        const AccountId = await Accounts.accountAddress();
+        let data = await state.contract.query.getCurrentVotes(AccountId, {value, gasLimit}, AccountId)
+        data = formatResult(data);
+        return data
+    },
+    async delegate({rootState},address){
+        const injector = await Accounts.accountInjector();
+        const AccountId = await Accounts.accountAddress();
+        await judgeContract(rootState.app.web3)
+        let data = await state.contract.tx.delegate( {value, gasLimit},address).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+            console.error(result)
+            if (result.status.isInBlock ||result.status.isFinalized) {
+                return true
+            }
+        });
+        data = formatResult(data);
+        return data
+    },
     async getBalance({rootState},address){
         await judgeContract(rootState.app.web3, address)
         const accountList = await Accounts.accountList();

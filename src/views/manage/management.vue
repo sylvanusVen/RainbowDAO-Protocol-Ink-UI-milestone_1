@@ -19,6 +19,9 @@
             Role management
           </div>
           <div class="role-list">
+            <div class="sub-title">
+              All Roles:
+            </div>
             <div class="role-item" v-for="role in listRoles">
 <!--              <div class="icon">-->
 <!--                <img src="" alt="">-->
@@ -46,45 +49,46 @@
             Authority management
           </div>
           <div class="manager-list">
-            <div class="manager-item" v-for="(item, index) in manageList" :key="index">
+            <div class="manager-item" v-for="(item, index) in authList" :key="index">
               <div class="icon">
                 <img src="" alt="">
               </div>
               <div class="name">
                 {{item.name}}
-              </div>
-              <div class="manager-roles">
-                <div class="item">
-
+              </div>:
+              <div class="privileges">
+                <div class="item" v-for="(p,index) in item.privileges" :key="index">
+                  {{p}}
                 </div>
               </div>
+              <input type="text" placeholder="new privilege" v-model="item.newprivilege">
+
+              <div class="confirm-btn "  @click="roleInsertPrivilege(item)">
+                Add
+              </div>
             </div>
+
           </div>
-          <div class="confirm-btn rainbow-btn">
-            confirm
-          </div>
+
         </div>
         <div class="route" v-show="activeIndex==2">
           <div class="title">
             Route management
           </div>
           <div class="route-list">
-            <div class="route-item" v-for="role in listRoles">
+            <div class="route-item" v-for="role in manageList">
               <div class="icon">
                 <img src="" alt="">
               </div>
               <div class="name">
                 {{ role }}
               </div>
-              <!--              <div class="detail">-->
-              <!--                This is the token originator-->
-              <!--              </div>-->
             </div>
-            <div class="route-item">
-              <input class="add-input" type="text" v-model="routerName" placeholder="Add route name">
 
-              <input class="add-input" type="text" v-model="routerValue" placeholder="Add route value">
-            </div>
+          </div>
+          <div class="add-item">
+            <input class="add-input" type="text" v-model="routerName" placeholder="Add route name">
+            <input class="add-input" type="text" v-model="routerValue" placeholder="Add route value">
           </div>
           <div class="confirm-btn rainbow-btn" @click="addRoute">
             confirm
@@ -106,6 +110,7 @@ export default {
       activeIndex: 0,
       roleInfo: undefined,
       listRoles: [],
+      authList:[],
       routerName: undefined,
       routerValue: undefined,
       privilege:undefined,
@@ -128,7 +133,20 @@ export default {
       if (this.isConnected) {
         this.$store.dispatch("roleManage/listRoles").then(res => {
           console.log(res, "list")
+          res.forEach(item=>{
+            let pArr = []
+            this.$store.dispatch("roleManage/listRolePrivileges", item).then(privileges=>{
+              if(privileges){
+                pArr.push(...privileges)
+              }
+            })
+            this.authList.push({
+             privileges:pArr,
+              name:item
+            })
+          })
           this.listRoles = res
+
         })
         this.$store.dispatch("roleManage/getUserPrivilege").then(res => {
           console.log(res, "list")
@@ -136,20 +154,26 @@ export default {
         })
       }
     },
-    roleInsertPrivilege(){
+    roleInsertPrivilege(item){
       this.$store.dispatch("core/roleInsertPrivilege", {
-        name: this.routerName,
-        privilege: this.privilege
+        name: item.name,
+        privilege: item.newprivilege
       })
     },
     addRoute() {
       this.$store.dispatch("core/addRoute", {
         name: this.routerName,
         routeValue: this.routerValue
+      }).then(res=>{
+        console.log(res)
+        this.getData()
       })
     },
     addRole() {
-      this.$store.dispatch("core/addRole", this.roleInfo)
+      this.$store.dispatch("core/addRole", this.roleInfo).then(res=>{
+        console.log(res)
+        this.getData()
+      })
     }
   }
 }
@@ -167,13 +191,18 @@ export default {
     }
 
     .role-list {
+      display: flex;
       margin-top: 20px;
 
       .role-item {
         margin-top: 20px;
         display: flex;
         align-items: center;
-
+        .name{
+          border: 1px solid #eee;
+          padding: 6px 20px;
+          border-radius: 10px;
+        }
         .add-input {
           width: 280px;
           height: 38px;
@@ -212,24 +241,64 @@ export default {
     }
 
     .route-list {
+      display: flex;
       .route-item {
+        margin: 10px;
+        border-radius: 10px;
+        border: 1px solid #eee;
+        padding: 6px 20px;
+      }
+
+    }
+    .add-item{
+      padding-top: 30px;
+      input {
+        width: 280px;
+        height: 38px;
+        margin-right: 20px;
+        padding: 0 20px;
+        background: #fbfcfe;
+        border: 1px solid #eaeaea;
+        border-radius: 10px;
+      }
+    }
+    .manager-list {
+      .manager-item {
+        display: flex;
+        align-items: center;
         input {
           width: 280px;
           height: 38px;
-          margin-right: 20px;
+          margin-left: 20px;
           padding: 0 20px;
           background: #fbfcfe;
           border: 1px solid #eaeaea;
           border-radius: 10px;
         }
-      }
-    }
-
-    .manager-list {
-      .manager-item {
+        .name{
+          margin: 10px 10px;
+          width: 100px;
+          border: 1px solid #eee;
+          text-align: center;
+          padding: 10px;
+          border-radius: 10px;
+        }
         .icon {
           width: 30px;
           height: 30px;
+        }
+        .confirm-btn{
+          margin: 0 20px;
+        }
+        .privileges{
+          display: flex;
+          align-items: center;
+          .item{
+            border: 1px solid #eee;
+            padding: 6px 20px;
+            border-radius: 10px;
+            margin: 10px;
+          }
         }
       }
     }
