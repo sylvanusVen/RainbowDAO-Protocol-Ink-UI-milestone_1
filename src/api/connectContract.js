@@ -10,6 +10,7 @@ import routerManage from '../abi/routerManage.json'
 import userManage from '../abi/userManage.json'
 import proposal from '../abi/proposal.json'
 import incomeManage from '../abi/incomeManage.json'
+import tokenFactory from '../abi/tokenFactory.json'
 const ConnectContract = async (api,type,address) =>{
     if(!api){
       return
@@ -26,6 +27,7 @@ const ConnectContract = async (api,type,address) =>{
         userManage:{address:"5CiUXe9akvnNrWBA73Xx68moFfPoQoSXRahRY71YhbkVv8Lu", abi:userManage},
         proposal:{address:"5ErHrzoP45FQ8ydpemeRTkcA3n43PSSFPW7yXP2TS7kAGxXm", abi:proposal},
         incomeManage:{address:"5GXauXmWbQbASctstTzj4rC5iKcYk8qgAhwkTWjmA6U6gKHx", abi:incomeManage},
+        tokenFactory:{address:"5GC54ofYt2ZCxtmnvCQS9PPW8cFDnC31h2MUbsE8WKG7V1sZ", abi:tokenFactory},
     }
     console.log(api, abiMap[type].abi, address)
 

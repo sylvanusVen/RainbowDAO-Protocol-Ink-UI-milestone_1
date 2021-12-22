@@ -4,7 +4,7 @@ import getters from './getters'
 import app from "./modules/app";
 import erc20 from "./modules/erc20";
 import routerMap from "./modules/routerMap"
-import factory from "./modules/factory"
+import tokenFactory from "./modules/tokenFactory"
 import multisign from "./modules/multisign";
 import core from "./modules/core"
 import roleManage from "./modules/roleManage";
@@ -18,7 +18,7 @@ export default new Vuex.Store({
   modules: {
     app,
     erc20,
-    factory,
+    tokenFactory,
     routerMap,
     multisign,
     core,

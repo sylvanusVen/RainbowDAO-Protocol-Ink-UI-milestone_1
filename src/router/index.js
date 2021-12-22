@@ -70,6 +70,11 @@ const routes = [
                 name: "Hackathon",
                 component:()=> import('@/views/Hackathon.vue')
             },
+            {
+                path: '/mintToken',
+                name: "mintToken",
+                component:()=> import('@/views/tokensFactory/tokenMint.vue')
+            },
         ]
     },
 

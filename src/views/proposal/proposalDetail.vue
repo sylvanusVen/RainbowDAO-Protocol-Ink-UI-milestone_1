@@ -496,11 +496,13 @@ export default {
             border-radius: 10px;
             color: #fff;
             text-align: center;
-            line-height: 30px
+            line-height: 30px;
+
           }
 
           .support {
             background: #5edba6;
+            margin-left: 10px;
             box-shadow: 0px 3px 5px 0px rgba(99, 226, 172, 0.50);
           }
 

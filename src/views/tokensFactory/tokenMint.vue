@@ -1,0 +1,137 @@
+<template>
+<div class="token-mint">
+  <rainbow-nav-new/>
+  <div class="token-mint-panel">
+    <div class="title">
+      Token Mint
+    </div>
+    <div class="tip">
+      Choose your Tokens settings below.
+    </div>
+    <div class="form">
+      <div class="input-box">
+        <div class="name">
+          TOKEN NAME
+        </div>
+        <input type="text" v-model="tokenForm.name" placeholder="MY TOKEN">
+      </div>
+      <div class="input-box">
+        <div class="name">
+          TOKEN SYMBOL
+        </div>
+        <input type="text" v-model="tokenForm.symbol" placeholder="MOT">
+      </div>
+      <div class="input-box">
+        <div class="name">
+          TOKEN HOLDERS
+        </div>
+        <input type="text" v-model="tokenForm.address" placeholder="Account address">
+      </div>
+      <div class="input-box">
+        <div class="name">
+          DECIMALS
+        </div>
+        <input type="text" v-model="tokenForm.decimals" placeholder="decimals">
+      </div>
+      <div class="input-box">
+        <div class="name">
+          BALANCES
+        </div>
+        <input type="text" v-model="tokenForm.initial_supply" placeholder="initial_supply">
+      </div>
+      <div class="input-box">
+        <div class="name">
+          version
+        </div>
+        <input type="text" v-model="tokenForm.version" placeholder="version">
+      </div>
+      <div class="next-btn" @click="newErc20">
+        NEXT
+      </div>
+    </div>
+
+  </div>
+  <page-footer></page-footer>
+
+</div>
+</template>
+
+<script>
+export default {
+name: "tokenMint",
+  data(){
+  return {
+    tokenForm:{}
+  }
+  },
+  methods:{
+    newErc20(){
+      console.log(this.tokenForm)
+      this.$store.dispatch("tokenFactory/newErc20", this.tokenForm)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.token-mint{
+  .token-mint-panel{
+    width: 700px;
+    margin: 0 auto;
+    padding: 60px 0;
+    .title{
+      font-size: 30px;
+      line-height: 60px;
+      font-weight: bold;
+      text-align: center;
+      color: #333333;
+    }
+    .tip{
+      padding: 10px 0 30px;
+      font-size: 20px;
+      font-weight: 500;
+      text-align: center;
+      color: #666666;
+    }
+    .form{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      .input-box{
+        &:nth-child(2n){
+          input{
+            width: 180px;
+          }
+        }
+        .name{
+          line-height: 50px;
+          font-weight: bold;
+          font-size: 16px;
+        }
+        input{
+          width: 480px;
+          height: 50px;
+          padding: 0 20px;
+          background: #ffffff;
+          border: 1px solid #eaeaea;
+          border-radius: 10px;
+        }
+
+      }
+      .next-btn{
+        margin: 20px auto;
+        width: 180px;
+        font-size: 18px;
+        cursor: pointer;
+        color: #fff;
+        line-height: 50px;
+        text-align: center;
+        height: 50px;
+        background: linear-gradient(90deg,#12c2e9 0%, #c471ed 64%, #f64f59 100%);
+        border: 1px solid #eaeaea;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+</style>
