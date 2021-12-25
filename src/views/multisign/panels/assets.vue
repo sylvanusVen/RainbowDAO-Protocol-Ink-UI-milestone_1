@@ -44,7 +44,11 @@
 <script>
 export default {
   name: "assets",
-  assetsArr:[]
+  data(){
+    return{
+      assetsArr:[]
+    }
+  }
 }
 </script>
 

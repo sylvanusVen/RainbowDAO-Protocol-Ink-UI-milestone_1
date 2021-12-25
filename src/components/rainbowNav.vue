@@ -8,14 +8,12 @@
           <span class="w-font">DAO Global Hackathon 2021</span>
           <span class="re-active" >DAO Global Hackathon 2021</span>
         </li>
-<!--        <li :class="{'active':$route.name=='RainbowWarrior'}" @click="openNew('/RainbowDao')">-->
-<!--          <span class="w-font">Token Mint</span>-->
-<!--          <span class="re-active" >Token Mint</span>-->
-<!--        </li>-->
-<!--        <li :class="{'active':$route.name=='RainbowWarrior'}" @click="openNew('/RainbowDao')">-->
-<!--          <span class="w-font">Multisig Wallet</span>-->
-<!--          <span class="re-active" >Multisig Wallet</span>-->
-<!--        </li>-->
+        <li :class="{'active':$route.name=='polkadot'}" @click="openNew('/polkadot')">
+          <span class="w-font">Test version</span>
+          <span class="re-active" >Test version</span>
+        </li>
+
+
       </ul>
     </div>
   </div>

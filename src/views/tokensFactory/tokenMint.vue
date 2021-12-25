@@ -75,10 +75,16 @@ name: "tokenMint",
 
 <style lang="scss" scoped>
 .token-mint{
+  min-height: 100vh;
   .token-mint-panel{
-    width: 700px;
-    margin: 0 auto;
-    padding: 60px 0;
+    width: 1000px;
+    padding: 60px 100px;
+    background: #fff;
+    border-radius: 30px;
+
+    margin: -120px auto 60px;
+    position: relative;
+    z-index: 1;
     .title{
       font-size: 30px;
       line-height: 60px;

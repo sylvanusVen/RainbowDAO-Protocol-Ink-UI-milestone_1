@@ -148,14 +148,14 @@
               </div>
               <p>
                 You're about to create a new Safe on and will have to confirm a transaction with your currently
-                connected wallet. The creation will cost approximately < 0.001 Ether. The exact amount will be
+                connected wallet. The creation will cost approximately < 0.1 Dot. The exact amount will be
                 determined by your wallet.
               </p>
               <div class="btn-box">
                 <div class="back-btn" @click="stage>0?stage-=1:''">
                   back
                 </div>
-                <div class="sub-btn" @click="create">
+                <div class="sub-btn" @click="createMul">
                   Create
                 </div>
               </div>
@@ -181,10 +181,13 @@ export default {
     }
   },
   methods: {
-    create() {
-      this.$router.push({
-        name:"multiSignPanel"
+    createMul() {
+      this.$store.dispatch("multisignFactory/newMultisig",{
+
       })
+      // this.$router.push({
+      //   name:"multiSignPanel"
+      // })
     }
   }
 }

@@ -3,6 +3,9 @@
     <!-- navbar-nav -->
     <div class="nav-box">
       <img class="logo" src="../assets/imgs/RainbowDAOLogo.png" @click="$router.push('/')"/>
+      <div class="tip" style="color: #fa4949">
+        Test version
+      </div>
       <ul class="navbar-nav">
         <li :class="{'active':$route.name=='Proposal'}" @click="openNew('/Proposal')">
           <a class="w-font" >Proposal</a>

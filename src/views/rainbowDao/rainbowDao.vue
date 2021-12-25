@@ -98,7 +98,7 @@
                 </div>
                 <div class="detail">
                   There are two versions of RainbowDAO Protocol, Solidity version on EVM and Ink! version on WASM.The
-                  Solidity version is mainly deployed on Ethereum, BSC, Poygon, Avalanche, Fantom, and various L2
+                  Solidity version is mainly deployed on Ethereum, BSC, Polygon, Avalanche, Fantom, and various L2
                   networks; the Ink! version is mainly deployed on the parallel chains on the Polkadot and Kusama relay
                   chains, as well as other blockchains developed with the substrate framework.
                 </div>

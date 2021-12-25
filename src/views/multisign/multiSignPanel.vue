@@ -67,7 +67,6 @@
               SETTINGS
             </div>
           </div>
-
         </div>
       </div>
       <div class="content">
@@ -92,7 +91,7 @@
                 </div>
                 <div class="item" v-for="(item, index) in transitionList" :key="index">
                   <div class="status">
-                    {{ kindMap[item.kind] }}
+<!--                    {{ kindMap[item.kind] }}-->
                   </div>
                   <div class="amount">
                     {{ item.amount }}
@@ -132,6 +131,12 @@
               </button>
             </div>
           </div>
+        </div>
+        <div class="address-book" v-show="index==2">
+          <div class="title">
+            ADDRESS
+          </div>
+
         </div>
         <div class="settings" v-show="index==3">
           <div class="title">
@@ -178,7 +183,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
     <page-footer></page-footer>
@@ -187,6 +191,7 @@
 
 <script>
 import assets from "./panels/assets";
+import {mapGetters} from "vuex";
 
 export default {
   name: "multiSignPanel",
@@ -194,27 +199,7 @@ export default {
   data() {
     return {
       isLoading: false,
-      amount: 0,
-      balance: 0,
-      amountA: 0,
-      amountB: 0,
-      isShow: false,
-      isShowSetting: false,
-      customize: 0,
-      chooseName1: "DOT",
-      chooseName2: "DAI",
-      Slippage: 1,
-      SlippageNumber: 0,
-      coinMap: {
-        "DOT": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-        "DAI": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
-      },
-      coinList: [
-        {name: "DOT", address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"},
-        {name: "DAI", address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"},
-      ],
-      index: 0,
-      settingIndex: 0,
+      index:0,
       mulAddress: "",
       form: {},
       form2: {},
@@ -227,9 +212,7 @@ export default {
     }
   },
   computed: {
-    account() {
-      return this.$store.state.app.account
-    }
+    ...mapGetters(['account', 'isConnected'])
   },
   watch: {
     account() {
@@ -243,40 +226,18 @@ export default {
 
     this.mulAddress = this.$route.params.address
 
-    if (this.account) {
-      this.getData()
-    }
+    this.getData()
   },
   methods: {
-    handleMax() {
 
-    },
-    handleMax2() {
-
-    },
-    approve() {
-    },
-    supply() {
-      this.$store.dispatch("multiSign/creatTransaction", {
-        address: this.mulAddress,
-        tokenA: this.coinMap[this.chooseName1],
-        tokenB: this.coinMap[this.chooseName2],
-        amountA: this.amountA,
-        amountB: this.amountB
-      }).then(() => {
-        alert("success")
-      }).catch(err => {
-        alert(err)
-      })
-    },
 
     getData() {
       this.$store.dispatch("multisign/getManageList").then(res => {
         this.transitionList = res
       })
     },
+    changeManage(){},
     managers() {
-
     },
     signTransaction(id) {
       this.$store.dispatch("multisign/signTransaction", {

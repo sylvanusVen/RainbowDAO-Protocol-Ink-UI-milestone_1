@@ -21,14 +21,19 @@ const routes = [
                 component:()=> import('@/views/referral/referral.vue')
             },
             {
-                path: '/createMultisign',
-                name: "createMultisign",
+                path: '/createMultiSign',
+                name: "createMultiSign",
                 component:()=> import('@/views/multisign/createMultiSign.vue')
             },
             {
                 path: '/multiSignPanel',
                 name: "multiSignPanel",
                 component:()=> import('@/views/multisign/multiSignPanel.vue')
+            },
+            {
+                path: '/myMultiSign',
+                name: "myMultiSign",
+                component:()=> import('@/views/multisign/myMultiSign.vue')
             },
             {
                 path: '/management',
@@ -64,6 +69,11 @@ const routes = [
                 path: '/income',
                 name: "income",
                 component:()=> import('@/views/income/incomeManage.vue')
+            },
+            {
+                path: '/polkadot',
+                name: "polkadot",
+                component:()=> import('@/views/polkadot.vue')
             },
             {
                 path: '/Hackathon',

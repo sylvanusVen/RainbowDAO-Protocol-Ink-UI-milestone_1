@@ -3,6 +3,7 @@
     <button @click="showWallet" v-show="account.length>1" class="rainbow-btn button-connect">
       {{ account.substr(0, 6) + '...' + account.substr(39, 3) }}
     </button>
+
     <button size="mini" @click="showWallet" v-show="account.length<1" class="rainbow-btn button-connect">
       connect
     </button>
@@ -29,7 +30,6 @@
 </template>
 
 <script>
-import Account from "../api/Account";
 import Accounts from "../api/Account";
 export default {
   name: "polkaConnect",
@@ -51,24 +51,23 @@ export default {
   async created() {
     let accountList = await Accounts.accountList();
     this.accountList = accountList.allAccounts
-    let account = sessionStorage.getItem('currentAccount')
-    if(account){
-      this.account = account
-    }
-    console.log(this.accountList)
-    sessionStorage.setItem('account', JSON.stringify(this.accountList));
   },
   methods: {
     loginOut() {
       this.$store.dispatch('app/loginOutWeb3')
     },
     async polkaConnect(address) {
+
+      let account = sessionStorage.getItem('currentAccount')
+      if(account){
+        this.account = account
+      }
+      sessionStorage.setItem('account', JSON.stringify(this.accountList));
       if(address){
         this.account = address
         sessionStorage.setItem('currentAccount', address);
         this.isShowConnect = false
       }
-
     },
     async showWallet() {
       let accountList = await Accounts.accountList();

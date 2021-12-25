@@ -19,6 +19,7 @@ const mutations = {
 }
 const actions = {
     async minSignCount({rootState},owners){
+        const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
         let data = await state.contract.query.minSignCount(AccountId, {value, gasLimit},to , owners)
         data = formatResult(data);
@@ -26,6 +27,7 @@ const actions = {
     },
     async creatTransfer({rootState},{to, amount}){
         const injector = await Accounts.accountInjector();
+        const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
         let data = await state.contract.tx.creatTransfer(AccountId, {value, gasLimit},to , amount).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
@@ -37,6 +39,8 @@ const actions = {
         return data
     },
     async signTransaction({rootState},transaction_id){
+        const injector = await Accounts.accountInjector();
+        const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
         let data = await state.contract.query.signTransaction(AccountId, {value, gasLimit},transaction_id).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
@@ -48,6 +52,7 @@ const actions = {
         return data
     },
     async getTransaction({rootState},trans_id){
+        const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
         let data = await state.contract.query.getTransaction(AccountId, {value, gasLimit},trans_id)
         data = formatResult(data);
@@ -55,6 +60,7 @@ const actions = {
     },
     async addManage({rootState},addr){
         const injector = await Accounts.accountInjector();
+        const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
         let data = await state.contract.tx.addManage(AccountId, {value, gasLimit},addr).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
@@ -67,6 +73,7 @@ const actions = {
     },
     async removeManage({rootState},addr){
         const injector = await Accounts.accountInjector();
+        const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
         let data = await state.contract.tx.removeManage(AccountId, {value, gasLimit},addr).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
@@ -78,6 +85,7 @@ const actions = {
         return data
     },
     async getManageList({rootState}){
+        const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
         let data = await state.contract.query.getManageList(AccountId, {value, gasLimit})
         data = formatResult(data);

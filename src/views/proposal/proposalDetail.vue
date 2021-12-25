@@ -44,7 +44,7 @@
                 Support
               </div>
               <div class="address">
-                15 Address
+                {{ proposal.forVotes }}  Address
               </div>
             </div>
             <div class="vote-number">
@@ -102,12 +102,12 @@
                 Refuse
               </div>
               <div class="address">
-                15 Address
+                {{ proposal.againstVotes }}  Address
               </div>
             </div>
             <div class="vote-number">
               <div class="number">
-                500,000,000
+                {{ proposal.againstVotes }}
               </div>
               <div class="number-line">
                 <div class="active-number">
@@ -168,7 +168,7 @@
                 Establish
               </div>
               <div class="date">
-                August 24, 2021 10:30
+               {{ proposal.startBlock}} block
               </div>
             </div>
             <div class="step" >
@@ -179,7 +179,7 @@
                 Voting period
               </div>
               <div class="date">
-                1 day, 20 hrs left
+                {{proposal.endBlock }}block
               </div>
             </div>
             <div class="step" >
@@ -234,15 +234,15 @@
       <div class="rainbow-dialog" @click.stop>
         <div class="title-box">
           <div class="title">
-            Support
+            All Members
           </div>
           <div class="address">
-            15 Address
+            {{ proposal.forVotes }} Address
           </div>
         </div>
         <div class="vote-number">
           <div class="number">
-            500,000,000
+            {{ proposal.forVotes }}
           </div>
           <div class="number-line">
             <div class="active-number">
