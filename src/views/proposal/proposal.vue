@@ -495,11 +495,12 @@ export default {
       border: 1px solid #eaeaea;
       .name-box{
         display: flex;
-
         align-items: center;
         padding: 0 20px;
         .name{
+          min-width: 100px;
           font-weight: bold;
+          font-size: 18px;
           color: #6919BB;
         }
       }

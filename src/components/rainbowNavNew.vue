@@ -51,8 +51,9 @@ export default {
   },
   methods: {
     openNew(pathStr) {
-      let path = this.$router.resolve({path: pathStr, query: {}})
-      window.open(path.href)
+      // let path = this.$router.resolve({path: pathStr, query: {}})
+      // window.open(path.href)
+      this.$router.push({path:pathStr})
     }
   }
 }
