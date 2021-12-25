@@ -10,48 +10,24 @@
           income type
         </div>
         <div class="income-list">
-          <div class="item">
+          <div class="item" v-for="item in listCategory">
             <div class="left">
               <div class="item-title">
-                Agreement usage fee
+                {{ item.token }}
+
               </div>
               <div class="balance">
-                $ 10.00
+                <div class="fee">
+                  fee:{{ item.fee }}
+                </div>
+                <div class="isUsed">
+                  isUsed:{{item.isUsed }}
+                </div>
               </div>
             </div>
             <div class="right">
               <div class="icon-box">
                 <img class="icon" src="../../assets/imgs/part7_list_1.png" alt="">
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="item-title">
-                Treasury usage fee
-              </div>
-              <div class="balance">
-                $ 10.00
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="item-title">
-                DAO usage fee
-              </div>
-              <div class="balance">
-                $ 10.00
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="item-title">
-                DAO management fee
-              </div>
-              <div class="balance">
-                $ 10.00
               </div>
             </div>
           </div>
@@ -80,6 +56,7 @@ export default {
   data(){
     return{
       revenue:"",
+      listCategory:[],
       incomeInfo:{
         isUsed:true,
         fee:0,
@@ -111,7 +88,7 @@ export default {
     getData() {
       if (this.isConnected) {
         this.$store.dispatch("incomeManage/listCategory").then(res=>{
-          console.log(res)
+          this.listCategory = res
         })
       }
     }
@@ -167,6 +144,12 @@ export default {
             text-align: left;
             color: #db1f7e;
             line-height: 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .isUsed{
+              font-size: 16px;
+            }
           }
         }
         .right{

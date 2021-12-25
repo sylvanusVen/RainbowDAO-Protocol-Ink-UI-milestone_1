@@ -33,7 +33,7 @@ const actions = {
         const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        console.log(AccountId)
+        console.log(title,desc,transaction)
         let data = await state.contract.tx.propose({value, gasLimit},title,desc,transaction ).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {

@@ -11,7 +11,7 @@
             <div class="item-title">
               Name
             </div>
-            <input type="text" v-model="form.name">
+            <input type="text" v-model="form.title">
           </div>
           <div class="item">
             <div class="item-title">
@@ -41,9 +41,8 @@ export default {
   },
   methods:{
     createProposal(){
-      this.$store.dispatch("proposal/propose",{
-        name:this.name,
-        desc:this.desc,
+      this.$store.dispatch("proposal/propose",this.form).then(()=>{
+        this.$router.push({name:"Proposal"})
       })
     }
   }

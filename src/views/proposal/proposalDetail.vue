@@ -58,39 +58,18 @@
               </div>
             </div>
             <div class="members">
-              <div class="member-item">
+              <div class="member-item" v-for="(item,index) in proposal.receipts" :key="index">
                 <div class="icon">
                   <img src="" alt="">
                 </div>
                 <div class="name">
-                  Bruce Banner
+                  {{ item }}
                 </div>
                 <div class="number">
                   100,000,000
                 </div>
               </div>
-              <div class="member-item">
-                <div class="icon">
-                  <img src="" alt="">
-                </div>
-                <div class="name">
-                  Bruce Banner
-                </div>
-                <div class="number">
-                  100,000,000
-                </div>
-              </div>
-              <div class="member-item">
-                <div class="icon">
-                  <img src="" alt="">
-                </div>
-                <div class="name">
-                  Bruce Banner
-                </div>
-                <div class="number">
-                  100,000,000
-                </div>
-              </div>
+
             </div>
             <div class="more-btn" @click="isShowMembers=true">
               MORE
@@ -116,39 +95,18 @@
               </div>
             </div>
             <div class="members">
-              <div class="member-item">
+              <div class="member-item" v-for="(item,index) in proposal.receipts" :key="index">
                 <div class="icon">
                   <img src="" alt="">
                 </div>
                 <div class="name">
-                  Bruce Banner
+                  {{ item }}
                 </div>
                 <div class="number">
                   100,000,000
                 </div>
               </div>
-              <div class="member-item">
-                <div class="icon">
-                  <img src="" alt="">
-                </div>
-                <div class="name">
-                  Bruce Banner
-                </div>
-                <div class="number">
-                  100,000,000
-                </div>
-              </div>
-              <div class="member-item">
-                <div class="icon">
-                  <img src="" alt="">
-                </div>
-                <div class="name">
-                  Bruce Banner
-                </div>
-                <div class="number">
-                  100,000,000
-                </div>
-              </div>
+
             </div>
             <div class="more-btn" @click="isShowMembers=true">
               MORE
@@ -251,39 +209,18 @@
           </div>
         </div>
         <div class="members">
-          <div class="member-item">
+          <div class="member-item" v-for="(item,index) in proposal.receipts" :key="index">
             <div class="icon">
               <img src="" alt="">
             </div>
             <div class="name">
-              Bruce Banner
+              {{ item }}
             </div>
             <div class="number">
               100,000,000
             </div>
           </div>
-          <div class="member-item">
-            <div class="icon">
-              <img src="" alt="">
-            </div>
-            <div class="name">
-              Bruce Banner
-            </div>
-            <div class="number">
-              100,000,000
-            </div>
-          </div>
-          <div class="member-item">
-            <div class="icon">
-              <img src="" alt="">
-            </div>
-            <div class="name">
-              Bruce Banner
-            </div>
-            <div class="number">
-              100,000,000
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
@@ -663,6 +600,7 @@ export default {
             }
           }
           .more-btn{
+            margin-top: 20px;
             margin-left: calc(50% - 40px);
             color: #999999;
             line-height: 30px;

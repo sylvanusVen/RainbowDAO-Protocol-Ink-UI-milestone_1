@@ -434,6 +434,7 @@ export default {
       }
       this.$store.dispatch("proposal/listProposals").then((res)=>{
         res.forEach(async (item,index)=>{
+          console.log(item)
           await this.$store.dispatch("proposal/state",index).then(state=>{
             item.state= state
           })
