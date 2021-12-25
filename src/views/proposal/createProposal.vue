@@ -62,6 +62,7 @@ export default {
         color: #999;
       }
       input{
+        padding: 0 10px;
         width: 260px;
         height:32px;
         background: #ffffff;

@@ -623,12 +623,15 @@ export default {
       }
     }
     .part3{
+
       .title{
 
       }
       .part3-content{
         margin-top: 20px;
         line-height: 20px;
+        width: 100%;
+        word-break: break-word;
         color: #333333;
       }
     }

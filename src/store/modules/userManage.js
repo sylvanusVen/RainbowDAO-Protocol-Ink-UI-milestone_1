@@ -42,7 +42,7 @@ const actions = {
 
         // gas consumed
         console.log(gasConsumed.toHuman());
-
+        console.log(output)
         // check if the call was successful
         if (result.isOk) {
             // should output 123 as per our initial set (output here is an i32)

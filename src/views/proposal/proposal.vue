@@ -519,6 +519,8 @@ export default {
               font-weight: bold;
             }
             .value{
+              max-width: 700px;
+              overflow: hidden;
               color: #333;
             }
           }
