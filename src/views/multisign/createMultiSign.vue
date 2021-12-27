@@ -182,7 +182,7 @@ export default {
   },
   methods: {
     createMul() {
-      this.$store.dispatch("multisignFactory/newMultisig",{
+      this.$store.dispatch("multisignFactory/newMultiSign",{
 
       })
       // this.$router.push({

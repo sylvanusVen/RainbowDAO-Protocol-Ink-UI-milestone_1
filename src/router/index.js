@@ -85,6 +85,16 @@ const routes = [
                 name: "mintToken",
                 component:()=> import('@/views/tokensFactory/tokenMint.vue')
             },
+            {
+                path: '/mintSuccess',
+                name: "mintSuccess",
+                component:()=> import('@/views/tokensFactory/mintSuccess.vue')
+            },
+            {
+                path: '/tokenPanel',
+                name: "tokenPanel",
+                component:()=> import('@/views/tokensFactory/tokenPanel.vue')
+            },
         ]
     },
 

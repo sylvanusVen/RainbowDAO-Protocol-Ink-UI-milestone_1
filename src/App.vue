@@ -1,26 +1,73 @@
 <template>
   <div id="app">
+    <div class="message-box">
+      <div v-for="(item,index)  in messageList" :class="{'error': item.type=='error','success':item.type=='success'}" :key="index" class="message animate__animated  animate__backInRight" >
+        {{ item.message }}
+      </div>
+    </div>
     <router-view/>
   </div>
 </template>
 
 <script>
-
+import {eventBus} from "./utils/eventBus"
 export default {
   name: 'App',
+  data(){
+    return{
+      messageList:[]
+    }
+  },
   components: {
 
   },
   methods:{
 
   },
+  computed(){
+
+  },
   mounted() {
+    let _this = this
     this.$store.dispatch("app/getWeb3")
+    this.$eventBus.$on('message', (message) => {
+      _this.messageList.push(message)
+      setTimeout(()=>{
+        _this.messageList.shift()
+      },3000)
+    })
+
   }
 }
 </script>
 
 <style lang="scss">
+.message-box{
+  position: fixed;
+  right: 20px;
+  top: 60px;
+  z-index: 10;
+  .message{
+    width: 300px;
+    padding: 10px;
+    min-height: 60px;
+    word-break: break-word;
+    color: #999;
+    box-shadow: 0 0 10px #eee;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #fff;
+    font-size: 16px;
+    &.error{
+      background: #fd5454;
+      color: #fff;
+    }
+    &.success{
+      background: #cefa8b;
+      color: #fff;
+    }
+  }
+}
 @keyframes moveBall1 {
   0%{
     transform: translate(100px, 200px);

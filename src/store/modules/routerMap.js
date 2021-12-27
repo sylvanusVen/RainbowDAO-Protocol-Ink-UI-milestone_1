@@ -9,7 +9,7 @@ const value = 0;
 const gasLimit = -1;
 async function  judgeContract(web3){
     if(!state.contract){
-        state.contract = await connectContract(web3, "routerMap")
+        state.contract = await connectContract(web3, "routerManage")
     }
 }
 const mutations = {

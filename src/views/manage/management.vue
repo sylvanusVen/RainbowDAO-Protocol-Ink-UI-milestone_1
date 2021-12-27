@@ -34,9 +34,7 @@
               <!--              </div>-->
             </div>
             <div class="role-item">
-              <div class="name">
-                Add
-              </div>
+              Add Role:
               <input class="add-input" type="text" v-model="roleInfo" placeholder="Add role name">
             </div>
           </div>
@@ -132,7 +130,7 @@ export default {
     getData() {
       if (this.isConnected) {
         this.$store.dispatch("roleManage/listRoles").then(res => {
-          console.log(res, "list")
+          this.authList = []
           res.forEach(item=>{
             let pArr = []
             this.$store.dispatch("roleManage/listRolePrivileges", item).then(privileges=>{
@@ -155,24 +153,59 @@ export default {
       }
     },
     roleInsertPrivilege(item){
+      if(!item.newprivilege){
+        this.$eventBus.$emit('message', {
+          type:"error",
+          message:'input Privilege please'
+        })
+        return
+      }
       this.$store.dispatch("core/roleInsertPrivilege", {
         name: item.name,
         privilege: item.newprivilege
+      }).then(()=>{
+        this.$eventBus.$emit('message', {
+          type:"success",
+          message:"newprivilege success"
+        })
       })
+
     },
     addRoute() {
+      if(!this.routerName){
+        this.$eventBus.$emit('message', {
+          type:"error",
+          message:'input routerName please'
+        })
+        return
+      }
       this.$store.dispatch("core/addRoute", {
         name: this.routerName,
         routeValue: this.routerValue
       }).then(res=>{
-        console.log(res)
+        this.$eventBus.$emit('message', {
+          type:"success",
+          message:"addRoute success"
+        })
         this.getData()
       })
     },
     addRole() {
+      if(!this.roleInfo){
+        this.$eventBus.$emit('message', {
+          type:"error",
+          message:'input roleInfo please'
+        })
+        return
+      }
       this.$store.dispatch("core/addRole", this.roleInfo).then(res=>{
-        console.log(res)
-        this.getData()
+        this.$eventBus.$emit('message', {
+          type:"success",
+          message:"add success"
+        })
+        setTimeout(()=>{
+          this.getData()
+        },1000)
       })
     }
   }
@@ -193,15 +226,18 @@ export default {
     .role-list {
       display: flex;
       margin-top: 20px;
-
+      flex-wrap: wrap;
       .role-item {
-        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 20px;
         display: flex;
         align-items: center;
+        border-radius: 10px;
+
+        border: 1px solid #eee;
+
         .name{
-          border: 1px solid #eee;
           padding: 6px 20px;
-          border-radius: 10px;
         }
         .add-input {
           width: 280px;
@@ -242,6 +278,7 @@ export default {
 
     .route-list {
       display: flex;
+      flex-wrap: wrap;
       .route-item {
         margin: 10px;
         border-radius: 10px;

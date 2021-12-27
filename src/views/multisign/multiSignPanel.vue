@@ -4,10 +4,13 @@
     <div class="multiSignPanel">
       <div class="nav-panel">
         <div class="title">
-          MultiSign Info
+          multiSign Info
         </div>
         <div class="address">
           {{ mulAddress }}
+          <div  class="create-multiSign" @click="$router.push({name:'createMultiSign'})">
+            Create
+          </div>
         </div>
         <div class="nav-list">
           <div class="item" :class="{'active':index==0}" @click="index=0">
@@ -221,7 +224,7 @@ export default {
   },
   mounted() {
     // if(!this.$route.params.address){
-    //   this.$router.push({name:"myMultiSign"})
+    //   this.$router.push({name:"mymultiSign"})
     // }
 
     this.mulAddress = this.$route.params.address
@@ -232,7 +235,7 @@ export default {
 
 
     getData() {
-      this.$store.dispatch("multisign/getManageList").then(res => {
+      this.$store.dispatch("multiSign/getManageList").then(res => {
         this.transitionList = res
       })
     },
@@ -240,7 +243,7 @@ export default {
     managers() {
     },
     signTransaction(id) {
-      this.$store.dispatch("multisign/signTransaction", {
+      this.$store.dispatch("multiSign/signTransaction", {
         transactionId: id,
       }).then(() => {
         this.$message({
@@ -253,7 +256,7 @@ export default {
       })
     },
     creatTransaction() {
-      this.$store.dispatch("multisign/creatTransfer", {
+      this.$store.dispatch("multiSign/creatTransfer", {
         to: this.form.to,
         amount: this.form.amount
       }).then(() => {
@@ -268,7 +271,7 @@ export default {
     },
     addManage() {
 
-      this.$store.dispatch("multisign/addManage", {
+      this.$store.dispatch("multiSign/addManage", {
         addr: this.form2.account,
       }).then(() => {
         alert("changeManage success")
@@ -278,7 +281,7 @@ export default {
     },
     removeManage() {
 
-      this.$store.dispatch("multisign/removeManage", {
+      this.$store.dispatch("multiSign/removeManage", {
         addr: this.form2.account,
       }).then(() => {
         alert("removeManage success")
@@ -294,7 +297,6 @@ export default {
         num: this.mulNumber
       }).then(() => {
         alert("changeSignature success")
-
       }).catch(err => {
         alert(err)
 
@@ -402,7 +404,17 @@ export default {
     background: url("../../static/imgs/nav_bg.png") no-repeat;
     overflow: hidden;
     background-size: 100% 100%;
-
+    .create-multiSign{
+      width: 120px;
+      color: #fff;
+      line-height: 30px;
+      cursor: pointer;
+      text-align: center;
+      height: 30px;
+      background: linear-gradient(90deg,#12c2e9 0%, #c471ed 64%, #f64f59 100%);
+      border: 1px solid #eaeaea;
+      border-radius: 10px;
+    }
     .title {
       padding: 20px 30px 0;
       color: #2c32e2;

@@ -5,12 +5,13 @@ import router from "./router";
 import store from "./store"
 import Vuex from 'vuex'
 import "animate.css"
+import {eventBus} from "./utils/eventBus"
 import rainbowNav from "@/components/rainbowNav";
 import rainbowNavNew from "@/components/rainbowNavNew";
 import multiSignNav from "@/components/multiSignNav";
 import pageFooter from "./components/pageFooter";
 
-
+Vue.prototype.$eventBus = eventBus
 Vue.config.debug = false
 Vue.config.devtools = false;
 Vue.config.productionTip = false;
