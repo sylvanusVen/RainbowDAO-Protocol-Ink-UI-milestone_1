@@ -12,7 +12,7 @@ const mutations = {
 }
 const actions = {
     async getWeb3({commit}){
-        const wsProvider = new WsProvider('ws://192.168.101.28:9901');
+        const wsProvider = new WsProvider('ws://127.0.0.1:9944');
         const api = await ApiPromise.create({provider: wsProvider});
         const [chain, nodeName, nodeVersion] = await Promise.all([
             api.rpc.system.chain(),
