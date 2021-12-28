@@ -1,7 +1,7 @@
 import connectContract from "../../api/connectContract"
 import {formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
-
+import {eventBus} from "../../utils/eventBus"
 const state = {
     web3: {},
     contract: null
@@ -28,10 +28,15 @@ const actions = {
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
+        console.log(name,incomeInfo)
         incomeInfo.account = AccountId
         let data = await state.contract.tx.saveCategory( {value, gasLimit},name,incomeInfo).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
+                eventBus.$emit('message', {
+                    type:"success",
+                    message:"newMultisig success"
+                })
                 return true
             }
         });

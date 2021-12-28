@@ -1,7 +1,7 @@
 import connectContract from "../../api/connectContract"
 import {formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
-
+import {eventBus} from "../../utils/eventBus"
 const state = {
     web3: {},
     contract: null
@@ -62,10 +62,13 @@ const actions = {
         const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        console.log(AccountId)
         let data = await state.contract.tx.castVote({value, gasLimit},proposal_id,support).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
+                eventBus.$emit('message', {
+                    type:"success",
+                    message:"castVote success"
+                })
                 return true
             }
         });

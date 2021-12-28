@@ -51,6 +51,9 @@ export default {
   async created() {
     let accountList = await Accounts.accountList();
     this.accountList = accountList.allAccounts
+    console.log(accountList)
+    this.$store.commit("app/SET_ACCOUNT", accountList.allAccounts[0].address)
+
   },
   methods: {
     loginOut() {
@@ -66,6 +69,8 @@ export default {
       if(address){
         this.account = address
         sessionStorage.setItem('currentAccount', address);
+        this.$store.commit("app/SET_ACCOUNT", address)
+
         this.isShowConnect = false
       }
     },

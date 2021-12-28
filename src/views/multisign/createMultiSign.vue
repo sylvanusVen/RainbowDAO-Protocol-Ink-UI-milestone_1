@@ -37,7 +37,7 @@
               Name
             </div>
           </div>
-          <div class="stage-content" v-show="stage==1">
+          <div class="stage-content animate__animated  animate__fadeIn" v-show="stage==1">
             <div class="stage-panel">
               <p>
                 You are about to create a new Gnosis Safe wallet with one or more owners. First, let's give <br/>
@@ -60,7 +60,7 @@
             </div>
           </div>
         </div>
-        <div class="list-item">
+        <div class="list-item" >
           <div class="stage-header">
             <div class="index">
               3
@@ -69,7 +69,7 @@
               Owners and Confirmations
             </div>
           </div>
-          <div class="stage-content" v-show="stage==2">
+          <div class="stage-content  animate__animated  animate__fadeIn" v-show="stage==2">
             <div class="stage-panel">
               <p>
                 Your Safe will have one or more owners. We have prefilled the first owner with your connected wallet
@@ -110,14 +110,14 @@
                 <div class="back-btn" @click="stage>0?stage-=1:''">
                   back
                 </div>
-                <div class="sub-btn" @click="stage+=1">
+                <div class="sub-btn" @click="next(2)">
                   Continue
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="list-item">
+        <div class="list-item ">
           <div class="stage-header">
             <div class="index">
               4
@@ -126,7 +126,7 @@
               Review
             </div>
           </div>
-          <div class="stage-content" v-show="stage==3">
+          <div class="stage-content  animate__animated  animate__fadeIn" v-show="stage==3">
             <div class="stage-panel">
               <p>
                 <strong>
@@ -180,10 +180,33 @@ export default {
       memberNameArr: []
     }
   },
+  created() {
+    this.$eventBus.$on('message', (message) => {
+      if(message.message == "newMultisig success"){
+        this.$router.push({name:'myMultiSign'})
+      }
+    })
+  },
   methods: {
+    next(index){
+      switch (index){
+        case 1:
+
+        case 2:
+          if(this.memberAddressArr.length<1){
+            this.$eventBus.$emit('message', {
+              type:"error",
+              message:"please input member"
+            })
+            return
+          }
+      }
+      this.stage+=1
+    },
     createMul() {
       this.$store.dispatch("multisignFactory/newMultiSign",{
-
+        owners: this.memberAddressArr,
+        min_sign_count:this.memberAddressArr.length
       })
       // this.$router.push({
       //   name:"multiSignPanel"

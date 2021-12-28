@@ -1,6 +1,7 @@
 import connectContract from "../../api/connectContract"
 import {formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
+import {eventBus} from "../../utils/eventBus"
 const state = {
     web3:{},
     contract:null
@@ -25,13 +26,17 @@ const actions = {
         multisig_hash = "0xaa5e6e3e8f58161a87d49f996d6ba4746c3504e5634f116ac01c48352d861192"
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
-        owners = AccountId
+        owners?'':owners = [AccountId]
         min_sign_count>0?'':min_sign_count=1
-        version= "0"
+        version= 0
         console.log(multisig_hash, owners,min_sign_count,version)
         let data = await state.contract.tx.newMultisig( {value, gasLimit},multisig_hash, owners,min_sign_count,version).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
+                eventBus.$emit('message', {
+                    type:"success",
+                    message:"newMultisig success"
+                })
                 return true
             }
         });

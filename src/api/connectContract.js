@@ -1,3 +1,4 @@
+
 const { ContractPromise } = require('@polkadot/api-contract');
 import erc20Abi from '../abi/erc20.json';
 import factory from '../abi/factory.json';
@@ -11,6 +12,7 @@ import proposal from '../abi/proposal.json'
 import incomeManage from '../abi/incomeManage.json'
 import tokenFactory from '../abi/tokenFactory.json'
 import multisignFactory from '../abi/multisignFactory.json'
+import multisign from '../abi/multisign.json'
 const ConnectContract = async (api,type,address) =>{
     if(!api){
       return
@@ -23,11 +25,12 @@ const ConnectContract = async (api,type,address) =>{
         roleManage:{ address :"5DuSiRJ7MT1uSeQF3YWhqtN5it5VpFmuPWxvsqTWaYRkKcjU" , abi:roleManage},
         authManage:{address:"5CtaZNZRtc1UEjkUVaMVe5FBPya2tqkSjurY1RQW5mNL9vG4", abi:authManage},
         routerManage:{address:"5E4NaYuHUQRAvoT9dxXKYgB3ABHiuP5VMwFxTfkCg4xdyzNL", abi:routerManage},
-        userManage:{address:"5CiUXe9akvnNrWBA73Xx68moFfPoQoSXRahRY71YhbkVv8Lu", abi:userManage},
+        userManage:{address:"5FNUAGKgfStPByYDXT8Y9YQXsAUSjKBhbUTgDnmDYcHJjQbi", abi:userManage},
         proposal:{address:"5ErHrzoP45FQ8ydpemeRTkcA3n43PSSFPW7yXP2TS7kAGxXm", abi:proposal},
         incomeManage:{address:"5GXauXmWbQbASctstTzj4rC5iKcYk8qgAhwkTWjmA6U6gKHx", abi:incomeManage},
         tokenFactory:{address:"5GC54ofYt2ZCxtmnvCQS9PPW8cFDnC31h2MUbsE8WKG7V1sZ", abi:tokenFactory},
         multisignFactory:{address:"5GL9B9Jz8nb4JD6DTA1wzcF8X7orCAVaxgUes3TV87osBTNB", abi:multisignFactory},
+        multisign:{address:"5Cwyf39wNiXam3u8YqBDbT21DeXrDihCGCC1ji2nXSLPLveQ", abi: multisign}
     }
     console.log(api, abiMap[type].abi, address)
 

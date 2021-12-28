@@ -1,6 +1,8 @@
 import connectContract from "../../api/connectContract"
 import {formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
+import {eventBus} from "../../utils/eventBus"
+
 const state = {
     web3:{},
     contract:null
@@ -25,6 +27,10 @@ const actions = {
         let data = await state.contract.tx.roleInsertPrivilege( {value, gasLimit},name,privilege ).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
+                eventBus.$emit('message', {
+                    type:"success",
+                    message:"newprivilege success"
+                })
                 return true
             }
         });
@@ -51,6 +57,10 @@ const actions = {
         let data = await state.contract.tx.addRole({value, gasLimit},name).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.log(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
+                eventBus.$emit('message', {
+                    type:"success",
+                    message:"add success"
+                })
                 return true
             }
         });
@@ -66,6 +76,10 @@ const actions = {
         let data = await state.contract.tx.addRoute({value, gasLimit},name,routeValue).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
+                eventBus.$emit('message', {
+                    type:"success",
+                    message:"addRoute success"
+                })
                 return true
             }
         });

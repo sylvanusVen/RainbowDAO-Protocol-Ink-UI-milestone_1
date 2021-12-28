@@ -5,6 +5,10 @@ const formatResult =  (result) =>{
     }
     return str;
 }
+const dealBlockNumber =  (blockNumber) =>{
+
+    return blockNumber;
+}
 
 const dateFormat = (dateTime) => {
     const t = new Date(dateTime);

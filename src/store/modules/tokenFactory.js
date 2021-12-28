@@ -29,6 +29,8 @@ const actions = {
         let data = await state.contract.tx.newErc20( {value, gasLimit},erc20_code_hash,version,initial_supply,name,symbol,decimals,owner).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
+                data = formatResult(data);
+                console.log(data)
                 return true
             }
         });

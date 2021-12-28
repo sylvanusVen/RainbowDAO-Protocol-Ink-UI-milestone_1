@@ -23,15 +23,9 @@
               All Roles:
             </div>
             <div class="role-item" v-for="role in listRoles">
-<!--              <div class="icon">-->
-<!--                <img src="" alt="">-->
-<!--              </div>-->
               <div class="name">
                 {{ role }}
               </div>
-              <!--              <div class="detail">-->
-              <!--                This is the token originator-->
-              <!--              </div>-->
             </div>
             <div class="role-item">
               Add Role:
@@ -117,6 +111,9 @@ export default {
   },
   mounted() {
     this.getData()
+    this.$eventBus.$on('message', () => {
+      this.getData()
+    })
   },
   computed: {
     ...mapGetters(['account', 'isConnected'])
@@ -163,13 +160,7 @@ export default {
       this.$store.dispatch("core/roleInsertPrivilege", {
         name: item.name,
         privilege: item.newprivilege
-      }).then(()=>{
-        this.$eventBus.$emit('message', {
-          type:"success",
-          message:"newprivilege success"
-        })
       })
-
     },
     addRoute() {
       if(!this.routerName){
@@ -182,11 +173,7 @@ export default {
       this.$store.dispatch("core/addRoute", {
         name: this.routerName,
         routeValue: this.routerValue
-      }).then(res=>{
-        this.$eventBus.$emit('message', {
-          type:"success",
-          message:"addRoute success"
-        })
+      }).then(()=>{
         this.getData()
       })
     },
@@ -199,10 +186,6 @@ export default {
         return
       }
       this.$store.dispatch("core/addRole", this.roleInfo).then(res=>{
-        this.$eventBus.$emit('message', {
-          type:"success",
-          message:"add success"
-        })
         setTimeout(()=>{
           this.getData()
         },1000)

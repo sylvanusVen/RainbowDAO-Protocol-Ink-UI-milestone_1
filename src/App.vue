@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import {eventBus} from "./utils/eventBus"
 export default {
   name: 'App',
   data(){

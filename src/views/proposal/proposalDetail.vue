@@ -237,7 +237,8 @@ export default {
       proposal:{},
       isShowMembers:false,
       statusIndex:0,
-      myVotes:0
+      myVotes:0,
+      blockNumber:0
     }
   },
   computed: {
@@ -259,12 +260,16 @@ export default {
   methods:{
     delegate(){
       this.$store.dispatch("erc20/delegate", this.account).then(res=>{
-        this.myVotes = res
+        console.log(res)
       })
     },
     getData(){
+      this.$store.dispatch("erc20/getPriorVotes",this.proposal.startBlock).then(res=>{
+        console.log(res)
+      })
       this.$store.dispatch("erc20/getCurrentVotes", this.account).then(res=>{
         console.log(res)
+
       })
     },
     castVote(support){
@@ -273,6 +278,7 @@ export default {
         support
       }).then(res=>{
         console.log(res)
+
       })
     }
   }

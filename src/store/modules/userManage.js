@@ -1,7 +1,7 @@
 import connectContract from "../../api/connectContract"
 import {formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
-
+import {eventBus} from "../../utils/eventBus";
 const state = {
     web3: {},
     contract: null
@@ -36,21 +36,11 @@ const actions = {
     async listUser({rootState}) {
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        const { gasConsumed, result, output }  = await state.contract.query.listUser(AccountId, {value, gasLimit})
+        let data = await state.contract.query.listUser(AccountId, {value, gasLimit})
         // The actual result from RPC as `ContractExecResult`
-        console.log(result.toHuman());
+        data = formatResult(data);
 
-        // gas consumed
-        console.log(gasConsumed.toHuman());
-        console.log(output)
-        // check if the call was successful
-        if (result.isOk) {
-            // should output 123 as per our initial set (output here is an i32)
-            console.log('Success', output.toHuman());
-        } else {
-            console.error('Error', result.asErr);
-        }
-        return output
+        return data
     },
 
     async join({rootState}, {invitation_code,name,user_profile }) {
@@ -62,6 +52,10 @@ const actions = {
         let data = await state.contract.tx.join({value, gasLimit},invitation_code,name,user_profile).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
+                eventBus.$emit('message', {
+                    type:"success",
+                    message:"castVote success"
+                })
                 return true
             }
         });
@@ -71,11 +65,10 @@ const actions = {
     async existsUser({rootState},user) {
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        let data = await state.contract.query.existsUser(AccountId, {value, gasLimit},AccountId)
+        user?'':user = AccountId
+        let data = await state.contract.query.existsUser(AccountId, {value, gasLimit},user)
         console.log(data)
-
         data = formatResult(data);
-
         return data
     },
 }

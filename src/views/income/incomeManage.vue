@@ -71,6 +71,9 @@ export default {
   },
   mounted() {
     this.getData()
+    this.$eventBus.$on('message', () => {
+      this.getData()
+    })
   },
   computed: {
     ...mapGetters(['account', 'isConnected'])
@@ -88,6 +91,7 @@ export default {
     getData() {
       if (this.isConnected) {
         this.$store.dispatch("incomeManage/listCategory").then(res=>{
+          console.log(res)
           this.listCategory = res
         })
       }

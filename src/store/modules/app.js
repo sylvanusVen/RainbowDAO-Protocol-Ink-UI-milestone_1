@@ -1,5 +1,6 @@
 import {ApiPromise,WsProvider} from "@polkadot/api";
 import Accounts from "../../api/Account"
+import {createLogger} from "vuex";
 const state = {
     web3:{},
     isConnected:false
@@ -8,11 +9,15 @@ const mutations = {
     SET_WEB3(state,web3){
         state.web3 = web3
         state.isConnected = true
+
+    },
+    SET_ACCOUNT(state,account){
+        state.account = account
     }
 }
 const actions = {
     async getWeb3({commit}){
-        const wsProvider = new WsProvider('ws://127.0.0.1:9944');
+        const wsProvider = new WsProvider('ws://192.168.101.28:9901');
         const api = await ApiPromise.create({provider: wsProvider});
         const [chain, nodeName, nodeVersion] = await Promise.all([
             api.rpc.system.chain(),

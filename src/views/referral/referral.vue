@@ -36,9 +36,21 @@
           <div class="title">
             Referral relationship
           </div>
+          <div class="my-id">
+            <span>Invitation code</span>
+            <div class="data">
+              {{ myInfo.id }}
+            </div>
+          </div>
+          <div class="my-name">
+            <span>My Name</span>
+            <div class="data">
+              {{myInfo.nickname}}
+            </div>
+          </div>
           <div class="my-code">
             <span>Invitation code</span>
-            <div class="number">
+            <div class="data">
               {{ myRefer }}
             </div>
           </div>
@@ -46,36 +58,18 @@
             <div class="in-title">
               My inviter
             </div>
-<!--            <div class="people-info-box">-->
-<!--              <div class="people-info">-->
-<!--                <div class="title-box">-->
-<!--                  <div class="icon">-->
-<!--                    <img src="" alt="">-->
-<!--                  </div>-->
-<!--                  <div class="name">-->
-<!--                    Bruce Banner-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="address">-->
-<!--                  0xf45c0A7e91c89aBF37b9b0C274563AAf49cff83F-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
 
           </div>
           <div class="inviters">
             <div class="level">
-<!--              <div class="level-title">-->
-<!--                level1-->
-<!--              </div>-->
               <div class="people-info-box">
-                <div class="people-info" v-for="(item,index) in memberList" :key="index">
+                <div class="people-info" v-for="(item,index) in myInfo.childs" :key="index">
                   <div class="title-box">
                     <div class="icon">
-                      <img src="" alt="">
+                      <img :src="myInfo.profile" alt="">
                     </div>
                     <div class="name">
-                      {{ item.name }}
+                      {{ item.nickname }}
                     </div>
                   </div>
                   <div class="address">
@@ -95,10 +89,10 @@
             <div class="people-info" v-for="(item, index) in memberList" :key="index">
               <div class="title-box">
                 <div class="icon">
-                  <img src="" alt="">
+                  <img :src="item.profile" alt="">
                 </div>
                 <div class="name">
-                  {{ item.name }}
+                  {{ item.nickname }}
                 </div>
               </div>
               <div class="address">
@@ -121,6 +115,7 @@ export default {
   name: "referral",
   data() {
     return {
+      myInfo:{},
       myRefer:"",
       activeIndex: 0,
       memberList:[],
@@ -132,6 +127,9 @@ export default {
   },
   mounted() {
     this.getData()
+    this.$eventBus.$on('message', () => {
+      this.getData()
+    })
   },
   watch:{
     isConnected(){
@@ -144,6 +142,11 @@ export default {
         invitation_code:this.joinForm.code,
         user_profile:this.joinForm.url,
         name:this.joinForm.name
+      }).then(res=>{
+        console.log(res)
+        this.$store.dispatch("userManage/listUser",this.AccountId).then(res=>{
+          console.log(res)
+        })
       })
     },
     getData(){
@@ -159,6 +162,14 @@ export default {
       this.$store.dispatch("userManage/listUser").then(res=>{
         this.memberList = res
         console.log(res)
+        if(this.memberList.length>0){
+          this.memberList.forEach(user=>{
+            console.log(user.address, this.account)
+            if(user.address == this.account){
+              this.myInfo = user
+            }
+          })
+        }
       })
     }
   }
@@ -231,7 +242,7 @@ export default {
     }
   }
   .referral-relationship {
-    .my-code {
+    .my-code,.my-name,.my-id {
       display: flex;
       padding: 10px 0;
       align-items: center;
@@ -240,7 +251,7 @@ export default {
         font-size: 16px;
       }
 
-      .number {
+      .data {
         border: 1px solid #eaeaea;
         border-radius: 10px;
         padding: 6px 12px;

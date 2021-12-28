@@ -18,6 +18,15 @@ const mutations = {
     }
 }
 const actions = {
+    async getPriorVotes({rootState},blockNumber) {
+        await judgeContract(rootState.app.web3)
+        const AccountId = await Accounts.accountAddress();
+        blockNumber = blockNumber.replace(',','')
+        console.log(AccountId,blockNumber)
+        let data = await state.contract.query.getPriorVotes(AccountId, {value, gasLimit}, AccountId,blockNumber)
+        data = formatResult(data);
+        return data
+    },
     async getCurrentVotes({rootState}) {
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
@@ -32,9 +41,14 @@ const actions = {
         let data = await state.contract.tx.delegate( {value, gasLimit},address).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
+                eventBus.$emit('message', {
+                    type:"success",
+                    message:"delegate success"
+                })
                 return true
             }
         });
+        console.log(data)
         data = formatResult(data);
         return data
     },

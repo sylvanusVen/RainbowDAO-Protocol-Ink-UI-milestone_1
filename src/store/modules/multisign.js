@@ -1,6 +1,7 @@
 import connectContract from "../../api/connectContract"
 import {formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
+import {eventBus} from "../../utils/eventBus"
 const state = {
     web3:{},
     contract:null
@@ -18,6 +19,13 @@ const mutations = {
     }
 }
 const actions = {
+    async userMultisig({rootState}){
+        const AccountId = await Accounts.accountAddress();
+        await judgeContract(rootState.app.web3)
+        let data = await state.contract.query.userMultisig(AccountId, {value, gasLimit}, AccountId)
+        data = formatResult(data);
+        return data
+    },
     async minSignCount({rootState},owners){
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)

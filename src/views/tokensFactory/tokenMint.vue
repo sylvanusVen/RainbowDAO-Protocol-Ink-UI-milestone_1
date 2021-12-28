@@ -40,13 +40,12 @@
           <input type="text" v-model="tokenForm.initial_supply" placeholder="initial_supply">
         </div>
         <div class="input-box">
-          <div class="name">
-            version
-          </div>
-          <input type="text" v-model="tokenForm.version" placeholder="version">
+
         </div>
-        <div class="next-btn" @click="newErc20">
-          NEXT
+        <div style="width: 100%">
+          <div class="next-btn" @click="newErc20">
+            NEXT
+          </div>
         </div>
       </div>
 
@@ -93,11 +92,12 @@ export default {
         })
         return
       }
-      this.$store.dispatch("tokenFactory/newErc20", this.tokenForm).then(()=>{
+      this.$store.dispatch("tokenFactory/newErc20", this.tokenForm).then((res)=>{
         this.$eventBus.$emit('message', {
           type:"success",
           message:"newToken success"
         })
+        console.log(res)
         setTimeout(()=>{
           this.$router.push({name:"mintSuccess"})
         },2000)

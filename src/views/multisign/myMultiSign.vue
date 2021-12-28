@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "myMultiSign",
   data() {
@@ -29,31 +31,28 @@ export default {
       list: []
     }
   },
-  computed:{
-    account(){
-      return this.$store.state.app.account
-    }
+  computed: {
+    ...mapGetters(['account', 'isConnected'])
   },
   watch:{
-    account(){
+    isConnected(){
       this.getData()
     }
   },
   mounted() {
-    if(this.account){
       this.getData()
-    }
+    this.$eventBus.$on('message', () => {
+      this.getData()
+    })
   },
   methods: {
     getData(){
-      this.list = []
-      this.$store.dispatch("creator/getLimitedNumber").then(length=>{
-        for(let i = 0;i<length;i++){
-          this.$store.dispatch("creator/getMultiSignAddr", i).then(res=>{
-              this.list.push(res)
-          })
-        }
-      })
+      if(this.isConnected) {
+        this.list = []
+        this.$store.dispatch("multiSign/userMultisig").then(res => {
+          console.log(res)
+        })
+      }
     }
   }
 }
