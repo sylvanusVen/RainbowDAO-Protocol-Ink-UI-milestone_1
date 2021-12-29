@@ -93,7 +93,6 @@ const actions = {
         return data
     },
     async state({rootState},proposal_id) {
-        console.log(proposal_id)
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
         let data = await state.contract.query.state(AccountId, {value, gasLimit}, proposal_id)

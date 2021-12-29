@@ -52,7 +52,7 @@ export default {
     min-height: 60px;
     word-break: break-word;
     color: #999;
-    box-shadow: 0 0 10px #eee;
+    box-shadow: 0 0 3px #eee;
     overflow: hidden;
     border-radius: 10px;
     background: #fff;
@@ -62,7 +62,7 @@ export default {
       color: #fff;
     }
     &.success{
-      background: #cefa8b;
+      background: #9fd948;
       color: #fff;
     }
   }

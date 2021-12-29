@@ -44,7 +44,7 @@
                 Support
               </div>
               <div class="address">
-                {{ proposal.forVotes }}  Address
+                {{ proposal.supportArr.length }} Address
               </div>
             </div>
             <div class="vote-number">
@@ -58,7 +58,7 @@
               </div>
             </div>
             <div class="members">
-              <div class="member-item" v-if="item.support" v-for="(item,index) in proposal.receiptsArr" :key="index">
+              <div class="member-item" v-for="(item,index) in proposal.supportArr" :key="index">
                 <div class="icon">
                   <img src="" alt="">
                 </div>
@@ -81,7 +81,7 @@
                 Refuse
               </div>
               <div class="address">
-                {{ proposal.againstVotes }}  Address
+                {{ proposal.refuseArr.length }} Address
               </div>
             </div>
             <div class="vote-number">
@@ -95,7 +95,7 @@
               </div>
             </div>
             <div class="members">
-              <div class="member-item"  v-if="!item.support" v-for="(item,index) in proposal.receiptsArr" :key="index">
+              <div class="member-item" v-for="(item,index) in proposal.refuseArr" :key="index">
                 <div class="icon">
                   <img src="" alt="">
                 </div>
@@ -195,7 +195,7 @@
             All Members
           </div>
           <div class="address">
-            {{ proposal.forVotes }} Address
+            {{ proposal.forVotes }}
           </div>
         </div>
         <div class="vote-number">
@@ -252,26 +252,38 @@ export default {
   mounted() {
     console.log(this.$route.params)
     this.proposal = this.$route.params
-    console.log(this.proposal.support)
     this.proposal.forVotes = (this.proposal.forVotes.replace(/,/g,''))/10**18
     this.proposal.againstVotes = (this.proposal.againstVotes.replace(/,/g,''))/10**18
-    console.log(this.proposal)
     this.proposal.receiptsArr = []
+    this.proposal.supportArr = []
+    this.proposal.refuseArr = []
     if(this.proposal.receipts){
       for(let key in this.proposal.receipts){
+        console.log(key)
         this.proposal.receipts[key].votes = (this.proposal.receipts[key].votes.replace(/,/g,''))/10**18
         this.proposal.receiptsArr.push({
           address: key,
           ...this.proposal.receipts[key],
-
         })
+        if(this.proposal.receipts[key].support){
+          this.proposal.supportArr.push({
+            address: key,
+            ...this.proposal.receipts[key],
+          })
+        }else{
+          this.proposal.refuseArr.push({
+            address: key,
+            ...this.proposal.receipts[key],
+          })
+        }
       }
+      console.log( this.proposal.receiptsArr)
     }
     switch (this.proposal.state){
       case "Active": this.statusIndex = 1
     }
     this.getData()
-    this.$eventBus.$on('message', () => {
+    this.$eventBus.$on('message', (message) => {
       this.getData()
     })
   },
@@ -283,10 +295,8 @@ export default {
     },
     getData(){
       this.$store.dispatch("erc20/getPriorVotes",this.proposal.startBlock).then(res=>{
-        console.log(res)
       })
       this.$store.dispatch("erc20/getCurrentVotes", this.account).then(res=>{
-        console.log(res)
         res = res.replace(/,/g,'')
         this.myVotes = res / 10**18
       })
@@ -296,7 +306,6 @@ export default {
         proposal_id:this.proposal.proposalId,
         support
       }).then(res=>{
-        console.log(res)
       })
     }
   }

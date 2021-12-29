@@ -26,7 +26,7 @@ const ConnectContract = async (api,type,address) =>{
         authManage:{address:"5CtaZNZRtc1UEjkUVaMVe5FBPya2tqkSjurY1RQW5mNL9vG4", abi:authManage},
         routerManage:{address:"5E4NaYuHUQRAvoT9dxXKYgB3ABHiuP5VMwFxTfkCg4xdyzNL", abi:routerManage},
         userManage:{address:"5FNUAGKgfStPByYDXT8Y9YQXsAUSjKBhbUTgDnmDYcHJjQbi", abi:userManage},
-        proposal:{address:"5GZexqezgJ1uaVHMYxiG3hZ52xvHBYJXJnVNRdiAb8vTjfpm", abi:proposal},
+        proposal:{address:"5HL5kUjGrF6fhLEmwxHag2KXPAm9eoGnM4Ca6r57dk6NzBXt", abi:proposal},
         incomeManage:{address:"5GXauXmWbQbASctstTzj4rC5iKcYk8qgAhwkTWjmA6U6gKHx", abi:incomeManage},
         tokenFactory:{address:"5CeZCYRvMnC4HN5XRdzNe1XtCxoYen73HLY5wTdrauwTk4bk", abi:tokenFactory},
         multisignFactory:{address:"5Gi3uhjy4aDiHJ4ui9srz8GtELmCD2XZxxkEbvx2FNxRc6CE", abi:multisignFactory},
