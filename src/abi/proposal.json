@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x7a6850db7ea4a8176c0e5ae0ad9d63e3af451e2cd86af04cdbf26bfb9aea35b6",
+    "hash": "0x228c157f45cb96af0f81204425cc76185ac30c1bd99a180f21ce9de0af3fad42",
     "language": "ink! 3.0.0-rc5",
     "compiler": "rustc 1.59.0-nightly"
   },
@@ -246,6 +246,32 @@
             "type": 21
           },
           "selector": "0x544129e4"
+        },
+        {
+          "args": [
+            {
+              "name": "proposal_id",
+              "type": {
+                "displayName": [
+                  "u64"
+                ],
+                "type": 6
+              }
+            }
+          ],
+          "docs": [],
+          "mutates": false,
+          "name": [
+            "get_proposal_by_id"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Proposal"
+            ],
+            "type": 9
+          },
+          "selector": "0x9d880359"
         }
       ]
     },

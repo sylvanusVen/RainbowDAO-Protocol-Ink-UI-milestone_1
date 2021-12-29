@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0xbca92a4e7940e5aa54f2cedae6ee32d7a4d09548baa0856082b1d11998f1e49c",
+    "hash": "0x304ab1f32b006af82a36b12a08ebbea8f2ba599466b3e7769e50ae4a0157b4e5",
     "language": "ink! 3.0.0-rc5",
     "compiler": "rustc 1.59.0-nightly"
   },
@@ -36,7 +36,7 @@
                 "displayName": [
                   "Hash"
                 ],
-                "type": 9
+                "type": 12
               }
             },
             {
@@ -45,7 +45,7 @@
                 "displayName": [
                   "Vec"
                 ],
-                "type": 10
+                "type": 11
               }
             },
             {
@@ -54,16 +54,7 @@
                 "displayName": [
                   "i32"
                 ],
-                "type": 11
-              }
-            },
-            {
-              "name": "version",
-              "type": {
-                "displayName": [
-                  "u8"
-                ],
-                "type": 8
+                "type": 13
               }
             }
           ],
@@ -80,6 +71,32 @@
             "type": 6
           },
           "selector": "0xf72d4700"
+        },
+        {
+          "args": [
+            {
+              "name": "user",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 6
+              }
+            }
+          ],
+          "docs": [],
+          "mutates": false,
+          "name": [
+            "user_multisig"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Vec"
+            ],
+            "type": 11
+          },
+          "selector": "0x948ffdf8"
         }
       ]
     },
@@ -174,6 +191,86 @@
               }
             },
             "name": "index"
+          },
+          {
+            "layout": {
+              "struct": {
+                "fields": [
+                  {
+                    "layout": {
+                      "struct": {
+                        "fields": [
+                          {
+                            "layout": {
+                              "cell": {
+                                "key": "0x0300000001000000000000000000000000000000000000000000000000000000",
+                                "ty": 0
+                              }
+                            },
+                            "name": "header"
+                          },
+                          {
+                            "layout": {
+                              "struct": {
+                                "fields": [
+                                  {
+                                    "layout": {
+                                      "cell": {
+                                        "key": "0x0400000001000000000000000000000000000000000000000000000000000000",
+                                        "ty": 1
+                                      }
+                                    },
+                                    "name": "len"
+                                  },
+                                  {
+                                    "layout": {
+                                      "array": {
+                                        "cellsPerElem": 1,
+                                        "layout": {
+                                          "cell": {
+                                            "key": "0x0400000002000000000000000000000000000000000000000000000000000000",
+                                            "ty": 9
+                                          }
+                                        },
+                                        "len": 4294967295,
+                                        "offset": "0x0500000001000000000000000000000000000000000000000000000000000000"
+                                      }
+                                    },
+                                    "name": "elems"
+                                  }
+                                ]
+                              }
+                            },
+                            "name": "entries"
+                          }
+                        ]
+                      }
+                    },
+                    "name": "keys"
+                  },
+                  {
+                    "layout": {
+                      "hash": {
+                        "layout": {
+                          "cell": {
+                            "key": "0x0500000002000000000000000000000000000000000000000000000000000000",
+                            "ty": 10
+                          }
+                        },
+                        "offset": "0x0400000002000000000000000000000000000000000000000000000000000000",
+                        "strategy": {
+                          "hasher": "Blake2x256",
+                          "postfix": "",
+                          "prefix": "0x696e6b20686173686d6170"
+                        }
+                      }
+                    },
+                    "name": "values"
+                  }
+                ]
+              }
+            },
+            "name": "user_multisign"
           }
         ]
       }
@@ -373,6 +470,92 @@
         "id": 9,
         "type": {
           "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 4,
+                      "typeName": "VacantEntry"
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Vacant"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 6,
+                      "typeName": "T"
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Occupied"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 6
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "collections",
+            "stash",
+            "Entry"
+          ]
+        }
+      },
+      {
+        "id": 10,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "value",
+                  "type": 11,
+                  "typeName": "V"
+                },
+                {
+                  "name": "key_index",
+                  "type": 1,
+                  "typeName": "KeyIndex"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "V",
+              "type": 11
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "collections",
+            "hashmap",
+            "ValueEntry"
+          ]
+        }
+      },
+      {
+        "id": 11,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 6
+            }
+          }
+        }
+      },
+      {
+        "id": 12,
+        "type": {
+          "def": {
             "composite": {
               "fields": [
                 {
@@ -390,17 +573,7 @@
         }
       },
       {
-        "id": 10,
-        "type": {
-          "def": {
-            "sequence": {
-              "type": 6
-            }
-          }
-        }
-      },
-      {
-        "id": 11,
+        "id": 13,
         "type": {
           "def": {
             "primitive": "i32"

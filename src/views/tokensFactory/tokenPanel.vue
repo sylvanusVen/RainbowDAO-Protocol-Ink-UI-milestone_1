@@ -6,18 +6,15 @@
         Token Panel
       </div>
       <div class="search-box">
-        <div class="sub-title">
-          router check
-        </div>
-        <div class="input-box">
-          <input type="text" v-model="routerName">
-          <div class="result">
-            result: {{result}}
+        <div class="token-list">
+          <div class="sub-title">
+            My Tokens
+          </div>
+          <div class="item" v-for="(item,index) in tokenList" :key="index">
+            {{item}}
           </div>
         </div>
-        <div class="search-btn" @click="searchRouter">
-          Search
-        </div>
+
       </div>
     </div>
     <page-footer></page-footer>
@@ -32,7 +29,8 @@ export default {
   data(){
     return{
       routerName: undefined,
-      result:""
+      result:"",
+      tokenList:[]
     }
   },
   computed: {
@@ -44,15 +42,15 @@ export default {
       this.getData()
     }
   },
+  created() {
+    this.getData()
+  },
   methods:{
-    searchRouter(){
+    getData(){
       if(this.isConnected){
-        this.$store.dispatch("tokenFactory/getContractAddr",this.routerName).then(res=>{
-          console.log(res)
-          if(res){
-            this.result = res
-          }else{
-            this.result= "no search"
+        this.$store.dispatch("tokenFactory/listToken").then(res=>{
+          if(res.length>0){
+            this.tokenList = res
           }
         })
       }
@@ -75,6 +73,12 @@ export default {
     line-height: 50px;
   }
   .search-box{
+    .token-list{
+      .sub-title{
+        line-height: 30px;
+        font-weight: bold;
+      }
+    }
     .sub-title{
       font-size: 18px;
       color: #999;

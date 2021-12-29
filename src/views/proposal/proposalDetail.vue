@@ -58,15 +58,15 @@
               </div>
             </div>
             <div class="members">
-              <div class="member-item" v-for="(item,index) in proposal.receipts" :key="index">
+              <div class="member-item" v-if="item.support" v-for="(item,index) in proposal.receiptsArr" :key="index">
                 <div class="icon">
                   <img src="" alt="">
                 </div>
                 <div class="name">
-                  {{ item }}
+                  {{ item.address }}
                 </div>
                 <div class="number">
-                  100,000,000
+                  {{ item.votes }}
                 </div>
               </div>
 
@@ -95,15 +95,15 @@
               </div>
             </div>
             <div class="members">
-              <div class="member-item" v-for="(item,index) in proposal.receipts" :key="index">
+              <div class="member-item"  v-if="!item.support" v-for="(item,index) in proposal.receiptsArr" :key="index">
                 <div class="icon">
                   <img src="" alt="">
                 </div>
                 <div class="name">
-                  {{ item }}
+                  {{ item.address }}
                 </div>
                 <div class="number">
-                  100,000,000
+                  {{ item.votes }}
                 </div>
               </div>
 
@@ -209,15 +209,15 @@
           </div>
         </div>
         <div class="members">
-          <div class="member-item" v-for="(item,index) in proposal.receipts" :key="index">
+          <div class="member-item" v-for="(item,index) in proposal.receiptsArr" :key="index">
             <div class="icon">
               <img src="" alt="">
             </div>
             <div class="name">
-              {{ item }}
+              {{ item.address }}
             </div>
             <div class="number">
-              100,000,000
+              {{ item.votes }}
             </div>
           </div>
 
@@ -252,10 +252,28 @@ export default {
   mounted() {
     console.log(this.$route.params)
     this.proposal = this.$route.params
+    console.log(this.proposal.support)
+    this.proposal.forVotes = (this.proposal.forVotes.replace(/,/g,''))/10**18
+    this.proposal.againstVotes = (this.proposal.againstVotes.replace(/,/g,''))/10**18
+    console.log(this.proposal)
+    this.proposal.receiptsArr = []
+    if(this.proposal.receipts){
+      for(let key in this.proposal.receipts){
+        this.proposal.receipts[key].votes = (this.proposal.receipts[key].votes.replace(/,/g,''))/10**18
+        this.proposal.receiptsArr.push({
+          address: key,
+          ...this.proposal.receipts[key],
+
+        })
+      }
+    }
     switch (this.proposal.state){
       case "Active": this.statusIndex = 1
     }
     this.getData()
+    this.$eventBus.$on('message', () => {
+      this.getData()
+    })
   },
   methods:{
     delegate(){
@@ -269,7 +287,8 @@ export default {
       })
       this.$store.dispatch("erc20/getCurrentVotes", this.account).then(res=>{
         console.log(res)
-
+        res = res.replace(/,/g,'')
+        this.myVotes = res / 10**18
       })
     },
     castVote(support){
@@ -278,7 +297,6 @@ export default {
         support
       }).then(res=>{
         console.log(res)
-
       })
     }
   }
@@ -331,41 +349,47 @@ export default {
       }
     }
 
-    .members {
-      .member-item {
-        display: flex;
-        align-items: center;
-        padding: 6px 20px 16px 0;
-        position: relative;
 
-        .icon {
-          width: 30px;
-          height: 30px;
+  }
+  .members {
+    .member-item {
+      display: flex;
+      align-items: center;
+      padding: 6px 20px 16px 0;
+      position: relative;
+      margin-top: 10px;
+      .icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
           border-radius: 50%;
-          overflow: hidden;
+          width: 100%;
+          height: 100%;
 
-          img {
-            border-radius: 50%;
-            width: 100%;
-            height: 100%;
-          }
         }
+      }
 
-        .name {
-          margin-left: 10px;
-          font-size: 14px;
-          font-weight: 600;
-          color: #6919bb;
-          line-height: 20px;
-        }
+      .name {
+        margin-left: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #6919bb;
+        width: 200px;
+        overflow: hidden;
+        line-height: 20px;
+      }
 
-        .number {
-          position: absolute;
-          right: 10px;
-          font-weight: bold;
-          color: #6919bb;
-          line-height: 18px;
-        }
+      .number {
+        position: absolute;
+        right: 10px;
+        font-weight: bold;
+        color: #6919bb;
+        line-height: 18px;
+        width: 80px;
+        overflow: hidden;
       }
     }
   }
@@ -568,43 +592,7 @@ export default {
             }
           }
 
-          .members {
-            .member-item {
-              display: flex;
-              align-items: center;
-              padding: 16px 20px 16px 0;
-              position: relative;
 
-              .icon {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                overflow: hidden;
-
-                img {
-                  border-radius: 50%;
-                  width: 100%;
-                  height: 100%;
-                }
-              }
-
-              .name {
-                margin-left: 10px;
-                font-size: 14px;
-                font-weight: 600;
-                color: #6919bb;
-                line-height: 20px;
-              }
-
-              .number {
-                position: absolute;
-                right: 10px;
-                font-weight: bold;
-                color: #6919bb;
-                line-height: 18px;
-              }
-            }
-          }
           .more-btn{
             margin-top: 20px;
             margin-left: calc(50% - 40px);

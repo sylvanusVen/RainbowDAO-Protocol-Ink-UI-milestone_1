@@ -18,13 +18,20 @@ const mutations = {
     }
 }
 const actions = {
-    async newErc20({rootState}, {erc20_code_hash,version,initial_supply,name,symbol,decimals,owner}){
-        console.log(version,initial_supply,name,symbol,decimals,owner)
+    async listToken({rootState}){
+        const AccountId = await Accounts.accountAddress();
+        await judgeContract(rootState.app.web3)
+        let data = await state.contract.query.listToken(AccountId, {value, gasLimit})
+        data = formatResult(data);
+        return data
+    },
+    async newErc20({rootState}, {initial_supply,name,symbol,decimals}){
+        console.log(initial_supply,name,symbol,decimals,owner)
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
-        erc20_code_hash=`0xdd50c39cae66acd09c5da24fd4bb8fe7abbe957dfa89869681e37234d6d8695e`
-        owner = AccountId
-        version?'':version = 1
+        let erc20_code_hash=`0xdd50c39cae66acd09c5da24fd4bb8fe7abbe957dfa89869681e37234d6d8695e`
+        let owner = AccountId
+        let version = Math.random() * 100
         await judgeContract(rootState.app.web3)
         let data = await state.contract.tx.newErc20( {value, gasLimit},erc20_code_hash,version,initial_supply,name,symbol,decimals,owner).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)

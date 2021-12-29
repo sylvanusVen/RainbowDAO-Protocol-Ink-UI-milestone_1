@@ -67,7 +67,6 @@ const accountName = async () =>{
 const accountInjector = async () => {
     let injector;
     const Accounts = JSON.parse(sessionStorage.getItem('account'));
-    console.log(Accounts,Accounts.length)
 
     if (Accounts && Accounts.length > 0) {
         const AccountId = Accounts[0].address;

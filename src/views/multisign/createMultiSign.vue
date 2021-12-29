@@ -96,7 +96,7 @@
                       <input type="text" v-model="memberNameArr[index]" placeholder="My Wallet">
                     </div>
                     <div class="address">
-                      <input type="text" v-model="memberAddressArr[index]" placeholder="address">
+                      <input type="text" v-model="memberAddressArr[index-1]" placeholder="address">
                     </div>
                   </div>
                   <div class="item">

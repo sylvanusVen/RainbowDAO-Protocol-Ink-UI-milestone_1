@@ -1371,8 +1371,8 @@ export default {
             justify-content: center;
             position: relative;
             filter: contrast(100%) brightness(190%);
-            animation: flash 6s infinite linear;
-            animation-delay: 3s !important;
+            //animation: flash 6s infinite linear;
+            //animation-delay: 3s !important;
 
             .title-item {
               padding: 0 20px;

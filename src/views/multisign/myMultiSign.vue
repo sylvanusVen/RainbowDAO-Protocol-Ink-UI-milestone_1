@@ -49,8 +49,8 @@ export default {
     getData(){
       if(this.isConnected) {
         this.list = []
-        this.$store.dispatch("multiSign/userMultisig").then(res => {
-          console.log(res)
+        this.$store.dispatch("multisignFactory/userMultisig").then(res => {
+           this.list = res
         })
       }
     }

@@ -18,7 +18,7 @@ const ConnectContract = async (api,type,address) =>{
       return
     }
     const abiMap ={
-        erc20:{abi:erc20Abi, address:"5DAZWSoB352Q6dXChhWfijQmBsb4rZmoxh1ZED41XctrFrNe"},
+        erc20:{abi:erc20Abi, address:"5GD59LAWJ1ywWwcdtGaoaaa19PZ5G2jD6YnGfq2ovPRgjgrt"},
         factory:{ address :"5GHhDtpb36ikhpedynbBXK59nVo2BfkevtDz3sSHzeKAVe6K" , abi:factory},
         routerMap:{ address :"5E4NaYuHUQRAvoT9dxXKYgB3ABHiuP5VMwFxTfkCg4xdyzNL" , abi:routerMap},
         core:{ address : "5FbUtTVK1CofRbSz4Wg2Emw1piGvq4wi8NGVP7oo2fit7Tpb", abi : core},
@@ -26,11 +26,11 @@ const ConnectContract = async (api,type,address) =>{
         authManage:{address:"5CtaZNZRtc1UEjkUVaMVe5FBPya2tqkSjurY1RQW5mNL9vG4", abi:authManage},
         routerManage:{address:"5E4NaYuHUQRAvoT9dxXKYgB3ABHiuP5VMwFxTfkCg4xdyzNL", abi:routerManage},
         userManage:{address:"5FNUAGKgfStPByYDXT8Y9YQXsAUSjKBhbUTgDnmDYcHJjQbi", abi:userManage},
-        proposal:{address:"5ErHrzoP45FQ8ydpemeRTkcA3n43PSSFPW7yXP2TS7kAGxXm", abi:proposal},
+        proposal:{address:"5GZexqezgJ1uaVHMYxiG3hZ52xvHBYJXJnVNRdiAb8vTjfpm", abi:proposal},
         incomeManage:{address:"5GXauXmWbQbASctstTzj4rC5iKcYk8qgAhwkTWjmA6U6gKHx", abi:incomeManage},
-        tokenFactory:{address:"5GC54ofYt2ZCxtmnvCQS9PPW8cFDnC31h2MUbsE8WKG7V1sZ", abi:tokenFactory},
-        multisignFactory:{address:"5GL9B9Jz8nb4JD6DTA1wzcF8X7orCAVaxgUes3TV87osBTNB", abi:multisignFactory},
-        multisign:{address:"5Cwyf39wNiXam3u8YqBDbT21DeXrDihCGCC1ji2nXSLPLveQ", abi: multisign}
+        tokenFactory:{address:"5CeZCYRvMnC4HN5XRdzNe1XtCxoYen73HLY5wTdrauwTk4bk", abi:tokenFactory},
+        multisignFactory:{address:"5Gi3uhjy4aDiHJ4ui9srz8GtELmCD2XZxxkEbvx2FNxRc6CE", abi:multisignFactory},
+        multisign:{ abi: multisign}
     }
     console.log(api, abiMap[type].abi, address)
 

@@ -113,12 +113,6 @@
             <div class="create" v-show="transitionIndex==1">
               <div class="input-box">
                 <div class="name">
-                  TOKEN
-                </div>
-                <input type="text" v-model="form.token">
-              </div>
-              <div class="input-box">
-                <div class="name">
                   TO
                 </div>
                 <input type="text" v-model="form.to">
@@ -137,9 +131,22 @@
         </div>
         <div class="address-book" v-show="index==2">
           <div class="title">
-            ADDRESS
+            ADDRESS BOOK
           </div>
-
+          <div class="manage-list">
+            <div class="item" v-for="(item, index) in manageList" :key="index">
+              <div class="address">
+                {{item}}
+              </div>
+              <img class="icon" src="../../assets/imgs/copy.png" alt="" @click="copy(item)">
+<!--              <div class="btn" @click="removeManage(item)">-->
+<!--                Remove-->
+<!--              </div>-->
+              <div class="btn" @click="sendTo(item)">
+                Send
+              </div>
+            </div>
+          </div>
         </div>
         <div class="settings" v-show="index==3">
           <div class="title">
@@ -149,9 +156,9 @@
             <div class="item" :class="{'active':settingIndex==0}" @click="settingIndex=0">
               changeManage
             </div>
-            <div class="item" :class="{'active':settingIndex==1}" @click="settingIndex=1">
-              changeSignature
-            </div>
+<!--            <div class="item" :class="{'active':settingIndex==1}" @click="settingIndex=1">-->
+<!--              changeSignature-->
+<!--            </div>-->
           </div>
           <div class="setting-panel">
             <div class="changeManage" v-show="settingIndex==0">
@@ -161,16 +168,11 @@
                 </div>
                 <input type="text" v-model="form2.account">
               </div>
-              <div class="input-box">
-                <div class="name">
-                  REMOVE/ADD
-                </div>
-                <el-switch v-model="form2.tap" active-color="#13ce66" inactive-color="#ff4949"/>
-              </div>
 
-              <button class="transitionCreate-btn" @click="changeManage">
-                Change
+              <button class="transitionCreate-btn" @click="addManage">
+                addManage
               </button>
+
             </div>
             <div class="changeSignature" v-show="settingIndex==1">
               <div class="input-box">
@@ -179,7 +181,6 @@
                 </div>
                 <input type="text" v-model="mulNumber">
               </div>
-
               <button class="transitionCreate-btn" @click="changeSignature">
                 Change
               </button>
@@ -203,10 +204,12 @@ export default {
     return {
       isLoading: false,
       index:0,
+      settingIndex:0,
       mulAddress: "",
       form: {},
       form2: {},
       mulNumber: 0,
+      manageList:[],
       transitionList: [],
       transitionIndex: 0,
       kindMap: {
@@ -230,13 +233,25 @@ export default {
     this.mulAddress = this.$route.params.address
 
     this.getData()
+    this.$eventBus.$on('message', () => {
+      this.getData()
+    })
   },
   methods: {
+    copy(){
 
-
+    },
     getData() {
-      this.$store.dispatch("multiSign/getManageList").then(res => {
-        this.transitionList = res
+      this.$store.dispatch("multiSign/getManageList",this.mulAddress).then(res => {
+        console.log(res)
+        if(res&&res.length>0){
+          this.manageList = res
+        }
+      })
+      this.$store.dispatch("multiSign/getSignList",this.mulAddress).then(res => {
+        if(res&&res.length>0){
+          this.transitionList = res
+        }
       })
     },
     changeManage(){},
@@ -246,7 +261,7 @@ export default {
       this.$store.dispatch("multiSign/signTransaction", {
         transactionId: id,
       }).then(() => {
-        this.$message({
+        this.$eventBus.$emit('message', {
           message: "signTransaction success",
           type: "success"
         })
@@ -257,10 +272,11 @@ export default {
     },
     creatTransaction() {
       this.$store.dispatch("multiSign/creatTransfer", {
+        address:this.mulAddress,
         to: this.form.to,
         amount: this.form.amount
       }).then(() => {
-        this.$message({
+        this.$eventBus.$emit('message', {
           message: "creatTransaction success",
           type: "success"
         })
@@ -270,24 +286,30 @@ export default {
       })
     },
     addManage() {
-
       this.$store.dispatch("multiSign/addManage", {
         addr: this.form2.account,
+        address:this.mulAddress
       }).then(() => {
-        alert("changeManage success")
+        this.$eventBus.$emit('message', {
+          message: "addManage success",
+          type: "success"
+        })
       }).catch(err => {
         alert(err)
       })
     },
-    removeManage() {
-
+    sendTo(item){
+      this.index=1
+      this.transitionIndex=1
+      this.form.to=item
+    },
+    removeManage(addr) {
       this.$store.dispatch("multiSign/removeManage", {
-        addr: this.form2.account,
+        addr: addr,
+        address:this.mulAddress
       }).then(() => {
-        alert("removeManage success")
       }).catch(err => {
         alert(err)
-
       })
     },
     changeSignature() {
@@ -580,7 +602,39 @@ export default {
         }
       }
     }
+    .address-book{
+      .manage-list{
+        margin-top: 30px;
+        border-radius: 20px;
+        padding: 30px;
+        background: #fff;
+        .item{
+          margin-top: 20px;
+          display: flex;
+          width: 600px;
+          justify-content: space-between;
+          .address{
 
+          }
+          .icon{
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+          }
+          .btn{
+            color: #fff;
+            cursor: pointer;
+            text-align: center;
+            line-height: 30px;
+            padding: 0 10px;
+            height: 30px;
+            background: linear-gradient(90deg,#12c2e9 0%, #c471ed 64%, #f64f59 100%);
+            border-radius: 5px;
+            box-shadow: 0px 3px 6px 0px rgba(162,104,209,0.50);
+          }
+        }
+      }
+    }
     .settings {
       .setting-panel {
         width: 1000px;

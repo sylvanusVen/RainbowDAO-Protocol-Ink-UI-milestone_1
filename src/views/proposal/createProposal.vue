@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "createProposal",
   data() {
@@ -39,8 +41,15 @@ export default {
       form: {}
     }
   },
+  computed: {
+    ...mapGetters(['account', 'isConnected'])
+  },
   methods:{
     createProposal(){
+      this.form.transaction={
+        calle: this.account,
+
+      }
       this.$store.dispatch("proposal/propose",this.form).then(()=>{
         this.$router.push({name:"Proposal"})
       })

@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x4812b2d975e3e0b11ff581e7015def6b5ecdfb81e491d94f6b95d0cc33b36f4f",
+    "hash": "0xef49d8bb51804c97cacd27369605810d8eaf389e2460c7757dd6be044664129a",
     "language": "ink! 3.0.0-rc5",
     "compiler": "rustc 1.59.0-nightly"
   },
@@ -552,6 +552,93 @@
             "type": 22
           },
           "selector": "0xc59654fe"
+        },
+        {
+          "args": [
+            {
+              "name": "delegator",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 4
+              }
+            }
+          ],
+          "docs": [],
+          "mutates": false,
+          "name": [
+            "get_user_delegates"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "AccountId"
+            ],
+            "type": 4
+          },
+          "selector": "0x58b5fc91"
+        },
+        {
+          "args": [
+            {
+              "name": "user",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 4
+              }
+            }
+          ],
+          "docs": [],
+          "mutates": false,
+          "name": [
+            "get_user_num_check_points"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "u32"
+            ],
+            "type": 2
+          },
+          "selector": "0x6a1120c1"
+        },
+        {
+          "args": [
+            {
+              "name": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 4
+              }
+            },
+            {
+              "name": "checkpoint",
+              "type": {
+                "displayName": [
+                  "u32"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [],
+          "mutates": false,
+          "name": [
+            "get_user_check_points"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Checkpoint"
+            ],
+            "type": 16
+          },
+          "selector": "0x751a3298"
         }
       ]
     },

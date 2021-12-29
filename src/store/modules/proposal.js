@@ -37,6 +37,10 @@ const actions = {
         let data = await state.contract.tx.propose({value, gasLimit},title,desc,transaction ).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
+                eventBus.$emit('message', {
+                    type:"success",
+                    message:"create success"
+                })
                 return true
             }
         });
@@ -63,7 +67,6 @@ const actions = {
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
         let data = await state.contract.tx.castVote({value, gasLimit},proposal_id,support).signAndSend(AccountId, { signer: injector.signer }, (result) => {
-            console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
                 eventBus.$emit('message', {
                     type:"success",
@@ -90,6 +93,7 @@ const actions = {
         return data
     },
     async state({rootState},proposal_id) {
+        console.log(proposal_id)
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
         let data = await state.contract.query.state(AccountId, {value, gasLimit}, proposal_id)

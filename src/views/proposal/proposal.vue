@@ -434,8 +434,7 @@ export default {
       }
       this.$store.dispatch("proposal/listProposals").then((res)=>{
         res.forEach(async (item,index)=>{
-          console.log(item)
-          await this.$store.dispatch("proposal/state",index).then(state=>{
+          await this.$store.dispatch("proposal/state",item.proposalId).then(state=>{
             item.state= state
           })
           if(index==res.length-1){
@@ -451,6 +450,9 @@ export default {
   },
   mounted() {
     this.getData()
+    this.$eventBus.$on('message', () => {
+      this.getData()
+    })
   }
 }
 </script>
