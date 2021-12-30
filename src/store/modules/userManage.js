@@ -48,14 +48,17 @@ const actions = {
         console.log(invitation_code,name,user_profile)
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        console.log(AccountId)
+        let isSend= false
         let data = await state.contract.tx.join({value, gasLimit},invitation_code,name,user_profile).signAndSend(AccountId, { signer: injector.signer }, (result) => {
-            console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
-                eventBus.$emit('message', {
-                    type:"success",
-                    message:"castVote success"
-                })
+                if(!isSend){
+                    isSend = true
+                    eventBus.$emit('message', {
+                        type:"success",
+                        message:"castVote success"
+                    })
+                }
+
                 return true
             }
         });

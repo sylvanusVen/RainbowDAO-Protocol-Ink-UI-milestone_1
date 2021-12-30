@@ -24,13 +24,18 @@ const actions = {
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
+        let isSend = false
         let data = await state.contract.tx.roleInsertPrivilege( {value, gasLimit},name,privilege ).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
-                eventBus.$emit('message', {
-                    type:"success",
-                    message:"newprivilege success"
-                })
+                if(!isSend){
+                    isSend = true
+                    eventBus.$emit('message', {
+                        type:"success",
+                        message:"newprivilege success"
+                    })
+                }
+
                 return true
             }
         });
@@ -54,13 +59,18 @@ const actions = {
         const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
+        let isSend = false
         let data = await state.contract.tx.addRole({value, gasLimit},name).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.log(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
-                eventBus.$emit('message', {
-                    type:"success",
-                    message:"add success"
-                })
+                if(!isSend){
+                    isSend = true
+                    eventBus.$emit('message', {
+                        type:"success",
+                        message:"add success"
+                    })
+                }
+
                 return true
             }
         });
@@ -72,14 +82,18 @@ const actions = {
         const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        console.log(name,routeValue)
+        let isSend = false
         let data = await state.contract.tx.addRoute({value, gasLimit},name,routeValue).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
-                eventBus.$emit('message', {
-                    type:"success",
-                    message:"addRoute success"
-                })
+                if(!isSend) {
+                    isSend = true
+                    eventBus.$emit('message', {
+                        type:"success",
+                        message:"addRoute success"
+                    })
+                }
+
                 return true
             }
         });
@@ -109,7 +123,7 @@ const actions = {
     async getRoleAddr({rootState},addr){
         await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
-        let data = await state.contract.query.getRoleAddr(AccountId, {value, gasLimit},addr)
+        let data = await state.contract.query.getRoleAddr(AccountId, {value, gasLimit})
         data = formatResult(data);
         return data
     },

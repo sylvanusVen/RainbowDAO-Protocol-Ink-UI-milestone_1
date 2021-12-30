@@ -9,9 +9,7 @@ const state = {
 const value = 0;
 const gasLimit = -1;
 async function  judgeContract(web3,address){
-    if(!state.contract){
-        state.contract = await connectContract(web3, "multisign",address)
-    }
+    state.contract = await connectContract(web3, "multisign",address)
 }
 const mutations = {
     SET_WEB3(state,web3){
@@ -31,27 +29,40 @@ const actions = {
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3,address)
-        console.log(to, amount,address)
+        let isSend= false
         let data = await state.contract.tx.creatTransfer( {value, gasLimit},to , amount).signAndSend(AccountId, { signer: injector.signer }, (result) => {
-            console.log(result)
+
             if (result.status.isInBlock ||result.status.isFinalized) {
-                eventBus.$emit('message', {
-                    type:"success",
-                    message:"creatTransfer success"
-                })
+                if(!isSend){
+                    isSend=true
+                    eventBus.$emit('message', {
+                        type:"success",
+                        message:"creatTransfer success"
+                    })
+                }
+
                 return true
             }
         });
         data = formatResult(data);
         return data
     },
-    async signTransaction({rootState},transaction_id){
+    async signTransaction({rootState},{transaction_id,address}){
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
-        await judgeContract(rootState.app.web3)
-        let data = await state.contract.tx.signTransaction( {value, gasLimit},transaction_id).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        await judgeContract(rootState.app.web3,address)
+        let isSend= false
+        let data = await state.contract.tx.signTransaction({value, gasLimit},transaction_id).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
+                if(!isSend){
+                    isSend=true
+                    eventBus.$emit('message', {
+                        type:"success",
+                        message:"signTransaction success"
+                    })
+                }
+
                 return true
             }
         });
@@ -70,13 +81,17 @@ const actions = {
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3,address)
+        let isSend= false
         let data = await state.contract.tx.addManage( {value, gasLimit},addr).signAndSend(AccountId, { signer: injector.signer }, (result) => {
-            console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
-                eventBus.$emit('message', {
-                    type:"success",
-                    message:"addManage success"
-                })
+                if(!isSend){
+                    isSend=true
+                    eventBus.$emit('message', {
+                        type:"success",
+                        message:"addManage success"
+                    })
+                }
+
                 return true
             }
         });
@@ -87,13 +102,18 @@ const actions = {
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3, address)
+        let isSend = false
         let data = await state.contract.tx.removeManage({value, gasLimit},addr).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
-                eventBus.$emit('message', {
-                    type:"success",
-                    message:"removeManage success"
-                })
+                if(!isSend){
+                    isSend = true
+                    eventBus.$emit('message', {
+                        type:"success",
+                        message:"removeManage success"
+                    })
+                }
+
                 return true
             }
         });
@@ -108,6 +128,7 @@ const actions = {
         return data
     },
     async getManageList({rootState},address){
+        console.log(address)
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3,address)
         let data = await state.contract.query.getManageList(AccountId, {value, gasLimit})

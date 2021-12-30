@@ -34,7 +34,7 @@
               2
             </div>
             <div class="stage-title">
-              Name
+              Min Count
             </div>
           </div>
           <div class="stage-content animate__animated  animate__fadeIn" v-show="stage==1">
@@ -46,9 +46,9 @@
                 parties. The new Safe will ONLY be available on
               </p>
               <div class="input-title">
-                Name of the new Safe
+                Min Count
               </div>
-              <input type="text" placeholder="Enter">
+              <input type="text" v-model="count" placeholder="Enter">
               <div class="btn-box">
                 <div class="back-btn" @click="stage>0?stage-=1:''">
                   back
@@ -130,7 +130,7 @@
             <div class="stage-panel">
               <p>
                 <strong>
-                  1 Safe owners
+                  {{ memberAddressArr.length }} Safe owners
                 </strong>
               </p>
               <div class="multisign-member">
@@ -174,6 +174,7 @@ export default {
   name: "createMultiSign",
   data() {
     return {
+      count:1,
       stage: 0,
       memberLength: 1,
       memberAddressArr: [],
@@ -206,7 +207,8 @@ export default {
     createMul() {
       this.$store.dispatch("multisignFactory/newMultiSign",{
         owners: this.memberAddressArr,
-        min_sign_count:this.memberAddressArr.length
+        min_sign_count:this.count,
+
       })
       // this.$router.push({
       //   name:"multiSignPanel"

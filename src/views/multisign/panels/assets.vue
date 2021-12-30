@@ -11,24 +11,24 @@
         <div class="balance">
           BALANCE
         </div>
-        <div class="value">
-          VALUE
+        <div class="address">
+          ADDRESS
         </div>
         <div class="btns"></div>
       </div>
       <div class="content">
-        <div class="item" v-for="item in assetsArr">
+        <div class="item" v-for="item in balanceArr">
           <div class="asset">
-            {{ item.asset }}
+            DOT
           </div>
           <div class="balance">
             {{item.balance}}
           </div>
-          <div class="value">
-            {{item.value}}
+          <div class="address">
+            {{item.address.substr(0,8) + '...' + item.address.substr((item.address.length-8),item.address.length)}}
           </div>
           <div class="btns">
-            <div class="send">
+            <div class="send" @click="emitSend(item.address)">
               SEND
             </div>
             <div class="receive">
@@ -44,9 +44,33 @@
 <script>
 export default {
   name: "assets",
+  props:["assetsArr","sendTo"],
   data(){
     return{
-      assetsArr:[]
+      assetsArr:[],
+      balanceArr:[]
+    }
+  },
+  methods:{
+    emitSend(add){
+      this.$emit("sendTo", add)
+    }
+  },
+  watch:{
+    assetsArr(){
+      console.log(this.assetsArr)
+      let arr = []
+      this.assetsArr.forEach((address,index)=>{
+        this.$store.dispatch("app/getBalance",address).then(balance=>{
+          arr.push({
+            address:address,
+            balance:balance
+          })
+          if(index==this.assetsArr.length-1){
+            this.balanceArr = arr
+          }
+        })
+      })
     }
   }
 }
@@ -83,8 +107,9 @@ export default {
       .balance{
         width: 200px;
       }
-      .value{
-        width: 200px;
+      .address{
+        width: 220px;
+        overflow: hidden;
       }
       .btns{
         display: flex;

@@ -30,13 +30,18 @@ const actions = {
         await judgeContract(rootState.app.web3)
         console.log(name,incomeInfo)
         incomeInfo.account = AccountId
+        let isSend = false
         let data = await state.contract.tx.saveCategory( {value, gasLimit},name,incomeInfo).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
-                eventBus.$emit('message', {
-                    type:"success",
-                    message:"newMultisig success"
-                })
+                if(!isSend){
+                    isSend = true
+                    eventBus.$emit('message', {
+                        type:"success",
+                        message:"newMultisig success"
+                    })
+                }
+
                 return true
             }
         });

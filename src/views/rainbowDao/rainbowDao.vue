@@ -154,16 +154,16 @@
 
                   <div class="info2">
                     <div class="item">
-                      Arbitrum
+                      BSC
                     </div>
                     <div class="item">
-                      Optimistic
+                      Polygon
                     </div>
                     <div class="item">
-                      zkSync
+                      Avalanche
                     </div>
                     <div class="item">
-                      Other
+                      Fantom
                     </div>
                     <div class="other">
                       Other

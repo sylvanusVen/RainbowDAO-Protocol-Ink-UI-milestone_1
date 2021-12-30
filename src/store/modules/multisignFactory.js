@@ -29,20 +29,23 @@ const actions = {
     },
     async newMultiSign({rootState},{ owners,min_sign_count}){
         await judgeContract(rootState.app.web3)
-        console.log(owners)
-        let multisig_hash = "0xaa5e6e3e8f58161a87d49f996d6ba4746c3504e5634f116ac01c48352d861192"
+        let multisig_hash = "0x90c884dfe12169f5c33e8dc48f1c46aad8616997340fbd116c444ef299a0b3fd"
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
         owners?'':owners = [AccountId]
-        owners = [AccountId]
+        let ownersarr = [...owners]
         min_sign_count>0?'':min_sign_count=1
-        let data = await state.contract.tx.newMultisig( {value, gasLimit},multisig_hash, owners,min_sign_count).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        let isSend = false
+        let data = await state.contract.tx.newMultisig( {value, gasLimit},multisig_hash, ownersarr,min_sign_count).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
-                eventBus.$emit('message', {
-                    type:"success",
-                    message:"newMultisig success"
-                })
+                if(!isSend){
+                    isSend = true
+                    eventBus.$emit('message', {
+                        type:"success",
+                        message:"newMultisig success"
+                    })
+                }
                 return true
             }
         });

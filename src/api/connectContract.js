@@ -18,18 +18,18 @@ const ConnectContract = async (api,type,address) =>{
       return
     }
     const abiMap ={
-        erc20:{abi:erc20Abi, address:"5GD59LAWJ1ywWwcdtGaoaaa19PZ5G2jD6YnGfq2ovPRgjgrt"},
-        factory:{ address :"5GHhDtpb36ikhpedynbBXK59nVo2BfkevtDz3sSHzeKAVe6K" , abi:factory},
+        erc20:{abi:erc20Abi, address:"5DXmyXjzhHiDENqPPMt6JDt6e2PrLmpDkcAWvi9PApcUGDbs"},
+        factory:{ address :"5G2sy7RCQxPxchVHsPo7YLWopxvbaM2LDscN7JHRyHBFFBGc" , abi:factory},
         routerMap:{ address :"5E4NaYuHUQRAvoT9dxXKYgB3ABHiuP5VMwFxTfkCg4xdyzNL" , abi:routerMap},
-        core:{ address : "5FbUtTVK1CofRbSz4Wg2Emw1piGvq4wi8NGVP7oo2fit7Tpb", abi : core},
-        roleManage:{ address :"5DuSiRJ7MT1uSeQF3YWhqtN5it5VpFmuPWxvsqTWaYRkKcjU" , abi:roleManage},
-        authManage:{address:"5CtaZNZRtc1UEjkUVaMVe5FBPya2tqkSjurY1RQW5mNL9vG4", abi:authManage},
-        routerManage:{address:"5E4NaYuHUQRAvoT9dxXKYgB3ABHiuP5VMwFxTfkCg4xdyzNL", abi:routerManage},
-        userManage:{address:"5FNUAGKgfStPByYDXT8Y9YQXsAUSjKBhbUTgDnmDYcHJjQbi", abi:userManage},
-        proposal:{address:"5HL5kUjGrF6fhLEmwxHag2KXPAm9eoGnM4Ca6r57dk6NzBXt", abi:proposal},
-        incomeManage:{address:"5GXauXmWbQbASctstTzj4rC5iKcYk8qgAhwkTWjmA6U6gKHx", abi:incomeManage},
+        core:{ address : "5GFQgzctcPbxF8gJrdLj24CyAupHYfD1KmLxoPgkpwoFWqRn", abi : core},
+        roleManage:{  abi:roleManage},
+        authManage:{ abi:authManage},
+        routerManage:{ abi:routerManage},
+        userManage:{address:"5HRYTE5Cvam2rjtXekkNs3b8mNtkU7dsMN6Ypeef8EUyoUjU", abi:userManage},
+        proposal:{address:"5Dfr7FCmaqMfL2QspVtwRmHTzeSsRxBhCJ7bGx8dzVzWpTMw", abi:proposal},
+        incomeManage:{address:"5GQQjLrUK6e7xTvVsCFxahTcQUSayrJqPAu7G6yMGTbp5CZ1", abi:incomeManage},
         tokenFactory:{address:"5CeZCYRvMnC4HN5XRdzNe1XtCxoYen73HLY5wTdrauwTk4bk", abi:tokenFactory},
-        multisignFactory:{address:"5Gi3uhjy4aDiHJ4ui9srz8GtELmCD2XZxxkEbvx2FNxRc6CE", abi:multisignFactory},
+        multisignFactory:{address:"5Cc7sNX3AdB6gY5d2wnTPXnkZeKv2sovfSLv9583QzH7C8Cq", abi:multisignFactory},
         multisign:{ abi: multisign}
     }
     console.log(api, abiMap[type].abi, address)

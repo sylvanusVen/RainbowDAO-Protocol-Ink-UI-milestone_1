@@ -453,7 +453,11 @@ export default {
     this.$eventBus.$on('message', () => {
       this.getData()
     })
-  }
+  },
+  beforeDestroy() {
+    this.$eventBus.$on('message', () => {
+    })
+  },
 }
 </script>
 

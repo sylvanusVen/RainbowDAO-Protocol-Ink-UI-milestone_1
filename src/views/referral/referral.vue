@@ -131,6 +131,10 @@ export default {
       this.getData()
     })
   },
+  beforeDestroy() {
+    this.$eventBus.$on('message', () => {
+    })
+  },
   watch:{
     isConnected(){
       this.getData()

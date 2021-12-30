@@ -11,6 +11,9 @@
           <div  class="create-multiSign" @click="$router.push({name:'createMultiSign'})">
             Create
           </div>
+          <div  class="create-multiSign" @click="$router.push({name:'myMultiSign'})">
+            My MultiSign
+          </div>
         </div>
         <div class="nav-list">
           <div class="item" :class="{'active':index==0}" @click="index=0">
@@ -73,12 +76,13 @@
         </div>
       </div>
       <div class="content">
-        <assets v-show="index==0"></assets>
+        <assets v-show="index==0"  @sendTo="sendTo" :assetsArr="assetsArr"></assets>
         <div class="transition" v-show="index==1">
           <div class="title">
             TRANSACTIONS
           </div>
           <div class="nav-list">
+
             <div class="item" :class="{'active':transitionIndex==0}" @click="transitionIndex=0">
               Transition List
             </div>
@@ -94,16 +98,20 @@
                 </div>
                 <div class="item" v-for="(item, index) in transitionList" :key="index">
                   <div class="status">
-<!--                    {{ kindMap[item.kind] }}-->
+                    id:{{ item.id }}
                   </div>
                   <div class="amount">
-                    {{ item.amount }}
+                    Amount:{{ item.amount }}
+                  </div>
+                  <div class="number">
+                    has Sign Number:{{ item.signatureCount }}
                   </div>
                   <div class="token">
-                    token address:{{ item.token }}
+                    to:{{ item.to }}
                   </div>
+
                   <div class="status-btn">
-                    <button @click="signTransaction(index)">
+                    <button @click="signTransaction(item.id)">
                       {{ !item.status ? 'Sign' : 'Is Signed' }}
                     </button>
                   </div>
@@ -111,6 +119,9 @@
               </div>
             </div>
             <div class="create" v-show="transitionIndex==1">
+              <div class="input-box">
+                balance:{{balance}}
+              </div>
               <div class="input-box">
                 <div class="name">
                   TO
@@ -204,12 +215,14 @@ export default {
     return {
       isLoading: false,
       index:0,
+      balance:0,
       settingIndex:0,
-      mulAddress: "",
+      mulAddress: "5FDpUZyCYRGDJShbQcQMWzQJ7epPJ3HMyFFjvj4edfMxWf5A",
       form: {},
       form2: {},
       mulNumber: 0,
       manageList:[],
+      assetsArr:[],
       transitionList: [],
       transitionIndex: 0,
       kindMap: {
@@ -221,16 +234,18 @@ export default {
     ...mapGetters(['account', 'isConnected'])
   },
   watch: {
-    account() {
+    isConnected() {
       this.getData()
     }
   },
-  mounted() {
+  created() {
     // if(!this.$route.params.address){
     //   this.$router.push({name:"mymultiSign"})
     // }
 
-    this.mulAddress = this.$route.params.address
+    if(this.$route.params.address){
+      this.mulAddress = this.$route.params.address
+    }
 
     this.getData()
     this.$eventBus.$on('message', () => {
@@ -242,17 +257,28 @@ export default {
 
     },
     getData() {
-      this.$store.dispatch("multiSign/getManageList",this.mulAddress).then(res => {
-        console.log(res)
-        if(res&&res.length>0){
-          this.manageList = res
-        }
-      })
-      this.$store.dispatch("multiSign/getSignList",this.mulAddress).then(res => {
-        if(res&&res.length>0){
-          this.transitionList = res
-        }
-      })
+      if(this.isConnected){
+        this.$store.dispatch("app/getBalance",this.mulAddress).then(res => {
+          console.log(res)
+          if(res&&res.length>0){
+            this.balance = res
+          }
+        })
+        this.$store.dispatch("multiSign/getManageList",this.mulAddress).then(res => {
+          console.log(res)
+          if(res&&res.length>0){
+            this.manageList = res
+            this.assetsArr = res
+          }
+        })
+        this.$store.dispatch("multiSign/getSignList",this.mulAddress).then(res => {
+          console.log(res)
+          if(res&&res.length>0){
+            this.transitionList = res
+          }
+        })
+      }
+
     },
     changeManage(){},
     managers() {
@@ -260,6 +286,7 @@ export default {
     signTransaction(id) {
       this.$store.dispatch("multiSign/signTransaction", {
         transactionId: id,
+        address:this.mulAddress
       }).then(() => {
         this.$eventBus.$emit('message', {
           message: "signTransaction success",
@@ -267,14 +294,17 @@ export default {
         })
         this.getData()
       }).catch(err => {
-        alert(err)
+        this.$eventBus.$emit('message', {
+          message: "signTransaction error",
+          type: "error"
+        })
       })
     },
     creatTransaction() {
       this.$store.dispatch("multiSign/creatTransfer", {
         address:this.mulAddress,
         to: this.form.to,
-        amount: this.form.amount
+        amount: this.form.amount*10**12
       }).then(() => {
         this.$eventBus.$emit('message', {
           message: "creatTransaction success",
@@ -533,7 +563,19 @@ export default {
         padding: 30px 20px;
         background: #fff;
         border-radius: 30px;
-
+        .status-btn{
+          button{
+            background: linear-gradient(90deg,#12c2e9 0%, #c471ed 64%, #f64f59 100%);
+            height: 38px;
+            border: 1px solid #ffffff;
+            width: 90px;
+            cursor: pointer;
+            color: #fff;
+            line-height: 38px;
+            text-align: center;
+            border-radius: 31px;
+          }
+        }
         .transition-list {
           .no-data {
             width: 100%;
@@ -604,8 +646,9 @@ export default {
     }
     .address-book{
       .manage-list{
+        width: 900px;
         margin-top: 30px;
-        border-radius: 20px;
+        border-radius: 10px;
         padding: 30px;
         background: #fff;
         .item{

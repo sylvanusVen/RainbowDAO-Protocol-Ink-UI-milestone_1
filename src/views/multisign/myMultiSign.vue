@@ -45,6 +45,10 @@ export default {
       this.getData()
     })
   },
+  beforeDestroy() {
+    this.$eventBus.$on('message', () => {
+    })
+  },
   methods: {
     getData(){
       if(this.isConnected) {

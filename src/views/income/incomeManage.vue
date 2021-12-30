@@ -75,6 +75,10 @@ export default {
       this.getData()
     })
   },
+  beforeDestroy() {
+    this.$eventBus.$on('message', () => {
+    })
+  },
   computed: {
     ...mapGetters(['account', 'isConnected'])
   },

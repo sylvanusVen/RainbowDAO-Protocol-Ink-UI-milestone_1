@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="role-item">
-              Add Role:
+              <strong>Add Role:</strong>
               <input class="add-input" type="text" v-model="roleInfo" placeholder="Add role name">
             </div>
           </div>
@@ -107,6 +107,9 @@ export default {
       routerValue: undefined,
       privilege:undefined,
       manageList:[],
+      roleAddress:"",
+      routerAddress:"",
+      authAddress:"",
     }
   },
   mounted() {
@@ -115,6 +118,11 @@ export default {
       this.getData()
     })
   },
+  beforeDestroy() {
+    this.$eventBus.$on('message', () => {
+    })
+  },
+
   computed: {
     ...mapGetters(['account', 'isConnected'])
   },
@@ -126,26 +134,36 @@ export default {
   methods: {
     getData() {
       if (this.isConnected) {
-        this.$store.dispatch("roleManage/listRoles").then(res => {
-          this.authList = []
-          res.forEach(item=>{
-            let pArr = []
-            this.$store.dispatch("roleManage/listRolePrivileges", item).then(privileges=>{
-              if(privileges){
-                pArr.push(...privileges)
-              }
-            })
-            this.authList.push({
-             privileges:pArr,
-              name:item
-            })
-          })
-          this.listRoles = res
 
+
+        this.$store.dispatch("core/getRoleAddr").then(roleAddress=>{
+          this.roleAddress = roleAddress
+          this.$store.dispatch("roleManage/getUserPrivilege",roleAddress).then(res => {
+            console.log(res, "list")
+            this.manageList = res
+          })
+          this.$store.dispatch("roleManage/listRoles",this.roleAddress).then(res => {
+            this.authList = []
+            res.forEach(item=>{
+              let pArr = []
+              this.$store.dispatch("roleManage/listRolePrivileges", {name:item,address:this.roleAddress}).then(privileges=>{
+                if(privileges){
+                  pArr.push(...privileges)
+                }
+              })
+              this.authList.push({
+                privileges:pArr,
+                name:item
+              })
+            })
+            this.listRoles = res
+          })
         })
-        this.$store.dispatch("roleManage/getUserPrivilege").then(res => {
-          console.log(res, "list")
-          this.manageList = res
+        this.$store.dispatch("core/getAuthAddr").then(authAddress=>{
+          this.authAddress = authAddress
+        })
+        this.$store.dispatch("core/getRouteAddr").then(routerAddress=>{
+          this.routerAddress = routerAddress
         })
       }
     },
@@ -218,7 +236,9 @@ export default {
         border-radius: 10px;
 
         border: 1px solid #eee;
-
+        strong{
+          margin:0 10px
+        }
         .name{
           padding: 6px 20px;
         }

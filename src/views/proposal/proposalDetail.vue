@@ -287,6 +287,10 @@ export default {
       this.getData()
     })
   },
+  beforeDestroy() {
+    this.$eventBus.$on('message', () => {
+    })
+  },
   methods:{
     delegate(){
       this.$store.dispatch("erc20/delegate", this.account).then(res=>{
