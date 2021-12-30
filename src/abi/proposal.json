@@ -1,0 +1,910 @@
+{
+  "source": {
+    "hash": "0x228c157f45cb96af0f81204425cc76185ac30c1bd99a180f21ce9de0af3fad42",
+    "language": "ink! 3.0.0-rc5",
+    "compiler": "rustc 1.59.0-nightly"
+  },
+  "contract": {
+    "name": "govnance_dao",
+    "version": "0.1.0",
+    "authors": [
+      "[your_name] <[your_email]>"
+    ]
+  },
+  "V1": {
+    "spec": {
+      "constructors": [
+        {
+          "args": [
+            {
+              "name": "route_addr",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            },
+            {
+              "name": "rbd_addr",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            }
+          ],
+          "docs": [],
+          "name": [
+            "new"
+          ],
+          "selector": "0x9bae9d5e"
+        }
+      ],
+      "docs": [],
+      "events": [
+        {
+          "args": [
+            {
+              "docs": [],
+              "indexed": true,
+              "name": "proposal_id",
+              "type": {
+                "displayName": [
+                  "u64"
+                ],
+                "type": 6
+              }
+            },
+            {
+              "docs": [],
+              "indexed": true,
+              "name": "creator",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            }
+          ],
+          "docs": [],
+          "name": "ProposalCreated"
+        }
+      ],
+      "messages": [
+        {
+          "args": [
+            {
+              "name": "title",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 10
+              }
+            },
+            {
+              "name": "desc",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 10
+              }
+            },
+            {
+              "name": "transaction",
+              "type": {
+                "displayName": [
+                  "Transaction"
+                ],
+                "type": 17
+              }
+            }
+          ],
+          "docs": [],
+          "mutates": true,
+          "name": [
+            "propose"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 12
+          },
+          "selector": "0xcb14b5b5"
+        },
+        {
+          "args": [
+            {
+              "name": "proposal_id",
+              "type": {
+                "displayName": [
+                  "u64"
+                ],
+                "type": 6
+              }
+            }
+          ],
+          "docs": [],
+          "mutates": false,
+          "name": [
+            "state"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "ProposalState"
+            ],
+            "type": 20
+          },
+          "selector": "0x0ced162a"
+        },
+        {
+          "args": [
+            {
+              "name": "proposal_id",
+              "type": {
+                "displayName": [
+                  "u64"
+                ],
+                "type": 6
+              }
+            }
+          ],
+          "docs": [],
+          "mutates": false,
+          "name": [
+            "cancel"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 12
+          },
+          "selector": "0x9796e9a7"
+        },
+        {
+          "args": [
+            {
+              "name": "proposal_id",
+              "type": {
+                "displayName": [
+                  "u64"
+                ],
+                "type": 6
+              }
+            }
+          ],
+          "docs": [],
+          "mutates": true,
+          "name": [
+            "exec"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 12
+          },
+          "selector": "0x1374500c"
+        },
+        {
+          "args": [
+            {
+              "name": "proposal_id",
+              "type": {
+                "displayName": [
+                  "u64"
+                ],
+                "type": 6
+              }
+            },
+            {
+              "name": "support",
+              "type": {
+                "displayName": [
+                  "bool"
+                ],
+                "type": 12
+              }
+            }
+          ],
+          "docs": [],
+          "mutates": true,
+          "name": [
+            "cast_vote"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 12
+          },
+          "selector": "0xcaed155c"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "mutates": false,
+          "name": [
+            "list_proposals"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Vec"
+            ],
+            "type": 21
+          },
+          "selector": "0x544129e4"
+        },
+        {
+          "args": [
+            {
+              "name": "proposal_id",
+              "type": {
+                "displayName": [
+                  "u64"
+                ],
+                "type": 6
+              }
+            }
+          ],
+          "docs": [],
+          "mutates": false,
+          "name": [
+            "get_proposal_by_id"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Proposal"
+            ],
+            "type": 9
+          },
+          "selector": "0x9d880359"
+        }
+      ]
+    },
+    "storage": {
+      "struct": {
+        "fields": [
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "ty": 0
+              }
+            },
+            "name": "owner"
+          },
+          {
+            "layout": {
+              "struct": {
+                "fields": [
+                  {
+                    "layout": {
+                      "struct": {
+                        "fields": [
+                          {
+                            "layout": {
+                              "cell": {
+                                "key": "0x0100000000000000000000000000000000000000000000000000000000000000",
+                                "ty": 3
+                              }
+                            },
+                            "name": "header"
+                          },
+                          {
+                            "layout": {
+                              "struct": {
+                                "fields": [
+                                  {
+                                    "layout": {
+                                      "cell": {
+                                        "key": "0x0200000000000000000000000000000000000000000000000000000000000000",
+                                        "ty": 4
+                                      }
+                                    },
+                                    "name": "len"
+                                  },
+                                  {
+                                    "layout": {
+                                      "array": {
+                                        "cellsPerElem": 1,
+                                        "layout": {
+                                          "cell": {
+                                            "key": "0x0200000001000000000000000000000000000000000000000000000000000000",
+                                            "ty": 5
+                                          }
+                                        },
+                                        "len": 4294967295,
+                                        "offset": "0x0300000000000000000000000000000000000000000000000000000000000000"
+                                      }
+                                    },
+                                    "name": "elems"
+                                  }
+                                ]
+                              }
+                            },
+                            "name": "entries"
+                          }
+                        ]
+                      }
+                    },
+                    "name": "keys"
+                  },
+                  {
+                    "layout": {
+                      "hash": {
+                        "layout": {
+                          "cell": {
+                            "key": "0x0300000001000000000000000000000000000000000000000000000000000000",
+                            "ty": 8
+                          }
+                        },
+                        "offset": "0x0200000001000000000000000000000000000000000000000000000000000000",
+                        "strategy": {
+                          "hasher": "Blake2x256",
+                          "postfix": "",
+                          "prefix": "0x696e6b20686173686d6170"
+                        }
+                      }
+                    },
+                    "name": "values"
+                  }
+                ]
+              }
+            },
+            "name": "proposals"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0300000001000000000000000000000000000000000000000000000000000000",
+                "ty": 4
+              }
+            },
+            "name": "voting_delay"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0400000001000000000000000000000000000000000000000000000000000000",
+                "ty": 4
+              }
+            },
+            "name": "voting_period"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0500000001000000000000000000000000000000000000000000000000000000",
+                "ty": 6
+              }
+            },
+            "name": "proposal_length"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0600000001000000000000000000000000000000000000000000000000000000",
+                "ty": 0
+              }
+            },
+            "name": "route_addr"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0700000001000000000000000000000000000000000000000000000000000000",
+                "ty": 0
+              }
+            },
+            "name": "rbd_addr"
+          }
+        ]
+      }
+    },
+    "types": [
+      {
+        "id": 0,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 1,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_env",
+            "types",
+            "AccountId"
+          ]
+        }
+      },
+      {
+        "id": 1,
+        "type": {
+          "def": {
+            "array": {
+              "len": 32,
+              "type": 2
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "type": {
+          "def": {
+            "primitive": "u8"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "last_vacant",
+                  "type": 4,
+                  "typeName": "Index"
+                },
+                {
+                  "name": "len",
+                  "type": 4,
+                  "typeName": "u32"
+                },
+                {
+                  "name": "len_entries",
+                  "type": 4,
+                  "typeName": "u32"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_storage",
+            "collections",
+            "stash",
+            "Header"
+          ]
+        }
+      },
+      {
+        "id": 4,
+        "type": {
+          "def": {
+            "primitive": "u32"
+          }
+        }
+      },
+      {
+        "id": 5,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 7,
+                      "typeName": "VacantEntry"
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Vacant"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 6,
+                      "typeName": "T"
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Occupied"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 6
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "collections",
+            "stash",
+            "Entry"
+          ]
+        }
+      },
+      {
+        "id": 6,
+        "type": {
+          "def": {
+            "primitive": "u64"
+          }
+        }
+      },
+      {
+        "id": 7,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "next",
+                  "type": 4,
+                  "typeName": "Index"
+                },
+                {
+                  "name": "prev",
+                  "type": 4,
+                  "typeName": "Index"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_storage",
+            "collections",
+            "stash",
+            "VacantEntry"
+          ]
+        }
+      },
+      {
+        "id": 8,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "value",
+                  "type": 9,
+                  "typeName": "V"
+                },
+                {
+                  "name": "key_index",
+                  "type": 4,
+                  "typeName": "KeyIndex"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "V",
+              "type": 9
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "collections",
+            "hashmap",
+            "ValueEntry"
+          ]
+        }
+      },
+      {
+        "id": 9,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "proposal_id",
+                  "type": 6,
+                  "typeName": "u64"
+                },
+                {
+                  "name": "title",
+                  "type": 10,
+                  "typeName": "String"
+                },
+                {
+                  "name": "desc",
+                  "type": 10,
+                  "typeName": "String"
+                },
+                {
+                  "name": "start_block",
+                  "type": 4,
+                  "typeName": "u32"
+                },
+                {
+                  "name": "end_block",
+                  "type": 4,
+                  "typeName": "u32"
+                },
+                {
+                  "name": "for_votes",
+                  "type": 11,
+                  "typeName": "u128"
+                },
+                {
+                  "name": "against_votes",
+                  "type": 11,
+                  "typeName": "u128"
+                },
+                {
+                  "name": "owner",
+                  "type": 0,
+                  "typeName": "AccountId"
+                },
+                {
+                  "name": "canceled",
+                  "type": 12,
+                  "typeName": "bool"
+                },
+                {
+                  "name": "executed",
+                  "type": 12,
+                  "typeName": "bool"
+                },
+                {
+                  "name": "receipts",
+                  "type": 13,
+                  "typeName": "BTreeMap<AccountId, Receipt>"
+                },
+                {
+                  "name": "transaction",
+                  "type": 17,
+                  "typeName": "Transaction"
+                }
+              ]
+            }
+          },
+          "path": [
+            "govnance_dao",
+            "govnance_dao",
+            "Proposal"
+          ]
+        }
+      },
+      {
+        "id": 10,
+        "type": {
+          "def": {
+            "primitive": "str"
+          }
+        }
+      },
+      {
+        "id": 11,
+        "type": {
+          "def": {
+            "primitive": "u128"
+          }
+        }
+      },
+      {
+        "id": 12,
+        "type": {
+          "def": {
+            "primitive": "bool"
+          }
+        }
+      },
+      {
+        "id": 13,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 15
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 0
+            },
+            {
+              "name": "V",
+              "type": 14
+            }
+          ],
+          "path": [
+            "BTreeMap"
+          ]
+        }
+      },
+      {
+        "id": 14,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "has_voted",
+                  "type": 12,
+                  "typeName": "bool"
+                },
+                {
+                  "name": "support",
+                  "type": 12,
+                  "typeName": "bool"
+                },
+                {
+                  "name": "votes",
+                  "type": 11,
+                  "typeName": "u128"
+                }
+              ]
+            }
+          },
+          "path": [
+            "govnance_dao",
+            "govnance_dao",
+            "Receipt"
+          ]
+        }
+      },
+      {
+        "id": 15,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 16
+            }
+          }
+        }
+      },
+      {
+        "id": 16,
+        "type": {
+          "def": {
+            "tuple": [
+              0,
+              14
+            ]
+          }
+        }
+      },
+      {
+        "id": 17,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "callee",
+                  "type": 0,
+                  "typeName": "AccountId"
+                },
+                {
+                  "name": "selector",
+                  "type": 18,
+                  "typeName": "[u8; 4]"
+                },
+                {
+                  "name": "input",
+                  "type": 19,
+                  "typeName": "Vec<u8>"
+                },
+                {
+                  "name": "transferred_value",
+                  "type": 11,
+                  "typeName": "Balance"
+                },
+                {
+                  "name": "gas_limit",
+                  "type": 6,
+                  "typeName": "u64"
+                }
+              ]
+            }
+          },
+          "path": [
+            "govnance_dao",
+            "govnance_dao",
+            "Transaction"
+          ]
+        }
+      },
+      {
+        "id": 18,
+        "type": {
+          "def": {
+            "array": {
+              "len": 4,
+              "type": 2
+            }
+          }
+        }
+      },
+      {
+        "id": 19,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 2
+            }
+          }
+        }
+      },
+      {
+        "id": 20,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "index": 0,
+                  "name": "Canceled"
+                },
+                {
+                  "index": 1,
+                  "name": "Pending"
+                },
+                {
+                  "index": 2,
+                  "name": "Active"
+                },
+                {
+                  "index": 3,
+                  "name": "Defeated"
+                },
+                {
+                  "index": 4,
+                  "name": "Succeeded"
+                },
+                {
+                  "index": 5,
+                  "name": "Executed"
+                },
+                {
+                  "index": 6,
+                  "name": "Expired"
+                },
+                {
+                  "index": 7,
+                  "name": "Queued"
+                }
+              ]
+            }
+          },
+          "path": [
+            "govnance_dao",
+            "govnance_dao",
+            "ProposalState"
+          ]
+        }
+      },
+      {
+        "id": 21,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 9
+            }
+          }
+        }
+      }
+    ]
+  }
+}
