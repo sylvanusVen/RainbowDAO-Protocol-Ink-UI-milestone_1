@@ -6,21 +6,10 @@
 
 Docker supports the following versions of the [Ubuntu](https://ubuntu.com/server) operating system:
 
-- 
-
-  Ubuntu Hirsute 21.04
-
-- 
-
-  Ubuntu Groovy 20.10
-
-- 
-
-  Ubuntu Focal 20.04 (LTS)
-
-- 
-
-  Ubuntu Bionic 18.04 (LTS)
+- Ubuntu Hirsute 21.04
+- Ubuntu Groovy 20.10
+- Ubuntu Focal 20.04 (LTS)
+- Ubuntu Bionic 18.04 (LTS)
 
 ### install
 
