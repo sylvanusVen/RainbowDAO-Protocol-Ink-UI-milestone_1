@@ -25,11 +25,12 @@ const actions = {
         name,
         incomeInfo
     }){
+        console.log(  name,
+            incomeInfo)
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
         console.log(name,incomeInfo)
-        incomeInfo.account = AccountId
         let isSend = false
         let data = await state.contract.tx.saveCategory( {value, gasLimit},name,incomeInfo).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
