@@ -1,5 +1,13 @@
 # rainbowwibsite
 
+#### About Contract Address:
+
+1. Change the contract address for your deployment
+
+```
+path: /src/api/connectContract.js   abiMap
+```
+
 ## Project setup
 ```
 npm install
@@ -15,10 +23,9 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
+### docker
+
 ```
-npm run lint
+npm run docker:build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
