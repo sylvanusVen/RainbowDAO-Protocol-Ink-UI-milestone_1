@@ -143,25 +143,29 @@ export default {
           this.roleAddress = roleAddress
           this.$store.dispatch("roleManage/listRoles",this.roleAddress).then(res => {
             this.authList = []
-            res.forEach(item=>{
-              let pArr = []
-              this.$store.dispatch("roleManage/listRolePrivileges", {name:item,address:this.roleAddress}).then(privileges=>{
-                if(privileges){
-                  pArr.push(...privileges)
-                }
+            if(res){
+              res.forEach(item=>{
+                let pArr = []
+                this.$store.dispatch("roleManage/listRolePrivileges", {name:item,address:this.roleAddress}).then(privileges=>{
+                  if(privileges){
+                    pArr.push(...privileges)
+                  }
+                })
+                this.authList.push({
+                  privileges:pArr,
+                  name:item
+                })
               })
-              this.authList.push({
-                privileges:pArr,
-                name:item
-              })
-            })
-            this.listRoles = res
+              this.listRoles = res
+            }
+
           })
         })
         this.$store.dispatch("core/getAuthAddr").then(authAddress=>{
           this.authAddress = authAddress
         })
         this.$store.dispatch("core/getRouteAddr").then(routerAddress=>{
+          console.log(routerAddress)
           this.routerAddress = routerAddress
           this.$store.dispatch("routerMap/listRoute",routerAddress).then(list=>{
             console.log(list)
