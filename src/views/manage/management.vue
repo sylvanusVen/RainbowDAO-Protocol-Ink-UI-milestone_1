@@ -68,19 +68,22 @@
             Route management
           </div>
           <div class="route-list">
-            <div class="route-item" v-for="role in manageList">
+            <div class="route-item" v-for="(item,index) in routerList" :key="index">
               <div class="icon">
                 <img src="" alt="">
               </div>
               <div class="name">
-                {{ role }}
+                <strong>name</strong>:{{ index }}
+              </div>
+              <div class="address">
+                <strong>address</strong>:{{item}}
               </div>
             </div>
-
           </div>
           <div class="add-item">
+            <strong>add router:</strong>
             <input class="add-input" type="text" v-model="routerName" placeholder="Add route name">
-            <input class="add-input" type="text" v-model="routerValue" placeholder="Add route value">
+            <input class="add-input" type="text" v-model="routerValue" placeholder="Add route address">
           </div>
           <div class="confirm-btn rainbow-btn" @click="addRoute">
             confirm
@@ -106,7 +109,7 @@ export default {
       routerName: undefined,
       routerValue: undefined,
       privilege:undefined,
-      manageList:[],
+      routerList:[],
       roleAddress:"",
       routerAddress:"",
       authAddress:"",
@@ -138,10 +141,6 @@ export default {
 
         this.$store.dispatch("core/getRoleAddr").then(roleAddress=>{
           this.roleAddress = roleAddress
-          this.$store.dispatch("roleManage/getUserPrivilege",roleAddress).then(res => {
-            console.log(res, "list")
-            this.manageList = res
-          })
           this.$store.dispatch("roleManage/listRoles",this.roleAddress).then(res => {
             this.authList = []
             res.forEach(item=>{
@@ -164,6 +163,10 @@ export default {
         })
         this.$store.dispatch("core/getRouteAddr").then(routerAddress=>{
           this.routerAddress = routerAddress
+          this.$store.dispatch("routerMap/listRoute",routerAddress).then(list=>{
+            console.log(list)
+              this.routerList= list
+          })
         })
       }
     },
@@ -263,12 +266,6 @@ export default {
           }
         }
 
-        .name {
-          width: 80px;
-          margin: 0 10px;
-          color: #333333;
-          line-height: 20px;
-        }
 
         .detail {
           padding: 10px;
@@ -287,8 +284,14 @@ export default {
         border-radius: 10px;
         border: 1px solid #eee;
         padding: 6px 20px;
-      }
+        .name{
+          line-height: 20px;
 
+        }
+        .address{
+          line-height: 30px;
+        }
+      }
     }
     .add-item{
       padding-top: 30px;

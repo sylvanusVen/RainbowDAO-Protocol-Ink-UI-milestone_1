@@ -2,6 +2,7 @@ import connectContract from "../../api/connectContract"
 import {formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
 import {eventBus} from "../../utils/eventBus"
+import contractHash from "../../utils/contractHash.json"
 const state = {
     web3:{},
     contract:null
@@ -29,7 +30,7 @@ const actions = {
     },
     async newMultiSign({rootState},{ owners,min_sign_count}){
         await judgeContract(rootState.app.web3)
-        let multisig_hash = "0x90c884dfe12169f5c33e8dc48f1c46aad8616997340fbd116c444ef299a0b3fd"
+        let multisig_hash = contractHash["multisig_hash"]
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
         owners?'':owners = [AccountId]

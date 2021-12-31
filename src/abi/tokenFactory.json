@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x489ecab6a1f06a488eac648ae1154c5f0b887961e8a11d13ec1f25bc756d5ca3",
+    "hash": "0x6e0e1343fc9ae85e30a17f060900347f364eb9aa91740c8ab28e41e7cb34d4b1",
     "language": "ink! 3.0.0-rc5",
     "compiler": "rustc 1.59.0-nightly"
   },
@@ -45,15 +45,6 @@
                   "Hash"
                 ],
                 "type": 9
-              }
-            },
-            {
-              "name": "version",
-              "type": {
-                "displayName": [
-                  "u8"
-                ],
-                "type": 2
               }
             },
             {

@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x04de51c9fe3733e0d2b2813bd6ffd16169e9fa2640b0fa2a358b0c764d60f859",
+    "hash": "0x749cad5b7507dc1c7d73d68278f031a8a3112e7038c150288e6d852ea441940b",
     "language": "ink! 3.0.0-rc5",
     "compiler": "rustc 1.59.0-nightly"
   },
@@ -135,7 +135,7 @@
           "payable": false,
           "returnType": {
             "displayName": [
-              "Vec"
+              "BTreeMap"
             ],
             "type": 12
           },
@@ -480,9 +480,47 @@
         "id": 12,
         "type": {
           "def": {
-            "sequence": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 13
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 6
+            },
+            {
+              "name": "V",
               "type": 9
             }
+          ],
+          "path": [
+            "BTreeMap"
+          ]
+        }
+      },
+      {
+        "id": 13,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 14
+            }
+          }
+        }
+      },
+      {
+        "id": 14,
+        "type": {
+          "def": {
+            "tuple": [
+              6,
+              9
+            ]
           }
         }
       }

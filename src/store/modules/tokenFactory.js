@@ -1,6 +1,7 @@
 import connectContract from "../../api/connectContract"
 import {formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
+import contractHash from "../../utils/contractHash.json"
 const state = {
     web3:{},
     contract:null
@@ -29,11 +30,10 @@ const actions = {
         console.log(initial_supply,name,symbol,decimals,owner)
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
-        let erc20_code_hash=`0xdd50c39cae66acd09c5da24fd4bb8fe7abbe957dfa89869681e37234d6d8695e`
+        let erc20_code_hash= contractHash["erc20_code_hash"]
         let owner = AccountId
-        let version = Math.random() * 100
         await judgeContract(rootState.app.web3)
-        let data = await state.contract.tx.newErc20( {value, gasLimit},erc20_code_hash,version,initial_supply,name,symbol,decimals,owner).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        let data = await state.contract.tx.newErc20( {value, gasLimit},erc20_code_hash,initial_supply,name,symbol,decimals,owner).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             if (result.status.isInBlock ||result.status.isFinalized) {
                 data = formatResult(data);

@@ -10,9 +10,12 @@
           income type
         </div>
         <div class="income-list">
-          <div class="item" v-for="item in listCategory">
+          <div class="item" v-for="(item,index) in listCategory" :key="index">
             <div class="left">
               <div class="item-title">
+                {{ index }}
+              </div>
+              <div class="address">
                 {{ item.token }}
 
               </div>
@@ -20,8 +23,8 @@
                 <div class="fee">
                   fee:{{ item.fee }}
                 </div>
-                <div class="isUsed">
-                  isUsed:{{item.isUsed }}
+                <div class="is_used">
+                  is_used:{{ item.isUsed }}
                 </div>
               </div>
             </div>
@@ -33,10 +36,14 @@
           </div>
           <div class="item">
             <div class="left">
+              <strong style="color: red">only admin can add</strong>
               <input type="text" v-model="revenue" placeholder="addRevenue">
+              <input type="text" v-model="incomeInfo.fee" placeholder="fee">
+              <input type="text" v-model="incomeInfo.token" placeholder="token">
+              <input type="text" v-model="incomeInfo.is_used" placeholder="is used">
             </div>
             <div class="right">
-              <div class="add-btn"  @click="addRevenue">
+              <div class="add-btn" @click="addRevenue">
                 Add Revenue
               </div>
             </div>
@@ -53,14 +60,14 @@ import {mapGetters} from "vuex";
 
 export default {
   name: "incomeManage",
-  data(){
-    return{
-      revenue:"",
-      listCategory:[],
-      incomeInfo:{
-        isUsed:true,
-        fee:0,
-        account:this.account
+  data() {
+    return {
+      revenue: "",
+      listCategory: [],
+      incomeInfo: {
+        is_used: true,
+        fee: 0,
+        token: this.account
       }
     }
   },
@@ -82,19 +89,19 @@ export default {
   computed: {
     ...mapGetters(['account', 'isConnected'])
   },
-  methods:{
-    addRevenue(){
-      this.$store.dispatch("incomeManage/saveCategory",{
-        name:this.revenue,
-        incomeInfo:this.incomeInfo
-      }).then(res=>{
+  methods: {
+    addRevenue() {
+      this.$store.dispatch("incomeManage/saveCategory", {
+        name: this.revenue,
+        incomeInfo: this.incomeInfo
+      }).then(res => {
         console.log(res)
         this.getData()
       })
     },
     getData() {
       if (this.isConnected) {
-        this.$store.dispatch("incomeManage/listCategory").then(res=>{
+        this.$store.dispatch("incomeManage/listCategory").then(res => {
           console.log(res)
           this.listCategory = res
         })
@@ -112,6 +119,7 @@ export default {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+
       .item {
         width: 46%;
         margin-top: 20px;
@@ -121,7 +129,9 @@ export default {
         border: 1px solid #eaeaea;
         display: flex;
         justify-content: space-between;
+
         input {
+          margin-top: 10px;
           width: 280px;
           height: 38px;
           margin-right: 20px;
@@ -130,7 +140,8 @@ export default {
           border: 1px solid #eaeaea;
           border-radius: 10px;
         }
-        .add-btn{
+
+        .add-btn {
           padding: 0 10px;
           height: 32px;
           background: linear-gradient(90deg, #12c2e9 0%, #c471ed 64%, #f64f59 100%);
@@ -141,12 +152,15 @@ export default {
           line-height: 32px;
           cursor: pointer;
         }
-        .left{
-          .item-title{
+
+        .left {
+          .item-title {
+            font-size: 30px;
             color: #999999;
-            line-height: 20px;
+            line-height: 40px;
           }
-          .balance{
+
+          .balance {
             font-size: 30px;
             font-weight: bold;
             text-align: left;
@@ -155,19 +169,23 @@ export default {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            .isUsed{
+
+            .is_used {
               font-size: 16px;
             }
           }
         }
-        .right{
+
+        .right {
           display: flex;
           height: 100%;
           align-items: center;
+
           .icon-box {
             width: 30px;
             height: 30px;
             cursor: pointer;
+
             .icon {
               width: 100%;
               height: 100%;
