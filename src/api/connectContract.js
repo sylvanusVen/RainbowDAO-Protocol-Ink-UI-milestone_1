@@ -18,14 +18,14 @@ const ConnectContract = async (api,type,address) =>{
       return
     }
     const abiMap ={
-        erc20:{abi:erc20Abi, address:"5DXmyXjzhHiDENqPPMt6JDt6e2PrLmpDkcAWvi9PApcUGDbs"},
+        erc20:{abi:erc20Abi, address:"5DYLW3SkohMhUE82HBhGfnqFztm6woEoJw6aM6ce5EWaiM7Q"},
         routerMap:{ address :"5E4NaYuHUQRAvoT9dxXKYgB3ABHiuP5VMwFxTfkCg4xdyzNL" , abi:routerMap},
         core:{ address : "5GnPbhaQFrAMDdK7rxE6wRVe8xerw5pm8Y8qFJMy8qnNK1h9", abi : core},
         roleManage:{  abi:roleManage},
         authManage:{ abi:authManage},
         routerManage:{ abi:routerManage},
         userManage:{address:"5HRYTE5Cvam2rjtXekkNs3b8mNtkU7dsMN6Ypeef8EUyoUjU", abi:userManage},
-        proposal:{address:"5Dfr7FCmaqMfL2QspVtwRmHTzeSsRxBhCJ7bGx8dzVzWpTMw", abi:proposal},
+        proposal:{address:"5G9XQQefazuHqhNXPZSC8gr6Ss2FpKT4awqUrQMkMPXZXvnw", abi:proposal},
         incomeManage:{address:"5DzW4Nz3FCfYi9owRFGExZwMVJNAkbKWseyBpknx1YGvR9RA", abi:incomeManage},
         tokenFactory:{address:"5G2sy7RCQxPxchVHsPo7YLWopxvbaM2LDscN7JHRyHBFFBGc", abi:tokenFactory},
         multisignFactory:{address:"5Cc7sNX3AdB6gY5d2wnTPXnkZeKv2sovfSLv9583QzH7C8Cq", abi:multisignFactory},
