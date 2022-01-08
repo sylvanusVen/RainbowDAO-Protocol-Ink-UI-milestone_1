@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <pageFooter></pageFooter>
+    <page-footer></page-footer>
   </div>
 </template>
 

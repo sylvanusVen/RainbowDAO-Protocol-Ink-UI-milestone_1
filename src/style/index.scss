@@ -147,3 +147,28 @@ aside {
     }
   }
 }
+.rainbow-button{
+  background: linear-gradient(90deg,#12c2e9 0%, #c471ed 64%, #f64f59 100%);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  color: #fff;
+  font-size: 14px;
+  position: relative;
+  &:active{
+    transform: translate(2px,2px);
+  }
+  &:after{
+    content: '';
+    position: absolute;
+    top: 90%;
+    width: 100px;
+    height: 10px;
+    background: linear-gradient(90deg,#12c2e9 0%, #c471ed 64%, #f64f59 100%);
+    border-radius: 10px;
+    filter: blur(10px);
+  }
+}

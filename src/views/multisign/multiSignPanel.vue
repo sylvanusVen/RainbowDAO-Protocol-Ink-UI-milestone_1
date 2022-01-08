@@ -217,7 +217,7 @@ export default {
       index:0,
       balance:0,
       settingIndex:0,
-      mulAddress: "5FDpUZyCYRGDJShbQcQMWzQJ7epPJ3HMyFFjvj4edfMxWf5A",
+      mulAddress: "",
       form: {},
       form2: {},
       mulNumber: 0,

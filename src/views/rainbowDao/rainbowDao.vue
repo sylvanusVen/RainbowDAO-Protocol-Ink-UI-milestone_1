@@ -969,7 +969,7 @@
           </div>
         </div>
         <div class="footer-box">
-          <pageFooter v-show="scrollNumber>footerToTop "></pageFooter>
+          <page-footer v-show="scrollNumber>footerToTop "></page-footer>
         </div>
       </div>
 
