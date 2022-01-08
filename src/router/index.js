@@ -36,6 +36,11 @@ const routes = [
                 component:()=> import('@/views/multisign/myMultiSign.vue')
             },
             {
+                path: '/daoFinance',
+                name: "daoFinance",
+                component:()=> import('@/views/daoManage/daoFinance.vue')
+            },
+            {
                 path: '/management',
                 name: "management",
                 component:()=> import('@/views/manage/management.vue')

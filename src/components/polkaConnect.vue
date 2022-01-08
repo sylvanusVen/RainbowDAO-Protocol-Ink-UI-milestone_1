@@ -53,7 +53,7 @@ export default {
     this.accountList = accountList.allAccounts
     console.log(accountList)
     this.$store.commit("app/SET_ACCOUNT", accountList.allAccounts[0].address)
-
+    sessionStorage.setItem('currentAccount', accountList.allAccounts[0].address);
   },
   methods: {
     loginOut() {

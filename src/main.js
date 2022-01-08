@@ -8,6 +8,7 @@ import "animate.css"
 import {eventBus} from "./utils/eventBus"
 import rainbowNav from "@/components/rainbowNav";
 import rainbowNavNew from "@/components/rainbowNavNew";
+import daoNav from "@/components/daoNav";
 import multiSignNav from "@/components/multiSignNav";
 import pageFooter from "./components/pageFooter";
 
@@ -22,6 +23,7 @@ Vue.config.productionTip = false
 Vue.component('rainbow-nav', rainbowNav)
 Vue.component('rainbow-nav-new', rainbowNavNew)
 Vue.component('multi-sign-nav', multiSignNav)
+Vue.component('dao-nav', daoNav)
 Vue.component('pageFooter', pageFooter)
 new Vue({
   router,

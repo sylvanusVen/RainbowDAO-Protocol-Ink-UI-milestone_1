@@ -3,7 +3,7 @@
 ### install
 
 ```
-curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+curl -fsSL https://get.docker.com | bash -s docker --mirror
 ```
 
 ### cd into interface
