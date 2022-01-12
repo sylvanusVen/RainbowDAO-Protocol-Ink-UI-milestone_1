@@ -34,9 +34,8 @@ npm run build
 
 ```
 npm run docker:build
+docker run -p8080:80 rainbow/ui1:v1
 ```
-
-### 
 
 ## Way 2:  Local Node Test 
 
@@ -71,5 +70,3 @@ Please find the correct contractHash for `` src/utils/contractHash.json ``, and 
 You can use `https://www.rainbowdao.io/polkadot` to create token/multisign wallet.  Test  Protocol Management.
 
 
-
-### 

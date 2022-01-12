@@ -1,0 +1,226 @@
+{
+  "spec": {
+    "constructors": [
+      {
+        "args": [
+          {
+            "name": "route_addr",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 0
+            }
+          }
+        ],
+        "docs": [],
+        "name": [
+          "new"
+        ],
+        "selector": "0x9bae9d5e"
+      }
+    ],
+    "docs": [],
+    "events": [],
+    "messages": [
+      {
+        "args": [
+          {
+            "name": "erc20_code_hash",
+            "type": {
+              "displayName": [
+                "Hash"
+              ],
+              "type": 3
+            }
+          },
+          {
+            "name": "version",
+            "type": {
+              "displayName": [
+                "u8"
+              ],
+              "type": 2
+            }
+          },
+          {
+            "name": "initial_supply",
+            "type": {
+              "displayName": [
+                "Balance"
+              ],
+              "type": 4
+            }
+          },
+          {
+            "name": "name",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 5
+            }
+          },
+          {
+            "name": "symbol",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 5
+            }
+          },
+          {
+            "name": "decimals",
+            "type": {
+              "displayName": [
+                "u8"
+              ],
+              "type": 2
+            }
+          },
+          {
+            "name": "owner",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 0
+            }
+          }
+        ],
+        "docs": [],
+        "mutates": true,
+        "name": [
+          "new_erc20"
+        ],
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "AccountId"
+          ],
+          "type": 0
+        },
+        "selector": "0xc05648fd"
+      },
+      {
+        "args": [
+          {
+            "name": "target_name",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 5
+            }
+          }
+        ],
+        "docs": [],
+        "mutates": false,
+        "name": [
+          "get_contract_addr"
+        ],
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "AccountId"
+          ],
+          "type": 0
+        },
+        "selector": "0x3d6b268b"
+      }
+    ]
+  },
+  "storage": {
+    "struct": {
+      "fields": [
+        {
+          "layout": {
+            "cell": {
+              "key": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "ty": 0
+            }
+          },
+          "name": "route_addr"
+        }
+      ]
+    }
+  },
+  "types": [
+    {
+      "id": 0,
+      "type": {
+        "def": {
+          "composite": {
+            "fields": [
+              {
+                "type": 1,
+                "typeName": "[u8; 32]"
+              }
+            ]
+          }
+        },
+        "path": [
+          "ink_env",
+          "types",
+          "AccountId"
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "type": {
+        "def": {
+          "array": {
+            "len": 32,
+            "type": 2
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": {
+        "def": {
+          "primitive": "u8"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": {
+        "def": {
+          "composite": {
+            "fields": [
+              {
+                "type": 1,
+                "typeName": "[u8; 32]"
+              }
+            ]
+          }
+        },
+        "path": [
+          "ink_env",
+          "types",
+          "Hash"
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "type": {
+        "def": {
+          "primitive": "u128"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": {
+        "def": {
+          "primitive": "str"
+        }
+      }
+    }
+  ]
+}
