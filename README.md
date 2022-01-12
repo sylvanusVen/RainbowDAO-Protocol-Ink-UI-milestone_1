@@ -34,9 +34,8 @@ npm run build
 
 ```
 npm run docker:build
+docker run -p8080:80 rainbow/ui1:v1
 ```
-
-
 
 ## Way 2:  Local Node Test 
 
