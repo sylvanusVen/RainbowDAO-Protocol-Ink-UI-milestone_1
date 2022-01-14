@@ -19,7 +19,6 @@ const ConnectContract = async (api,type,address) =>{
     }
     const abiMap ={
         erc20:{abi:erc20Abi, address:"5GbZ9XwFEBRakwbUt6dA6Lrr2biczzt36hvxYeffAREN2Y3v"},
-        routerMap:{ address :"5E4NaYuHUQRAvoT9dxXKYgB3ABHiuP5VMwFxTfkCg4xdyzNL" , abi:routerMap},
         core:{ address : "5GrKFtghHdHvA8W16LY5AA47JQd6HGCTuQHgu1yBvJ7FnioC", abi : core},
         roleManage:{  abi:roleManage},
         authManage:{ abi:authManage},
@@ -31,7 +30,6 @@ const ConnectContract = async (api,type,address) =>{
         multisignFactory:{address:"5EkN9m2Ds29hzEJMSZLgkidtXAtE4sRyZJ8ZAqG4x1Vb56jx", abi:multisignFactory},
         multisign:{ abi: multisign}
     }
-    console.log(api, abiMap[type].abi, address)
 
     if(abiMap[type].address){
         address = abiMap[type].address
