@@ -51,16 +51,18 @@ export default {
   async created() {
     let accountList = await Accounts.accountList();
     this.accountList = accountList.allAccounts
-    console.log(accountList)
-    this.$store.commit("app/SET_ACCOUNT", accountList.allAccounts[0].address)
     sessionStorage.setItem('currentAccount', accountList.allAccounts[0].address);
+
+    if(sessionStorage.getItem('currentAccount') && this.$store.state.app.isConnected){
+      // this.$store.commit("app/SET_ACCOUNT", accountList.allAccounts[0].address)
+      // await this.polkaConnect(sessionStorage.getItem('currentAccount'))
+    }
   },
   methods: {
     loginOut() {
       this.$store.dispatch('app/loginOutWeb3')
     },
     async polkaConnect(address) {
-
       let account = sessionStorage.getItem('currentAccount')
       if(account){
         this.account = account
@@ -70,9 +72,8 @@ export default {
         this.account = address
         sessionStorage.setItem('currentAccount', address);
         this.$store.commit("app/SET_ACCOUNT", address)
-         this.$store.dispatch("app/getBalance", address).then(res=>{
-           console.log(res)
-         })
+        console.log(address)
+        this.$store.dispatch("app/getBalance", address)
         this.isShowConnect = false
       }
     },

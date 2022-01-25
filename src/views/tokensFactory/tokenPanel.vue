@@ -49,7 +49,6 @@ export default {
     getData(){
       if(this.isConnected){
         this.$store.dispatch("tokenFactory/listToken").then(res=>{
-          console.log(res)
           if(res&&res.length>0){
             this.tokenList = res
           }

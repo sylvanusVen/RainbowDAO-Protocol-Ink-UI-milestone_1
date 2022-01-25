@@ -12,8 +12,6 @@
           <span class="w-font">Test version</span>
           <span class="re-active" >Test version</span>
         </li>
-
-
       </ul>
     </div>
   </div>

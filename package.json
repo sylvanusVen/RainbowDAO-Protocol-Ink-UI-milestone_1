@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "docker:build": "docker build -t rainbow/ui1:v1 ."
+    "docker:build": "docker build -t rainbow/ui1:v1."
   },
   "dependencies": {
     "@polkadot/api": "^6.12.1",

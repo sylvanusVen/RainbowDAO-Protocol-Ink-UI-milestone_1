@@ -1,5 +1,5 @@
 import connectContract from "../../api/connectContract"
-import {formatResult} from "../../utils/formatUtils"
+import {dealResult, formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
 import {eventBus} from "../../utils/eventBus";
 
@@ -32,24 +32,21 @@ const actions = {
     async addRoute({rootState}, {name, address}) {
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
-        await judgeContract(rootState.app.web3)
-        let isSend = false
+         await judgeContract(rootState.app.web3)
+        if(rootState.app.balance < 1.01){
+            eventBus.$emit('message', {
+                type:"error",
+                message:"Not enough gas"
+            })
+            return
+        }
+
         let data = await state.contract.tx.addRoute({
             value,
             gasLimit
         }, name, address).signAndSend(AccountId, {signer: injector.signer}, (result) => {
             console.error(result)
-            if (result.status.isInBlock || result.status.isFinalized) {
-                if (!isSend) {
-                    isSend = true
-                    eventBus.$emit('message', {
-                        type: "success",
-                        message: "addRoute success"
-                    })
-                }
-
-                return true
-            }
+            dealResult(result)
         });
         data = formatResult(data);
         return data

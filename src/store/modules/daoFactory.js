@@ -1,7 +1,8 @@
 import connectContract from "../../api/connectContract"
-import {formatResult} from "../../utils/formatUtils"
+import {dealResult, formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
 import contractHash from "../../utils/contractHash.json"
+import {eventBus} from "../../utils/eventBus";
 const state = {
     web3:{},
     contract:null
@@ -10,7 +11,7 @@ const value = 0;
 const gasLimit = -1;
 async function  judgeContract(web3){
     if(!state.contract){
-        state.contract = await connectContract(web3, "tokenFactory")
+        state.contract = await connectContract(web3, "daoFactory")
     }
 }
 const mutations = {
@@ -19,41 +20,48 @@ const mutations = {
     }
 }
 const actions = {
-    async listToken({rootState}){
+    async getDaoByIndex({rootState},index) {
         const AccountId = await Accounts.accountAddress();
-         await judgeContract(rootState.app.web3)
-        let data = await state.contract.query.listToken(AccountId, {value, gasLimit})
+        await judgeContract(rootState.app.web3)
+        let data = await state.contract.query.getDaoByIndex(AccountId, {value, gasLimit},index)
         data = formatResult(data);
         return data
     },
-    async newErc20({rootState}, {initial_supply,name,symbol,decimals}){
+    async getDaosByOwner({rootState}) {
+        const AccountId = await Accounts.accountAddress();
+        await judgeContract(rootState.app.web3)
+        let data = await state.contract.query.getDaosByOwner(AccountId, {value, gasLimit})
+        data = formatResult(data);
+        return data
+    },
+    async initDaoByTemplate({rootState}, {}){
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
-        let erc20_code_hash= contractHash["erc20_code_hash"]
-        let owner = AccountId
-         await judgeContract(rootState.app.web3)
-        if(rootState.app.balance < 1.01){
+
+        let dao_manager_code_hash= contractHash["dao_hash"]
+        let controller = AccountId
+        let controller_type = 1
+        let category = "mother"
+
+        await judgeContract(rootState.app.web3)
+        if (rootState.app.balance < 1.01) {
             eventBus.$emit('message', {
-                type:"error",
-                message:"Not enough gas"
+                type: "error",
+                message: "Not enough gas"
             })
             return
         }
-        console.log(erc20_code_hash,initial_supply,name,symbol,decimals,owner)
-        let data = await state.contract.tx.newErc20( {value, gasLimit},erc20_code_hash,initial_supply,name,symbol,decimals,owner).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        console.log(state.contract)
+        let data = await state.contract.tx.initDaoByTemplate( {value, gasLimit},dao_manager_code_hash,controller,controller_type,category).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
-            if (result.status.isInBlock ||result.status.isFinalized) {
-                data = formatResult(data);
-                console.log(data)
-                return true
-            }
+            dealResult(result,"Create DAO")
         });
         data = formatResult(data);
         return data
     },
     async getContractAddr({rootState},name){
         const AccountId = await Accounts.accountAddress();
-         await judgeContract(rootState.app.web3)
+        await judgeContract(rootState.app.web3)
         if(rootState.app.balance < 1.01){
             eventBus.$emit('message', {
                 type:"error",

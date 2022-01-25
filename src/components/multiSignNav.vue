@@ -60,7 +60,6 @@ export default {
     if(account){
       this.account = account
     }
-    console.log(this.accountList)
     sessionStorage.setItem('account', JSON.stringify(this.accountList));
   },
   methods: {

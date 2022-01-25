@@ -12,14 +12,14 @@ import incomeManage from '../abi/incomeManage.json'
 import tokenFactory from '../abi/tokenFactory.json'
 import multisignFactory from '../abi/multisignFactory.json'
 import multisign from '../abi/multisign.json'
-
+import daoFactory from '../abi/daoFactory.json'
+import daoManage from '../abi/daoManage.json'
 const ConnectContract = async (api,type,address) =>{
     if(!api){
       return
     }
     const abiMap ={
         erc20:{abi:erc20Abi, address:"5GbZ9XwFEBRakwbUt6dA6Lrr2biczzt36hvxYeffAREN2Y3v"},
-        routerMap:{ address :"5E4NaYuHUQRAvoT9dxXKYgB3ABHiuP5VMwFxTfkCg4xdyzNL" , abi:routerMap},
         core:{ address : "5GrKFtghHdHvA8W16LY5AA47JQd6HGCTuQHgu1yBvJ7FnioC", abi : core},
         roleManage:{  abi:roleManage},
         authManage:{ abi:authManage},
@@ -29,9 +29,10 @@ const ConnectContract = async (api,type,address) =>{
         incomeManage:{address:"5EGSkkJHe6nb99NVCuK4YUVY5gJkeeXVkVmuZedsNw9QFzHn", abi:incomeManage},
         tokenFactory:{address:"5G2sy7RCQxPxchVHsPo7YLWopxvbaM2LDscN7JHRyHBFFBGc", abi:tokenFactory},
         multisignFactory:{address:"5EkN9m2Ds29hzEJMSZLgkidtXAtE4sRyZJ8ZAqG4x1Vb56jx", abi:multisignFactory},
+        daoFactory:{address:"5ExAVnXnmpEkbPdwyJYQ1CDYAKHDCMAwMd43Tem1LgPaL7b3", abi:daoFactory},
+        daoManage:{ abi:daoManage},
         multisign:{ abi: multisign}
     }
-    console.log(api, abiMap[type].abi, address)
 
     if(abiMap[type].address){
         address = abiMap[type].address

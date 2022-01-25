@@ -32,8 +32,14 @@ const actions = {
         commit("SET_WEB3", api)
     },
      async getBalance({commit},account){
-        let { data: balance } = await  state.web3.query.system.account(account);
-         return balance.toHuman().free
+        if(state.web3.query){
+            let { data: balance } = await  state.web3.query.system.account(account);
+            commit("SET_BALANCE",balance.toHuman().free)
+            console.log(balance)
+            return balance.toHuman().free
+        }else{
+            return 0
+        }
 
      }
 }

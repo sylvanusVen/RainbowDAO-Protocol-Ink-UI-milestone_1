@@ -33,7 +33,7 @@
           Protocol Management
         </div>
       </div>
-      <div class="item" >
+      <div class="item" @click="$router.push({name:'daoManage'})">
         <div class="icon">
           <img src="../assets/imgs/hack_icon1.png" alt="">
         </div>
@@ -66,7 +66,15 @@
 
 <script>
 export default {
-  name: "Hackathon"
+  name: "Hackathon",
+  methods:{
+    showToast(){
+      this.$eventBus.$emit('message', {
+        type: "error",
+        message: 'was developing'
+      })
+    }
+  }
 }
 </script>
 

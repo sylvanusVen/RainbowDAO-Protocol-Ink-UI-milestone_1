@@ -12,6 +12,8 @@ import proposal from "./modules/proposal"
 import userManage from "./modules/userManage";
 import multisignFactory from "./modules/multisignFactory";
 import incomeManage from "./modules/incomeManage";
+import daoFactory from "./modules/daoFactory";
+import daoManage from "./modules/daoManage";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -27,6 +29,8 @@ export default new Vuex.Store({
     roleManage,
     userManage,
     proposal,
-    incomeManage
+    incomeManage,
+    daoFactory,
+    daoManage
   }
 })

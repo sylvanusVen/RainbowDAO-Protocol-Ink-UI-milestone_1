@@ -1,5 +1,5 @@
 import connectContract from "../../api/connectContract"
-import {formatResult} from "../../utils/formatUtils"
+import {dealResult, formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
 import {eventBus} from "../../utils/eventBus"
 const state = {
@@ -22,7 +22,8 @@ const mutations = {
 }
 const actions = {
     async listProposals({rootState}) {
-        await judgeContract(rootState.app.web3)
+         await judgeContract(rootState.app.web3)
+
         const AccountId = await Accounts.accountAddress();
         let data = await state.contract.query.listProposals(AccountId, {value, gasLimit})
         console.log(data)
@@ -31,34 +32,37 @@ const actions = {
     },
     async propose({rootState}, {title,desc,transaction }) {
         const injector = await Accounts.accountInjector();
-        await judgeContract(rootState.app.web3)
+         await judgeContract(rootState.app.web3)
+        if(rootState.app.balance < 1.01){
+            eventBus.$emit('message', {
+                type:"error",
+                message:"Not enough gas"
+            })
+            return
+        }
         const AccountId = await Accounts.accountAddress();
-        let isSend = false
+
         let data = await state.contract.tx.propose({value, gasLimit},title,desc,transaction ).signAndSend(AccountId, { signer: injector.signer }, (result) => {
-            if (result.status.isInBlock ||result.status.isFinalized) {
-                if(!isSend){
-                    isSend = true
-                    eventBus.$emit('message', {
-                        type:"success",
-                        message:"create success"
-                    })
-                }
-                return true
-            }
+            dealResult(result)
         });
         data = formatResult(data);
         return data
     },
     async ProposalCreated({rootState},{proposal_id,creator}) {
         const injector = await Accounts.accountInjector();
-        await judgeContract(rootState.app.web3)
+         await judgeContract(rootState.app.web3)
+        if(rootState.app.balance < 1.01){
+            eventBus.$emit('message', {
+                type:"error",
+                message:"Not enough gas"
+            })
+            return
+        }
         const AccountId = await Accounts.accountAddress();
-        console.log(AccountId)
+
         let data = await state.contract.tx.ProposalCreated({value, gasLimit},proposal_id,creator).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
-            if (result.status.isInBlock ||result.status.isFinalized) {
-                return true
-            }
+            dealResult(result)
         });
         data = formatResult(data);
         return data
@@ -66,35 +70,37 @@ const actions = {
 
     async castVote({rootState},{proposal_id,support}) {
         const injector = await Accounts.accountInjector();
-        await judgeContract(rootState.app.web3)
+         await judgeContract(rootState.app.web3)
+        if(rootState.app.balance < 1.01){
+            eventBus.$emit('message', {
+                type:"error",
+                message:"Not enough gas"
+            })
+            return
+        }
         const AccountId = await Accounts.accountAddress();
-        let isSend= false
-        let data = await state.contract.tx.castVote({value, gasLimit},proposal_id,support).signAndSend(AccountId, { signer: injector.signer }, (result) => {
-            if (result.status.isInBlock ||result.status.isFinalized) {
-                if(!isSend){
-                    isSend= true
-                    eventBus.$emit('message', {
-                        type:"success",
-                        message:"castVote success"
-                    })
-                }
 
-                return true
-            }
+        let data = await state.contract.tx.castVote({value, gasLimit},proposal_id,support).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+            dealResult(result)
         });
         data = formatResult(data);
         return data
     },
     async cancel({rootState},proposal_id) {
         const injector = await Accounts.accountInjector();
-        await judgeContract(rootState.app.web3)
+         await judgeContract(rootState.app.web3)
+        if(rootState.app.balance < 1.01){
+            eventBus.$emit('message', {
+                type:"error",
+                message:"Not enough gas"
+            })
+            return
+        }
         const AccountId = await Accounts.accountAddress();
-        console.log(AccountId)
+
         let data = await state.contract.tx.cancel({value, gasLimit},proposal_id).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
-            if (result.status.isInBlock ||result.status.isFinalized) {
-                return true
-            }
+            dealResult(result)
         });
         data = formatResult(data);
         return data

@@ -242,6 +242,17 @@ export default {
   ::-webkit-scrollbar{
     width: 0;
   }
+  .nodata{
+    text-align: center;
+    padding: 50px;
+    font-weight: bold;
+    font-size: 26px;
+    .rainbow-button{
+      margin: 10px auto;
+      width: 200px;
+      height: 50px;
+    }
+  }
   .table-title{
     font-size: 22px;
     font-weight: bold;

@@ -9,7 +9,7 @@ const state = {
 const value = 0;
 const gasLimit = -1;
 async function  judgeContract(web3,address){
-    state.contract = await connectContract(web3, "multisign",address)
+    state.contract = await connectContract(web3, "daoManage",address)
 }
 const mutations = {
     SET_WEB3(state,web3){
@@ -18,11 +18,12 @@ const mutations = {
 }
 const actions = {
 
-    async minSignCount({rootState},owners){
+    async baseAddr({rootState},daoManagerAddr){
         const AccountId = await Accounts.accountAddress();
-         await judgeContract(rootState.app.web3)
-        let data = await state.contract.query.minSignCount(AccountId, {value, gasLimit},to , owners)
+        await judgeContract(rootState.app.web3,daoManagerAddr)
+        let data = await state.contract.query.baseAddr(AccountId, {value, gasLimit})
         data = formatResult(data);
+        console.log(data)
         return data
     },
     async creatTransfer({rootState},{to, amount,address}){
@@ -48,7 +49,7 @@ const actions = {
     },
     async getTransaction({rootState},trans_id){
         const AccountId = await Accounts.accountAddress();
-         await judgeContract(rootState.app.web3)
+        await judgeContract(rootState.app.web3)
         let data = await state.contract.query.getTransaction(AccountId, {value, gasLimit},trans_id)
         data = formatResult(data);
         return data

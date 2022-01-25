@@ -11,6 +11,7 @@ import rainbowNavNew from "@/components/rainbowNavNew";
 import daoNav from "@/components/daoNav";
 import multiSignNav from "@/components/multiSignNav";
 import pageFooter from "./components/pageFooter";
+import daoHeaderInfo from "./components/daoHeaderInfo";
 import daoFooter from "./components/daoFooter";
 Vue.prototype.$eventBus = eventBus
 Vue.config.debug = false
@@ -26,6 +27,7 @@ Vue.component('multi-sign-nav', multiSignNav)
 Vue.component('dao-nav', daoNav)
 Vue.component('page-footer', pageFooter)
 Vue.component('dao-footer', daoFooter)
+Vue.component('daoHeaderInfo', daoHeaderInfo)
 new Vue({
   router,
   store,

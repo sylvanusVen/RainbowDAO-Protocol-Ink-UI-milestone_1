@@ -375,7 +375,7 @@
         </div>
       </div>
     </div>
-    <pageFooter/>
+    <page-footer/>
 
   </div>
 </template>

@@ -25,6 +25,7 @@ const routes = [
                 name: "createMultiSign",
                 component:()=> import('@/views/multisign/createMultiSign.vue')
             },
+
             {
                 path: '/multiSignPanel',
                 name: "multiSignPanel",
@@ -38,12 +39,12 @@ const routes = [
             {
                 path: '/createDao',
                 name: "createDao",
-                component:()=> import('@/views/daoManage/createDao.vue')
+                component:()=> import('@/views/daoFactory/createDao.vue')
             },
             {
                 path: '/daoManage',
                 name: "daoManage",
-                component:()=> import('@/views/daoManage/daoManage.vue')
+                component:()=> import('@/views/daoFactory/daoManage.vue')
             },
             {
                 path: '/management',
@@ -105,6 +106,7 @@ const routes = [
                 name: "tokenPanel",
                 component:()=> import('@/views/tokensFactory/tokenPanel.vue')
             },
+
         ]
     },
 

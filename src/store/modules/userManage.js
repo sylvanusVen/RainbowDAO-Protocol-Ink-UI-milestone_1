@@ -1,5 +1,5 @@
 import connectContract from "../../api/connectContract"
-import {formatResult} from "../../utils/formatUtils"
+import {dealResult, formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
 import {eventBus} from "../../utils/eventBus";
 const state = {
@@ -23,7 +23,8 @@ const mutations = {
 const actions = {
 
     async getUserReferer({rootState},AccountId) {
-        await judgeContract(rootState.app.web3)
+         await judgeContract(rootState.app.web3)
+
         if(!AccountId){
             AccountId = await Accounts.accountAddress();
         }
@@ -34,7 +35,8 @@ const actions = {
         return data
     },
     async listUser({rootState}) {
-        await judgeContract(rootState.app.web3)
+         await judgeContract(rootState.app.web3)
+
         const AccountId = await Accounts.accountAddress();
         let data = await state.contract.query.listUser(AccountId, {value, gasLimit})
         // The actual result from RPC as `ContractExecResult`
@@ -46,27 +48,19 @@ const actions = {
     async join({rootState}, {invitation_code,name,user_profile }) {
         const injector = await Accounts.accountInjector();
         console.log(invitation_code,name,user_profile)
-        await judgeContract(rootState.app.web3)
-        const AccountId = await Accounts.accountAddress();
-        let isSend= false
-        let data = await state.contract.tx.join({value, gasLimit},invitation_code,name,user_profile).signAndSend(AccountId, { signer: injector.signer }, (result) => {
-            if (result.status.isInBlock ||result.status.isFinalized) {
-                if(!isSend){
-                    isSend = true
-                    eventBus.$emit('message', {
-                        type:"success",
-                        message:"castVote success"
-                    })
-                }
+         await judgeContract(rootState.app.web3)
 
-                return true
-            }
+        const AccountId = await Accounts.accountAddress();
+
+        let data = await state.contract.tx.join({value, gasLimit},invitation_code,name,user_profile).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+            dealResult(result)
         });
         data = formatResult(data);
         return data
     },
     async existsUser({rootState},user) {
         await judgeContract(rootState.app.web3)
+
         const AccountId = await Accounts.accountAddress();
         user?'':user = AccountId
         let data = await state.contract.query.existsUser(AccountId, {value, gasLimit},user)

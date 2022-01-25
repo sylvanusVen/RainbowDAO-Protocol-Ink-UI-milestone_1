@@ -20,7 +20,6 @@ const mutations = {
 }
 const actions = {
     async getPriorVotes({rootState},blockNumber) {
-        await judgeContract(rootState.app.web3)
         const AccountId = await Accounts.accountAddress();
         blockNumber = blockNumber.replace(',','')
         console.log(AccountId,blockNumber)
@@ -29,7 +28,13 @@ const actions = {
         return data
     },
     async getCurrentVotes({rootState}) {
-        await judgeContract(rootState.app.web3)
+        if(rootState.app.balance < 1.01){
+            eventBus.$emit('message', {
+                type:"error",
+                message:"Not enough gas"
+            })
+            return
+        }
         const AccountId = await Accounts.accountAddress();
         let data = await state.contract.query.getCurrentVotes(AccountId, {value, gasLimit}, AccountId)
         data = formatResult(data);

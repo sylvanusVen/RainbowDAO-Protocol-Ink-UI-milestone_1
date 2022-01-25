@@ -1,9 +1,45 @@
+import {eventBus} from "./eventBus";
+
 const formatResult =  (result) =>{
     let str;
     if (result && result.output) {
         str = result.output.toHuman();
     }
     return str;
+}
+const dealResult = (result,msg)=>{
+    if (result.status.isFinalized || result.status.isInBlock) {
+        result.events
+            .filter(({ event: { section } }) => section === 'system')
+            .forEach(({ event: { data, method } }) => {
+                if (method === 'ExtrinsicFailed') {
+                    const [dispatchError] = data
+                    if (dispatchError.isModule) {
+                        try {
+                            const mod = dispatchError.asModule;
+                            const error = data.registry.findMetaError(new Uint8Array([mod.index.toNumber(), mod.error.toNumber()]));
+                            console.log("error:", error.name);//错误提示
+                            eventBus.$emit('message', {
+                                type: "error",
+                                message: error.name
+                            })
+
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                } else if (method === 'ExtrinsicSuccess') {
+                    console.log('success');
+                    let message = msg?msg:"" + "Success"
+                    eventBus.$emit('message', {
+                        type: "success",
+                        message
+                    })
+                }
+            });
+    } else if (result.isError) {
+        console.log('fail2,', result.toHuman());
+    }
 }
 const dealBlockNumber =  (blockNumber) =>{
 
@@ -41,5 +77,6 @@ const formatvoteDateTime = (dateTime,endTime) =>{
 export {
     formatResult,
     formatvoteDateTime,
-    dateFormat
+    dateFormat,
+    dealResult
 }

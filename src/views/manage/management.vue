@@ -210,11 +210,7 @@ export default {
         })
         return
       }
-      this.$store.dispatch("core/addRole", this.roleInfo).then(res=>{
-        setTimeout(()=>{
-          this.getData()
-        },1000)
-      })
+      this.$store.dispatch("core/addRole", this.roleInfo)
     }
   }
 }
