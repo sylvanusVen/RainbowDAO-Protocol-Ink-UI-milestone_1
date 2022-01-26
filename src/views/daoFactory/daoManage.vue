@@ -24,9 +24,6 @@
             APPLY LIST
           </div>
         </div>
-        <div class="home">
-
-        </div>
         <daoHome @chooseDao="chooseDao" :dao-list="daoList" v-show="activeNavIndex==0"></daoHome>
         <proposalList :address="curDao.manage" :vault="curDao.vault" :proposal-list="proposalArr" v-show="activeNavIndex==1"></proposalList>
         <daoFinance :token-list="tokenList" v-show="activeNavIndex==2"></daoFinance>

@@ -54,8 +54,7 @@ export default {
     sessionStorage.setItem('currentAccount', accountList.allAccounts[0].address);
 
     if(sessionStorage.getItem('currentAccount') && this.$store.state.app.isConnected){
-      // this.$store.commit("app/SET_ACCOUNT", accountList.allAccounts[0].address)
-      // await this.polkaConnect(sessionStorage.getItem('currentAccount'))
+      await this.polkaConnect(sessionStorage.getItem('currentAccount'))
     }
   },
   methods: {
@@ -106,6 +105,7 @@ export default {
   .button-connect {
     padding: 0 10px;
     width: 130px;
+    margin: 0!important;
     cursor: pointer;
     line-height: 0;
     height: 30px;

@@ -14,6 +14,7 @@ import multisignFactory from '../abi/multisignFactory.json'
 import multisign from '../abi/multisign.json'
 import daoFactory from '../abi/daoFactory.json'
 import daoManage from '../abi/daoManage.json'
+import base from '../abi/base.json'
 const ConnectContract = async (api,type,address) =>{
     if(!api){
       return
@@ -30,6 +31,7 @@ const ConnectContract = async (api,type,address) =>{
         tokenFactory:{address:"5G2sy7RCQxPxchVHsPo7YLWopxvbaM2LDscN7JHRyHBFFBGc", abi:tokenFactory},
         multisignFactory:{address:"5EkN9m2Ds29hzEJMSZLgkidtXAtE4sRyZJ8ZAqG4x1Vb56jx", abi:multisignFactory},
         daoFactory:{address:"5ExAVnXnmpEkbPdwyJYQ1CDYAKHDCMAwMd43Tem1LgPaL7b3", abi:daoFactory},
+        base:{abi:base},
         daoManage:{ abi:daoManage},
         multisign:{ abi: multisign}
     }

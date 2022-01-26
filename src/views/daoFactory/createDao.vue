@@ -13,10 +13,29 @@
               1
             </div>
             <div class="stage-title">
-              Basic Settings
+              Init Dao
             </div>
           </div>
           <div class="stage-content" v-show="stage==0">
+            <div class="stage-panel">
+              <div class="btn-box">
+                <div class="sub-btn" @click="initDao">
+                  Init
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="stage-header">
+            <div class="index">
+              2
+            </div>
+            <div class="stage-title">
+              Basic Settings
+            </div>
+          </div>
+          <div class="stage-content" v-show="stage==1">
             <div class="stage-panel">
               <div class="item">
                 <div class="name">
@@ -47,12 +66,12 @@
                   DAO Introduction
                 </div>
                 <div class="input">
-                  <input type="text" v-model="daoInfo.des" placeholder="Enter">
+                  <input type="text" v-model="daoInfo.desc" placeholder="Enter">
                 </div>
               </div>
               <div class="btn-box">
-                <div class="sub-btn" @click="stage+=1">
-                  Continue
+                <div class="sub-btn" @click="next">
+                  Next
                 </div>
               </div>
             </div>
@@ -61,13 +80,13 @@
         <div class="list-item">
           <div class="stage-header">
             <div class="index">
-              2
+              3
             </div>
             <div class="stage-title">
               Token Settings
             </div>
           </div>
-          <div class="stage-content animate__animated  animate__fadeIn" v-show="stage==1">
+          <div class="stage-content animate__animated  animate__fadeIn" v-show="stage==2">
             <div class="stage-panel">
 
               <div class="item">
@@ -75,7 +94,7 @@
                   Token Name
                 </div>
                 <div class="input">
-                  <input type="text" v-model="tokenInfo.tokenName" placeholder="Enter">
+                  <input type="text" v-model="tokenInfo.name" placeholder="Enter">
                 </div>
               </div>
               <div class="item">
@@ -99,7 +118,7 @@
                   Token Decimals
                 </div>
                 <div class="input">
-                  <input type="text" v-model="tokenInfo.decimals" placeholder="Enter">
+                  <input type="number" v-model="tokenInfo.decimals" placeholder="Enter">
                 </div>
               </div>
               <div class="item">
@@ -130,8 +149,8 @@
                 <div class="back-btn" @click="stage>0?stage-=1:''">
                   back
                 </div>
-                <div class="sub-btn" @click="next()">
-                  Continue
+                <div class="sub-btn" @click="initBase()">
+                  Init Dao Info
                 </div>
               </div>
             </div>
@@ -190,16 +209,14 @@
         <div class="list-item ">
           <div class="stage-header">
             <div class="index">
-              3
+              4
             </div>
             <div class="stage-title">
               Termination and liquidation of DAO
             </div>
           </div>
-          <div class="stage-content  animate__animated  animate__fadeIn" v-show="stage==2">
+          <div class="stage-content  animate__animated  animate__fadeIn" v-show="stage==3">
             <div class="stage-panel">
-
-
               <p>
                 You're about to create a new DAO on and will have to confirm a transaction with your currently
                 connected wallet. The creation will cost approximately ＜ 0.1 Eth.
@@ -223,34 +240,87 @@
 </template>
 
 <script>
+
+import {mapGetters} from "vuex";
+
 export default {
   name: "createDao",
   data() {
     return {
+      daoAddress:"",
       count: 1,
-      stage: 0,
+      stage: 1,
       memberLength: 1,
       daoInfo: {
-        name: '', logo: '', des: ''
+        name: '', logo: '', desc: ''
       },
       tokenInfo: {
-        tokenName: "",
+        name: "",
         symbol: "",
         decimals: 0,
         totalSupply: 0,
-        support: 50
       }
     }
   },
   created() {
-    this.$eventBus.$on('message', (message) => {
-      console.log(message)
-      if(message.type == "success"){
-        this.$router.push({name:'daoManage'})
-      }
-    })
+
+  },
+  computed: {
+    ...mapGetters([
+      'isConnected',
+      'account'
+    ]),
+  },
+  beforeDestroy() {
+    this.$eventBus.$on('message', null)
   },
   methods: {
+    initBase(){
+      this.daoInfo.owner = this.account
+      this.tokenInfo.owner = this.account
+      let params = {
+        base:this.daoInfo,
+        erc20: this.tokenInfo
+      }
+      let _this = this
+      this.$store.dispatch("daoManage/initByParams", {address:this.daoAddress,params}).then(()=>{
+        this.$eventBus.$on('message', (message) => {
+          if(message.type == "success"&& message.message=="Init DAO Info Success"){
+            console.log(message)
+            if(_this.stage<3){
+              _this.stage=3
+            }
+            _this.$eventBus.$on('message',null)
+          }
+        })
+      })
+    },
+    getDaoByIndex(index){
+      this.$store.dispatch("daoFactory/getDaoByIndex",index).then(res=>{
+        console.log(res.daoManagerAddr)
+        this.daoAddress = res.daoManagerAddr
+      })
+    },
+    getDaosByOwner(){
+      this.$store.dispatch("daoFactory/getDaosByOwner").then(res=>{
+        this.daoIndexList = res
+        this.getDaoByIndex(res[res.length-1])
+        if(this.stage<1){
+          this.stage= 1
+        }
+      })
+    },
+    initDao(){
+      let _this = this
+      this.$store.dispatch("daoFactory/initDaoByTemplate",{}).then(()=>{
+        this.$eventBus.$on('message', (message) => {
+          if(message.type == "success"&& message.message=="Init DAO Success"){
+            _this.getDaosByOwner()
+            _this.$eventBus.$on('message',null)
+          }
+        })
+      })
+    },
     next(index) {
       switch (index) {
         case 1:
@@ -261,8 +331,6 @@ export default {
       this.stage += 1
     },
     createDao() {
-
-      this.$store.dispatch("daoFactory/initDaoByTemplate",{})
     }
   }
 }

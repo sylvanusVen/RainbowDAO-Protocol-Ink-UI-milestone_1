@@ -36,42 +36,7 @@ export default {
 <style lang="scss" scoped>
 .dao-home{
   padding: 30px;
-  .dao-list{
-    display: flex;
-    flex-wrap: wrap;
-    .item{
-      margin: 20px ;
-      display: flex;
-      width: 252px;
-      height: 80px;
-      background: #f5f5f5;
-      border-radius: 10px;
-      padding: 10px;
-      align-items: center;
-      cursor: pointer;
-      .dao-info{
-        padding-left: 10px;
-        .name{
-          word-break: break-all;
-          font-weight: bold;
-        }
-        .address{
-          word-break: break-all;
 
-        }
-        .members{
-          color: #666;
-        }
-      }
-      .logo{
-        width: 50px;
-        height: 50px;
-        img{
-          width: 100%;
-        }
-      }
-    }
-  }
 }
 
 </style>

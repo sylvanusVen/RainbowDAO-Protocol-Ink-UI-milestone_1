@@ -14,6 +14,7 @@ import multisignFactory from "./modules/multisignFactory";
 import incomeManage from "./modules/incomeManage";
 import daoFactory from "./modules/daoFactory";
 import daoManage from "./modules/daoManage";
+import baseManage from "./modules/baseManage";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -31,6 +32,7 @@ export default new Vuex.Store({
     proposal,
     incomeManage,
     daoFactory,
-    daoManage
+    daoManage,
+    baseManage
   }
 })

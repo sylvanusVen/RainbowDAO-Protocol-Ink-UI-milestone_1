@@ -220,7 +220,6 @@
               {{ item.votes }}
             </div>
           </div>
-
         </div>
       </div>
     </div>

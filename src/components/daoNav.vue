@@ -7,15 +7,22 @@
         Test version
       </div>
       <ul class="navbar-nav">
-<!--        <li :class="{'active':$route.name=='Proposal'}" @click="openNew('/Proposal')">-->
-<!--          <a class="w-font" >Proposal</a>-->
-<!--          <a class="re-active" >Proposal</a>-->
-<!--        </li>-->
-
+        <li :class="{'active':$route.name=='daoManage'}" @click="$router.push({name:'daoManage'})">
+          <a class="w-font" >Home</a>
+          <a class="re-active" >Home</a>
+        </li>
+        <li :class="{'active':$route.name=='allianceDao'}" @click="$router.push({name:'allianceDao'})">
+          <a class="w-font" >AllianceDao</a>
+          <a class="re-active" >AllianceDao</a>
+        </li>
+        <li :class="{'active':$route.name=='mineDao'}" @click="$router.push({name:'mineDao'})">
+          <a class="w-font" >MineDao</a>
+          <a class="re-active" >MineDao</a>
+        </li>
         <li>
           <ConnectWallet class="connect"></ConnectWallet>
         </li>
-      </ul><!-- /.navbar-nav -->
+      </ul>
     </div>
   </div>
 </template>

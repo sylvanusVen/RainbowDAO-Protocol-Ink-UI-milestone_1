@@ -9,9 +9,9 @@ const state = {
 }
 const value = 0;
 const gasLimit = -1;
-async function  judgeContract(web3){
+async function  judgeContract(web3,address){
     if(!state.contract){
-        state.contract = await connectContract(web3, "daoFactory")
+        state.contract = await connectContract(web3, "base",address)
     }
 }
 const mutations = {
@@ -34,15 +34,11 @@ const actions = {
         data = formatResult(data);
         return data
     },
-    async initDaoByTemplate({rootState}, {}){
+    async initBase({rootState}, {address,name,logo,des}){
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
 
-        let dao_manager_code_hash= contractHash["dao_hash"]
-        let controller = AccountId
-        let controller_type = 1
-        let category = "mother"
-        await judgeContract(rootState.app.web3)
+        await judgeContract(rootState.app.web3,address)
         if (rootState.app.balance < 1.01) {
             eventBus.$emit('message', {
                 type: "error",
@@ -50,9 +46,9 @@ const actions = {
             })
             return
         }
-        let data = await state.contract.tx.initDaoByTemplate( {value, gasLimit},dao_manager_code_hash,controller,controller_type,category).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        let data = await state.contract.tx.initBase( {value, gasLimit},name,logo,des).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
-            dealResult(result,"Init DAO")
+            dealResult(result,"Init DAO Info")
         });
         data = formatResult(data);
         return data

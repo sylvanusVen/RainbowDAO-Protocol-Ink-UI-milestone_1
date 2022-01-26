@@ -1,8 +1,19 @@
 <template>
   <div class="proposal-list-box">
+    <div class="proposal-nav">
+      <div class="nav-item" @click="chooseNav(item);activeIndex=index" :class="{'active':activeIndex == index}"
+           v-for="(item, index) in navList" :key="index">
+        {{ item.name }}
+      </div>
+      <div class="intiate">
+        <div class="rainbow-btn" @click="intiate()">
+          INITIATE
+        </div>
+      </div>
+    </div>
     <div class="proposal-list">
-
-      <div class="list-item" @click="$router.push({name:'proposalDetail',params:{item:item,address:address,vault:vault}})"
+      <div class="list-item"
+           @click="$router.push({name:'proposalDetail',params:{item:item,address:address,vault:vault}})"
            v-for="(item, index) in proposalList" :key="index">
         <div class="index">
           {{ index + 1 }}
@@ -30,18 +41,16 @@
               </div>
             </div>
           </div>
-
           <div class="floor">
             <div class="stage">
               {{ item.state }}
             </div>
             <div class="date">
-              block:{{ item.endTime - item.startTime  }}~{{ item.endTime }}
+              block:{{ item.endTime - item.startTime }}~{{ item.endTime }}
             </div>
           </div>
         </div>
       </div>
-
     </div>
     <div class="nodata" v-show="!proposalList || proposalList.length==0">
       No Data
@@ -54,7 +63,7 @@ import {mapGetters} from "vuex";
 
 export default {
   name: "proposalList",
-  props:["proposalList","address","vault"],
+  props: ["proposalList", "address", "vault"],
   data() {
     return {
       activeIndex: 0,
@@ -94,13 +103,50 @@ export default {
   },
   created() {
     console.log(this.proposalList)
+  },
+  methods: {
+    intiate(){
+      this.$router.push({name:'createProposal'})
+    },
+    chooseNav() {
+
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.proposal-list {
-  padding: 20px;
+.proposal-list-box {
+  .proposal-nav {
+    display: flex;
+    margin: 20px 20px;
+    position: relative;
+    .nav-item {
+      padding: 10px 20px;
+      color: #333333;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      &.active {
+        border: 1px solid #f96aaf;
+        color: #DB1F7E;
+      }
+    }
+    .intiate{
+      right: 20px;
+      position: absolute;
+      .rainbow-btn{
+        width: 100px;
+        height: 36px;
+        line-height: 36px;
+        margin: 0;
+      }
+    }
+  }
+
+  .proposal-list {
+    padding: 20px;
+
     .list-item {
       display: flex;
       padding: 20px;
@@ -167,5 +213,6 @@ export default {
         }
       }
     }
+  }
 }
 </style>

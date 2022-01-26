@@ -36,16 +36,7 @@ const routes = [
                 name: "myMultiSign",
                 component:()=> import('@/views/multisign/myMultiSign.vue')
             },
-            {
-                path: '/createDao',
-                name: "createDao",
-                component:()=> import('@/views/daoFactory/createDao.vue')
-            },
-            {
-                path: '/daoManage',
-                name: "daoManage",
-                component:()=> import('@/views/daoFactory/daoManage.vue')
-            },
+
             {
                 path: '/management',
                 name: "management",
@@ -106,7 +97,36 @@ const routes = [
                 name: "tokenPanel",
                 component:()=> import('@/views/tokensFactory/tokenPanel.vue')
             },
-
+            {
+                path: '/createDao',
+                name: "createDao",
+                component:()=> import('@/views/daoFactory/createDao.vue')
+            },
+            {
+                path: '/createDepartment',
+                name: "createDepartment",
+                component:()=> import('@/views/daoFactory/createDepartment.vue')
+            },
+            {
+                path: '/daoManage',
+                name: "daoManage",
+                component:()=> import('@/views/daoFactory/daoManage.vue')
+            },
+            {
+                path: '/department',
+                name: "department",
+                component:()=> import('@/views/daoFactory/department.vue')
+            },
+            {
+                path: '/allianceDao',
+                name: "allianceDao",
+                component:()=> import('@/views/daoFactory/allianceDao.vue')
+            },
+            {
+                path: '/createProposal',
+                name: "createProposal",
+                component:()=> import('@/views/proposal/createProposal.vue')
+            },
         ]
     },
 

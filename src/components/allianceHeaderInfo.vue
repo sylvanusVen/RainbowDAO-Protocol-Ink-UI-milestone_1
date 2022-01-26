@@ -1,0 +1,128 @@
+<template>
+  <div class="dao-finance-header-box">
+    <div class="nodata" v-show="!curAlliance.name">
+      Please choose a DAO
+      <div class="rainbow-button" @click="$router.push({name:'createDao'})">
+        Create DAO
+      </div>
+    </div>
+    <div class="dao-finance-header" v-show="curAlliance.name">
+      <div class="dao-logo">
+        <img :src="curAlliance.logo" alt="logo">
+      </div>
+      <div class="dao-info">
+        <div class="dao-name">
+          {{ curAlliance.name }}
+        </div>
+        <div class="dao-info-detail">
+          <div class="dao-member">
+            {{ curAlliance.membersLength }} Members
+          </div>
+        </div>
+        <div class="dao-intro">
+          <span>Introduction:</span>
+          {{ curAlliance.des }}
+        </div>
+      </div>
+      <div class="rainbow-button create-proposal" @click="$router.push({name:'createProposal',params:{address:curAlliance.manage,vault:curAlliance.vault}})">
+        Create Proposal
+      </div>
+      <div class="rainbow-button create" @click="$router.push({name:'createDao'})">
+        Create DAO
+      </div>
+
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "daoHeaderInfo",
+  props:["curAlliance"],
+  methods:{
+
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.dao-finance-header-box{
+  box-shadow: 0px 6px 20px 0px rgba(0,0,0,0.05);
+  background: #ffffff;
+  border-radius: 20px;
+  width: 1200px;
+  margin: 30px auto;
+  .nodata{
+    text-align: center;
+    padding: 50px;
+    font-weight: bold;
+    font-size: 26px;
+    .rainbow-button{
+      margin: 10px auto;
+      width: 200px;
+      height: 50px;
+    }
+  }
+  .dao-finance-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    width: 1200px;
+    height: 180px;
+    padding: 40px;
+    margin: 0px auto 20px;
+    .dao-logo{
+      width: 60px;
+      height: 60px;
+      img{
+        width: 100%;
+      }
+    }
+    .dao-info{
+      .dao-name{
+        font-size: 24px;
+        font-weight: 700;
+        color: #333333;
+        line-height: 28px;
+      }
+      .dao-info-detail{
+        display: flex;
+        margin: 10px 0;
+        div{
+          height: 30px;
+          background: #f4dcf2;
+          border: 1px solid rgba(255,31,132,0.30);
+          border-radius: 5px;
+          padding: 0 20px;
+          line-height: 30px;
+          color: #f96aaf;
+        }
+        .dao-member{
+          margin-left: 10px;
+        }
+      }
+      .dao-intro{
+        span{
+          color: #999;
+        }
+      }
+    }
+
+    .rainbow-button{
+      position: absolute;
+      right: 40px;
+      width: 120px;
+      height: 50px;
+
+    }
+    .create{
+      right: 180px;
+    }
+    .create-proposal{
+      right: 320px;
+    }
+  }
+}
+
+</style>

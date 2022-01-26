@@ -18,7 +18,7 @@ const dealResult = (result,msg)=>{
                         try {
                             const mod = dispatchError.asModule;
                             const error = data.registry.findMetaError(new Uint8Array([mod.index.toNumber(), mod.error.toNumber()]));
-                            console.log("error:", error.name);//错误提示
+                            console.log("error:", error.name);
                             eventBus.$emit('message', {
                                 type: "error",
                                 message: error.name
@@ -30,7 +30,7 @@ const dealResult = (result,msg)=>{
                     }
                 } else if (method === 'ExtrinsicSuccess') {
                     console.log('success');
-                    let message = msg?msg:"" + "Success"
+                    let message = msg?msg + " Success":""
                     eventBus.$emit('message', {
                         type: "success",
                         message

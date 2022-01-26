@@ -3,21 +3,31 @@
     <rainbow-nav-new></rainbow-nav-new>
     <div class="rainbow-panel">
       <div class="title">
-        Create Proposal
+        INITIATE A PROPOSAL
       </div>
       <div class="content">
         <div class="proposal-form">
           <div class="item">
             <div class="item-title">
-              Name
+              Proposer
+            </div>
+            <div class="proposal-info">
+              <div class="value">
+                {{account}}
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="item-title">
+              Proposal Name
             </div>
             <input type="text" v-model="form.title">
           </div>
           <div class="item">
             <div class="item-title">
-              Content
+              Proposal Content
             </div>
-            <textarea v-model="form.desc" rows="10" cols="60"></textarea>
+            <textarea class="proposal-content" v-model="form.desc" rows="10" cols="60"></textarea>
           </div>
           <div class="btn-box">
             <div class="sub-btn" @click="createProposal">
@@ -41,6 +51,9 @@ export default {
       form: {}
     }
   },
+  created() {
+
+  },
   computed: {
     ...mapGetters(['account', 'isConnected'])
   },
@@ -48,7 +61,6 @@ export default {
     createProposal(){
       this.form.transaction={
         calle: this.account,
-
       }
       this.$store.dispatch("proposal/propose",this.form).then(()=>{
         this.$router.push({name:"Proposal"})
@@ -62,7 +74,7 @@ export default {
 .createProposal {
   .proposal-form {
     .item{
-      text-align: center;
+      text-align: left;
       padding: 10px 0;
       .item-title{
         line-height: 30px;
@@ -76,6 +88,23 @@ export default {
         height:32px;
         background: #ffffff;
         border: 1px solid #eaeaea;
+        border-radius: 10px;
+      }
+      .proposal-info{
+        display: flex;
+        .value{
+          padding: 0 20px;
+          background: #fbfcfe;
+          border: 1px solid #f0f0f0;
+          border-radius: 10px;
+          height: 36px;
+          color: #f96aaf;
+          line-height: 36px;
+        }
+      }
+      .proposal-content{
+        padding: 10px;
+        border: 1px solid #f0f0f0;
         border-radius: 10px;
       }
     }
@@ -96,7 +125,6 @@ export default {
         color: white;
       }
     }
-
   }
 }
 </style>

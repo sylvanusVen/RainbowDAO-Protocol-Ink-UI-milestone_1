@@ -1,0 +1,97 @@
+<template>
+  <div class="department-home">
+    <div class="balance">
+      <div class="sub-title">
+        <img src="@/assets/daoImgs/title_icon1.png" alt="">
+        BALANCE
+      </div>
+      <div class="number">
+        <strong>5,000,000.00</strong>
+        RBD
+      </div>
+    </div>
+    <div class="child-dao">
+      <div class="sub-title">
+        <img src="@/assets/daoImgs/title_icon2.png" alt="">
+        DAO/CHILD DAO
+      </div>
+      <div class="dao-list">
+        <div class="item" @click="chooseDao(item)" v-for="(item,index) in daoList" :key="index">
+          <div class="logo">
+            <img :src="item.logo" alt="">
+          </div>
+          <div class="dao-info">
+            <div class="name">
+              {{item.name}}
+            </div>
+            <div class="address">
+              {{item.daoManagerAddr}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contract-list">
+      <div class="sub-title">
+        <img src="@/assets/daoImgs/title_icon3.png" alt="">
+        CONTRACTS
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "departmentHome",
+  data(){
+    return{
+      daoList:[{name:"test"}]
+    }
+  },
+  methods:{
+    chooseDao(item){
+      this.$emit("chooseDao",item)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.department-home {
+  padding: 30px 50px;
+  .sub-title{
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    color: #333333;
+    line-height: 50px;
+    display: flex;
+    align-items: center;
+    img{
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+  }
+  .balance{
+
+    .number{
+      height: 35px;
+      font-size: 26px;
+      font-weight: 700;
+      text-align: left;
+      color: #ec1676;
+      line-height: 35px;
+      strong{
+        font-size: 32px;
+      }
+    }
+  }
+  .child-dao{
+
+  }
+  .contract-list{
+
+  }
+}
+</style>

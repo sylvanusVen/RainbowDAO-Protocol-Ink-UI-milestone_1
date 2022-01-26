@@ -99,6 +99,22 @@ export default {
   }
 }
 ::v-deep .rainbow-btn{
+  text-align: center;
+  width: 160px;
+  height: 40px;
+  background: linear-gradient(90deg,#12c2e9 0%, #c471ed 64%, #f64f59 100%);
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  line-height: 40px;
+  margin-top: 20px;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  &:active{
+    transform: translate(2px, 2px);
+  }
+}
+::v-deep .rainbow-btn{
   transition: 0.2s;
   transform: translate(0,0);
   user-select: none;
@@ -223,6 +239,43 @@ export default {
 
     p {
       margin-top: 20px;
+    }
+  }
+  ::v-deep .dao-list{
+    display: flex;
+    flex-wrap: wrap;
+    .item{
+      margin: 16px;
+      display: flex;
+      width: 252px;
+      height: 80px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      padding: 10px;
+      align-items: center;
+      cursor: pointer;
+
+      .dao-info{
+        padding-left: 10px;
+        .name{
+          word-break: break-all;
+          font-weight: bold;
+        }
+        .address{
+          word-break: break-all;
+
+        }
+        .members{
+          color: #666;
+        }
+      }
+      .logo{
+        width: 50px;
+        height: 50px;
+        img{
+          width: 100%;
+        }
+      }
     }
   }
 }

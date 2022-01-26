@@ -3,7 +3,8 @@ import httpConfig from "../../api/httpConfig"
 const state = {
     web3:{},
     isConnected:false,
-    balance:0
+    balance:0,
+    account:""
 }
 const mutations = {
     SET_WEB3(state,web3){
