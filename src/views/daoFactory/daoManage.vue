@@ -6,7 +6,6 @@
       <daoHeaderInfo @joinDao="joinDao" :daoInfo="curDao"></daoHeaderInfo>
 
       <div class="dao-manage-content-box">
-
         <div class="box-nav">
           <div class="item" :class="{'active':activeNavIndex==0}" @click="activeNavIndex=0">
             HOME
@@ -24,8 +23,10 @@
             APPLY LIST
           </div>
         </div>
-        <daoHome @chooseDao="chooseDao" :dao-list="daoList" v-show="activeNavIndex==0"></daoHome>
-        <proposalList :address="curDao.manage" :vault="curDao.vault" :proposal-list="proposalArr" v-show="activeNavIndex==1"></proposalList>
+        <daoHome :curDaoControlAddress="curDaoControlAddress" @chooseDao="chooseDao" :dao-address="curDaoAddress"
+                 :balance="balance" :dao-list="daoList" v-show="activeNavIndex==0"></daoHome>
+        <proposalList :address="curDaoControlAddress.proposalAddr" :vault="curDaoControlAddress.vaultAddr" :proposal-list="proposalArr"
+                      v-show="activeNavIndex==1"></proposalList>
         <daoFinance :token-list="tokenList" v-show="activeNavIndex==2"></daoFinance>
         <daoMember :members-list="membersList" v-show="activeNavIndex==3"></daoMember>
         <applyList @getData="getApplyList" :cur-dao="curDao" :list="applyArr" v-show="activeNavIndex==4"></applyList>
@@ -54,6 +55,7 @@ export default {
   },
   data() {
     return {
+      balance: 0,
       curDao: {},
       membersLength: 0,
       activeNavIndex: 0,
@@ -62,7 +64,9 @@ export default {
       applyArr: [],
       membersList: [],
       proposalArr: [],
-      daoIndexList:[]
+      daoIndexList: [],
+      curDaoAddress: "",
+      curDaoControlAddress: {}
     }
   },
 
@@ -84,51 +88,91 @@ export default {
       this.curDao = this.$route.params
     }
     this.getData()
+    this.$eventBus.$on('message', (message) => {
+      if (message.type == 'success') {
+        if (message.message == "Join DAO Success") {
+          this.listUser()
+        }
+      }
+      this.listUser()
+    })
   },
   methods: {
     getApplyList() {
 
     },
     joinDao() {
+      this.$store.dispatch("daoUser/join", this.curDaoControlAddress.daoUsersAddr)
+    },
+    listUser() {
+      this.$store.dispatch("daoUser/listUser", this.curDaoControlAddress.daoUsersAddr).then(res => {
+        console.log(res)
+        this.membersList = res
+      })
+    },
+    getBaseInfo() {
+      this.$store.dispatch("daoBase/getBaseInfo", this.curDaoControlAddress.baseAddr).then(res => {
+        console.log(res)
+        this.curDao = res
+      })
+    },
+    getComponentAddrs() {
+      this.$store.dispatch("daoManage/getComponentAddress", this.curDaoAddress).then(res => {
+        console.log(res)
+        this.curDaoControlAddress = res
+        this.listUser()
+        this.getBaseInfo()
+        this.getMembers()
+        this.getVaultData()
+        this.getApplyList()
+        this.getProposalList()
+      })
 
     },
     chooseDao(item) {
       this.curDao = item
-      this.getMembers()
-      this.getVaultData()
-      this.getApplyList()
-      this.getProposalList()
+      this.curDaoAddress = "5D81NQ7VQ43PqokSVGGeEFAwJiXgDKGyyRR25kFoNhyRutZW"
+      this.getComponentAddrs()
+      this.$store.dispatch("app/getBalance", this.curDaoAddress).then(balance => {
+        console.log(balance)
+        this.balance = balance
+      })
     },
     getMembers() {
       this.membersList = []
-
     },
     getVaultData() {
 
     },
-    getProposalList(){
-
+    getProposalList() {
+      if (this.isConnected) {
+        this.$store.dispatch("daoProposal/listProposals", this.curDaoControlAddress.proposalAddr).then(async res => {
+          for (let i=0;i <res.length;i++){
+            await this.$store.dispatch("daoProposal/state", {proposalId:res[i].proposalId,address: this.curDaoControlAddress.proposalAddr}).then(state => {
+              res[i].state =  state
+            })
+          }
+          this.proposalArr = JSON.parse(JSON.stringify(res))
+        })
+      }
     },
-    getDaoByIndex(index){
-      this.$store.dispatch("daoFactory/getDaoByIndex",index).then(res=>{
+    getDaoByIndex(index) {
+      this.$store.dispatch("daoFactory/getDaoByIndex", index).then(res => {
         console.log(res)
         this.daoList.push(res)
-        this.$store.dispatch("daoManage/baseAddr", res.daoManagerAddr).then(res=>{
-          console.log(res)
-        })
       })
+
     },
-    getDaosByOwner(){
-      this.$store.dispatch("daoFactory/getDaosByOwner").then(res=>{
+    getDaosByOwner() {
+      this.$store.dispatch("daoFactory/getDaosByOwner").then(res => {
         this.daoIndexList = res
-        res.forEach(item=>{
-          console.log(item)
-           this.getDaoByIndex(item)
+        res.forEach(item => {
+          this.getDaoByIndex(item)
         })
       })
     },
     getData() {
-      if(!this.isConnected){
+      if (!this.isConnected) {
         return
       }
       this.getDaosByOwner()
@@ -139,7 +183,6 @@ export default {
         this.getVaultData()
         this.getProposalList()
       }
-
     }
   }
 }
@@ -153,6 +196,7 @@ export default {
     margin-top: -100px;
     z-index: 1;
     background-size: 100% 100%;
+
     .dao-manage-content-box {
       box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.05);
 

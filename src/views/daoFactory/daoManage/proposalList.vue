@@ -13,7 +13,7 @@
     </div>
     <div class="proposal-list">
       <div class="list-item"
-           @click="$router.push({name:'proposalDetail',params:{item:item,address:address,vault:vault}})"
+           @click="$router.push({name:'daoProposalDetail',params:{item:item,address:address,vault:vault}})"
            v-for="(item, index) in proposalList" :key="index">
         <div class="index">
           {{ index + 1 }}
@@ -29,15 +29,22 @@
         <div class="item-content">
           <div class="content">
             <div class="item">
-              <div class="name">amount</div>
+              <div class="name">endBlock</div>
               <div class="value">
-                {{ item.amount }}
+                {{ item.endBlock }} (blocks)
               </div>
             </div>
             <div class="item">
               <div class="name">description</div>
               <div class="value">
-                {{ item.description }}
+                {{ item.desc }}
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="name">publicityDelay</div>
+              <div class="value">
+                {{ item.publicityDelay }} (blocks)
               </div>
             </div>
           </div>
@@ -46,7 +53,7 @@
               {{ item.state }}
             </div>
             <div class="date">
-              block:{{ item.endTime - item.startTime }}~{{ item.endTime }}
+              block:{{ parseInt(item.endBlock.replace(',','')) - item.publicityDelay }}~{{ item.endBlock.replace(',','') }}
             </div>
           </div>
         </div>
@@ -103,14 +110,16 @@ export default {
   },
   created() {
     console.log(this.proposalList)
+
   },
   methods: {
     intiate(){
-      this.$router.push({name:'createProposal'})
+      this.$router.push({name:'createDaoProposal',params:{address:this.address}})
     },
     chooseNav() {
 
-    }
+    },
+
   }
 }
 </script>

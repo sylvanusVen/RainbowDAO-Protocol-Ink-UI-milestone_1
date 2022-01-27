@@ -21,6 +21,13 @@ const mutations = {
     }
 }
 const actions = {
+    async getComponentAddress({rootState}, daoManagerAddr) {
+        const AccountId = await Accounts.accountAddress();
+        await judgeContract(rootState.app.web3, daoManagerAddr)
+        let data = await state.contract.query.getComponentAddrs(AccountId, {value, gasLimit})
+        data = formatResult(data);
+        return data
+    },
     async initByParams({rootState, dispatch}, {address, params}) {
         address="5GVnknx2t3iJaXV2ee7qbEoasJvruAfBtV6fKF7DgwBWpSCv"
         const injector = await Accounts.accountInjector();

@@ -72,7 +72,9 @@ export default {
         sessionStorage.setItem('currentAccount', address);
         this.$store.commit("app/SET_ACCOUNT", address)
         console.log(address)
-        this.$store.dispatch("app/getBalance", address)
+        this.$store.dispatch("app/getBalance", address).then(res=>{
+          this.$store.commit("app/SET_BALANCE",res)
+        })
         this.isShowConnect = false
       }
     },

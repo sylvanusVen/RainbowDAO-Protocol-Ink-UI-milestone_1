@@ -30,7 +30,7 @@
         </div>
         <div class="member-info">
           <div class="name">Address</div>
-          <div class="address">{{item}}</div>
+          <div class="address">{{item.addr}}</div>
         </div>
       </div>
     </div>

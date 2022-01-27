@@ -15,6 +15,10 @@ import multisign from '../abi/multisign.json'
 import daoFactory from '../abi/daoFactory.json'
 import daoManage from '../abi/daoManage.json'
 import base from '../abi/base.json'
+import daoUser from "../abi/daoUsers.json"
+import daoVault from "../abi/daoVault.json"
+import daoSetting from "../abi/daoSetting.json"
+import daoProposal from "../abi/daoProposal.json"
 const ConnectContract = async (api,type,address) =>{
     if(!api){
       return
@@ -33,6 +37,10 @@ const ConnectContract = async (api,type,address) =>{
         daoFactory:{address:"5ExAVnXnmpEkbPdwyJYQ1CDYAKHDCMAwMd43Tem1LgPaL7b3", abi:daoFactory},
         base:{abi:base},
         daoManage:{ abi:daoManage},
+        daoUser:{ abi:daoUser},
+        daoVault:{ abi:daoVault},
+        daoSetting:{ abi:daoSetting},
+        daoProposal:{ abi:daoProposal},
         multisign:{ abi: multisign}
     }
 

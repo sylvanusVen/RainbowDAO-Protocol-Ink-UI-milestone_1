@@ -24,10 +24,10 @@
         </div>
         <div class="dao-intro">
           <span>Introduction:</span>
-          {{ daoInfo.des }}
+          {{ daoInfo.desc }}
         </div>
       </div>
-      <div class="rainbow-button create-proposal" @click="$router.push({name:'createProposal',params:{address:daoInfo.manage,vault:daoInfo.vault}})">
+      <div class="rainbow-button create-proposal" @click="$router.push({name:'createDaoProposal',params:{address:daoInfo.manage,vault:daoInfo.vault}})">
         Create Proposal
       </div>
       <div class="rainbow-button create" @click="$router.push({name:'createDao'})">

@@ -1,28 +1,30 @@
 <template>
   <div class="rainbow-nav" @click="isShowMore=false">
     <!-- navbar-nav -->
-    <div class="nav-box">
-      <img class="logo" src="../assets/imgs/RainbowDAOLogo.png" @click="$router.push('/')"/>
-      <div class="tip" style="color: #fa4949">
-        Test version
+    <div class="nav-bg">
+      <div class="nav-box">
+        <img class="logo" src="../assets/imgs/RainbowDAOLogo.png" @click="$router.push('/')"/>
+        <div class="tip" style="color: #fa4949">
+          Test version
+        </div>
+        <ul class="navbar-nav">
+          <li :class="{'active':$route.name=='daoManage'}" @click="$router.push({name:'daoManage'})">
+            <a class="w-font" >Home</a>
+            <a class="re-active" >Home</a>
+          </li>
+          <li :class="{'active':$route.name=='allianceDao'}" @click="$router.push({name:'allianceDao'})">
+            <a class="w-font" >AllianceDao</a>
+            <a class="re-active" >AllianceDao</a>
+          </li>
+          <li :class="{'active':$route.name=='mineDao'}" @click="$router.push({name:'mineDao'})">
+            <a class="w-font" >MineDao</a>
+            <a class="re-active" >MineDao</a>
+          </li>
+          <li>
+            <ConnectWallet class="connect"></ConnectWallet>
+          </li>
+        </ul>
       </div>
-      <ul class="navbar-nav">
-        <li :class="{'active':$route.name=='daoManage'}" @click="$router.push({name:'daoManage'})">
-          <a class="w-font" >Home</a>
-          <a class="re-active" >Home</a>
-        </li>
-        <li :class="{'active':$route.name=='allianceDao'}" @click="$router.push({name:'allianceDao'})">
-          <a class="w-font" >AllianceDao</a>
-          <a class="re-active" >AllianceDao</a>
-        </li>
-        <li :class="{'active':$route.name=='mineDao'}" @click="$router.push({name:'mineDao'})">
-          <a class="w-font" >MineDao</a>
-          <a class="re-active" >MineDao</a>
-        </li>
-        <li>
-          <ConnectWallet class="connect"></ConnectWallet>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
@@ -58,18 +60,19 @@ export default {
   background: url("../assets/daoImgs/header_bg.png");
   height: 230px;
   background-size: 100% 100%;
-  color: white;
+  color: #68aafc;
   position: relative;
-
+  .nav-bg{
+    background: rgba(#fff, 0.1);
+    width: 100%;
+  }
   .nav-box {
     display: flex;
     margin: 0 auto;
-    width: 100%;
-    min-width: 1180px;
+    width: 1300px;
     padding: 0 60px;
     align-items: center;
     justify-content: space-between;
-    background: rgba(#fff, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
     .logo {

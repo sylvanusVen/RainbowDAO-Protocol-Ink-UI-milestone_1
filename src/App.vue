@@ -47,6 +47,7 @@ export default {
   top: 60px;
   z-index: 10;
   .message{
+    margin-top: 10px;
     width: 300px;
     padding: 10px;
     min-height: 60px;

@@ -127,6 +127,16 @@ const routes = [
                 name: "createProposal",
                 component:()=> import('@/views/proposal/createProposal.vue')
             },
+            {
+                path: '/daoProposalDetail',
+                name: "daoProposalDetail",
+                component:()=> import('@/views/daoFactory/daoProposal/proposalDetail.vue')
+            },
+            {
+                path: '/createDaoProposal',
+                name: "createDaoProposal",
+                component:()=> import('@/views/daoFactory/daoProposal/createProposal.vue')
+            },
         ]
     },
 
