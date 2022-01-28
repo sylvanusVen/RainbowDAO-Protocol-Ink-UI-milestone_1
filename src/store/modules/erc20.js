@@ -8,9 +8,9 @@ const state = {
 }
 const value = 0;
 const gasLimit = -1;
-async function  judgeContract(web3){
+async function  judgeContract(web3,coinAddress){
     if(!state.contract){
-        state.contract = await connectContract(web3, "erc20")
+        state.contract = await connectContract(web3, "erc20",coinAddress)
     }
 }
 const mutations = {
@@ -19,15 +19,14 @@ const mutations = {
     }
 }
 const actions = {
-    async getPriorVotes({rootState},blockNumber) {
+    async getPriorVotes({rootState}, {blockNumber,coinAddress}) {
+        await judgeContract(rootState.app.web3,coinAddress)
         const AccountId = await Accounts.accountAddress();
-        blockNumber = blockNumber.replace(',','')
-        console.log(AccountId,blockNumber)
         let data = await state.contract.query.getPriorVotes(AccountId, {value, gasLimit}, AccountId,blockNumber)
         data = formatResult(data);
         return data
     },
-    async getCurrentVotes({rootState}) {
+    async getCurrentVotes({rootState},coinAddress) {
         if(rootState.app.balance < 1.01){
             eventBus.$emit('message', {
                 type:"error",
@@ -35,15 +34,17 @@ const actions = {
             })
             return
         }
+        await judgeContract(rootState.app.web3,coinAddress)
         const AccountId = await Accounts.accountAddress();
         let data = await state.contract.query.getCurrentVotes(AccountId, {value, gasLimit}, AccountId)
         data = formatResult(data);
         return data
     },
-    async delegate({rootState},address){
+    async delegate({rootState},{address,coinAddress}){
+        console.log(address,coinAddress)
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
-        await judgeContract(rootState.app.web3)
+        await judgeContract(rootState.app.web3,coinAddress)
         let isSend = false
         let data = await state.contract.tx.delegate( {value, gasLimit},address).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)

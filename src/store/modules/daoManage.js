@@ -29,11 +29,11 @@ const actions = {
         return data
     },
     async initByParams({rootState, dispatch}, {address, params}) {
-        address="5GVnknx2t3iJaXV2ee7qbEoasJvruAfBtV6fKF7DgwBWpSCv"
+        console.log(address, params)
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
         let version = "1"
-        dispatch("app/getBalance",address,{root:true}).then(res=>{
+        dispatch("app/getBalance", address, {root: true}).then(res => {
             console.log(res)
         })
 
@@ -50,7 +50,7 @@ const actions = {
         let data = await state.contract.tx.initByParams({
             value,
             gasLimit
-        }, params, version, contractHash.dao_base, contractHash.erc20_code_hash, contractHash.dao_user, contractHash.dao_setting, contractHash.dao_vault, contractHash.dao_proposal).signAndSend(AccountId, {signer: injector.signer}, (result) => {
+        }, params, parseInt(version), contractHash.dao_base, contractHash.erc20_code_hash, contractHash.dao_user, contractHash.dao_setting, contractHash.dao_vault, contractHash.dao_proposal).signAndSend(AccountId, {signer: injector.signer}, (result) => {
             console.error(result)
             dealResult(result, "Init DAO Info")
         });

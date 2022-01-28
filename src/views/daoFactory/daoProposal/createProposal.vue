@@ -78,7 +78,7 @@ export default {
       this.form.address = this.$route.params.address
       this.$store.dispatch("daoProposal/propose",this.form).then(()=>{
         this.$eventBus.$on('message', (message) => {
-          if(message.type == "success"&& message.message=="Create Proposal Success"){
+          if(message.type == "success"&& message.message=="Create Proposal Success" &&this.$route.path=="/createDaoProposal"){
             console.log(message)
             this.$router.push({name:"daoManage"})
             this.$eventBus.$on('message',null)

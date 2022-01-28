@@ -13,7 +13,7 @@
     </div>
     <div class="proposal-list">
       <div class="list-item"
-           @click="$router.push({name:'daoProposalDetail',params:{item:item,address:address,vault:vault}})"
+           @click="$router.push({name:'daoProposalDetail',params:{item:item,address:address,vault:vault,coinAddress:coinAddress}})"
            v-for="(item, index) in proposalList" :key="index">
         <div class="index">
           {{ index + 1 }}
@@ -70,7 +70,7 @@ import {mapGetters} from "vuex";
 
 export default {
   name: "proposalList",
-  props: ["proposalList", "address", "vault"],
+  props: ["proposalList", "address", "vault", "coinAddress"],
   data() {
     return {
       activeIndex: 0,
@@ -100,7 +100,7 @@ export default {
           name: "Expired",
         },
         {
-          name: "Queued",
+          name: "Queued"
         }
       ]
     }

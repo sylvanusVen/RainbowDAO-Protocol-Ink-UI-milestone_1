@@ -34,7 +34,7 @@ const ConnectContract = async (api,type,address) =>{
         incomeManage:{address:"5EGSkkJHe6nb99NVCuK4YUVY5gJkeeXVkVmuZedsNw9QFzHn", abi:incomeManage},
         tokenFactory:{address:"5G2sy7RCQxPxchVHsPo7YLWopxvbaM2LDscN7JHRyHBFFBGc", abi:tokenFactory},
         multisignFactory:{address:"5EkN9m2Ds29hzEJMSZLgkidtXAtE4sRyZJ8ZAqG4x1Vb56jx", abi:multisignFactory},
-        daoFactory:{address:"5ExAVnXnmpEkbPdwyJYQ1CDYAKHDCMAwMd43Tem1LgPaL7b3", abi:daoFactory},
+        daoFactory:{address:"5EP8FgLQd3rMrRY7SBK7gpiVbJsKKAQRNqNqFxrZ3uWY5x8m", abi:daoFactory},
         base:{abi:base},
         daoManage:{ abi:daoManage},
         daoUser:{ abi:daoUser},

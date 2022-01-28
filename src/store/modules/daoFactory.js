@@ -20,6 +20,13 @@ const mutations = {
     }
 }
 const actions = {
+    async joinedDao({rootState}) {
+        const AccountId = await Accounts.accountAddress();
+        await judgeContract(rootState.app.web3)
+        let data = await state.contract.query.joinedDao(AccountId, {value, gasLimit})
+        data = formatResult(data);
+        return data
+    },
     async getDaoByIndex({rootState},index) {
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)

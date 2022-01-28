@@ -249,7 +249,7 @@ export default {
     return {
       daoAddress:"",
       count: 1,
-      stage: 1,
+      stage: 0,
       memberLength: 1,
       daoInfo: {
         name: '', logo: '', desc: ''

@@ -137,6 +137,12 @@ const routes = [
                 name: "createDaoProposal",
                 component:()=> import('@/views/daoFactory/daoProposal/createProposal.vue')
             },
+            {
+                path: '/mineDao',
+                name: "mineDao",
+                component:()=> import('@/views/daoFactory/mineDao.vue')
+            },
+
         ]
     },
 

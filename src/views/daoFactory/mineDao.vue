@@ -1,24 +1,29 @@
 <template>
-  <div class="mine-dao">
-    <div class="dao-list">
-      <div class="item" @click="chooseDao(item)" v-for="(item,index) in daoList" :key="index">
-        <div class="logo">
-          <img :src="item.logo" alt="">
-        </div>
-        <div class="dao-info">
-          <div class="name">
-            {{ item.name }}
+  <div class="mine-dao-box">
+    <dao-nav></dao-nav>
+    <div class="mine-dao">
+      <div class="dao-list">
+        <div class="item" @click="chooseDao(item)" v-for="(item,index) in daoList" :key="index">
+          <div class="logo">
+            <img :src="item.logo" alt="">
           </div>
-          <div class="members">
-            Number of DAOs: {{ item.membersLength }}
+          <div class="dao-info">
+            <div class="name">
+              {{ item.name }}
+            </div>
+            <div class="members">
+              Number of DAOs: {{ item.membersLength }}
+            </div>
           </div>
         </div>
       </div>
+      <div class="nodata" v-show="daoList.length==0">
+        No Data
+      </div>
     </div>
-    <div class="nodata" v-show="daoList.length==0">
-      No Data
-    </div>
+    <dao-footer></dao-footer>
   </div>
+
 </template>
 
 <script>
@@ -80,8 +85,14 @@ export default {
 
 <style lang="scss" scoped>
 .mine-dao{
-  padding: 20px;
+  box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  width: 1200px;
+  z-index: 1;
+  position: relative;
+  margin: -100px auto 80px;
   background: #fff;
+  padding-bottom: 20px;
 }
 .dao-list {
   display: flex;

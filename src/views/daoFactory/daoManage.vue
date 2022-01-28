@@ -19,15 +19,15 @@
           <div class="item" :class="{'active':activeNavIndex==3}" @click="activeNavIndex=3">
             MEMBER
           </div>
-          <div class="item" :class="{'active':activeNavIndex==4}" @click="activeNavIndex=4">
-            APPLY LIST
-          </div>
+<!--          <div class="item" :class="{'active':activeNavIndex==4}" @click="activeNavIndex=4">-->
+<!--            APPLY LIST-->
+<!--          </div>-->
         </div>
         <daoHome :curDaoControlAddress="curDaoControlAddress" @chooseDao="chooseDao" :dao-address="curDaoAddress"
                  :balance="balance" :dao-list="daoList" v-show="activeNavIndex==0"></daoHome>
-        <proposalList :address="curDaoControlAddress.proposalAddr" :vault="curDaoControlAddress.vaultAddr" :proposal-list="proposalArr"
+        <proposalList :address="curDaoControlAddress.proposalAddr" :coinAddress="curDaoControlAddress.erc20Addr" :vault="curDaoControlAddress.vaultAddr" :proposal-list="proposalArr"
                       v-show="activeNavIndex==1"></proposalList>
-        <daoFinance :token-list="tokenList" v-show="activeNavIndex==2"></daoFinance>
+        <daoFinance :curDaoControlAddress="curDaoControlAddress" :token-list="tokenList" v-show="activeNavIndex==2"></daoFinance>
         <daoMember :members-list="membersList" v-show="activeNavIndex==3"></daoMember>
         <applyList @getData="getApplyList" :cur-dao="curDao" :list="applyArr" v-show="activeNavIndex==4"></applyList>
       </div>
@@ -171,12 +171,19 @@ export default {
         })
       })
     },
+    joinedDao(){
+      this.$store.dispatch("daoFactory/joinedDao").then(res => {
+        this.daoIndexList = res
+        console.log(res)
+
+      })
+    },
     getData() {
       if (!this.isConnected) {
         return
       }
       this.getDaosByOwner()
-
+      this.joinedDao()
       if (this.curDao.manage) {
         this.getApplyList()
         this.getMembers()

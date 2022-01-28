@@ -12,7 +12,7 @@
               {{ proposal.state }}
             </div>
             <div class="date">
-              active block:{{ parseInt(proposal.endBlock.replace(',','')) - proposal.publicityDelay }} ~{{ proposal.endBlock}}
+              active block:{{ parseInt(proposal.endBlock.toString().replace(',','')) - proposal.publicityDelay }} ~{{ proposal.endBlock}}
             </div>
           </div>
         </div>
@@ -233,9 +233,14 @@ export default {
   name: "proposalDetail",
   data(){
     return{
-      proposal:{},
+      proposal:{
+        endBlock:0,
+        supportArr:[],
+        refuseArr:[]
+      },
       isShowMembers:false,
       statusIndex:0,
+      proposalAddress:"",
       myVotes:0,
       blockNumber:0
     }
@@ -251,8 +256,11 @@ export default {
   mounted() {
     console.log(this.$route.params)
     this.proposal = this.$route.params.item
-    this.proposal.forVotes = (this.proposal.forVotes.replace(/,/g,''))/10**18
-    this.proposal.againstVotes = (this.proposal.againstVotes.replace(/,/g,''))/10**18
+    this.coinAddress = this.$route.params.coinAddress
+    this.proposalAddress = this.$route.params.address
+    console.log(this.proposal)
+    this.proposal.forVotes = (this.proposal.forVotes.toString().replace(/,/g,''))/10**18
+    this.proposal.againstVotes = (this.proposal.againstVotes.toString().replace(/,/g,''))/10**18
     this.proposal.receiptsArr = []
     this.proposal.supportArr = []
     this.proposal.refuseArr = []
@@ -278,7 +286,6 @@ export default {
           }
         }
       }
-      console.log( this.proposal.receiptsArr)
     }
     switch (this.proposal.state){
       case "Active": this.statusIndex = 1
@@ -294,19 +301,27 @@ export default {
   },
   methods:{
     delegate(){
-      this.$store.dispatch("erc20/delegate", this.account).then(res=>{
+      this.$store.dispatch("erc20/delegate", {address:this.account,coinAddress:this.coinAddress}).then(res=>{
         console.log(res)
       })
     },
     getData(){
-      this.$store.dispatch("erc20/getPriorVotes",this.parseInt(proposal.endBlock.replace(',','')) - this.proposal.publicityDelay )
-      this.$store.dispatch("erc20/getCurrentVotes", this.account).then(res=>{
-        res = res.replace(/,/g,'')
-        this.myVotes = res / 10**18
+      this.$store.dispatch("erc20/getPriorVotes",{
+        blockNumber:parseInt(this.proposal.endBlock.toString().replace(',','')) - this.proposal.publicityDelay,
+        coinAddress:this.coinAddress
+      })
+      this.$store.dispatch("erc20/getCurrentVotes", this.coinAddress).then(res=>{
+        if(res){
+          res = res.toString().replace(/,/g,'')
+          this.myVotes = res / 10**18
+        }
+        console.log(res)
       })
     },
     castVote(support){
-      this.$store.dispatch("proposal/castVote", {
+      this.$store.dispatch("daoProposal/castVote", {
+        proposalAddress:this.proposalAddress,
+        coinAddress:this.coinAddress,
         proposal_id:this.proposal.proposalId,
         support
       }).then(res=>{

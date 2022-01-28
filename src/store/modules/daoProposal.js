@@ -75,6 +75,24 @@ const actions = {
         data = formatResult(data);
         return data
     },
+    async castVote({rootState},{proposal_id,support,proposalAddress}) {
+        const injector = await Accounts.accountInjector();
+        await judgeContract(rootState.app.web3,proposalAddress)
+        if(rootState.app.balance < 1.01){
+            eventBus.$emit('message', {
+                type:"error",
+                message:"Not enough gas"
+            })
+            return
+        }
+        const AccountId = await Accounts.accountAddress();
+
+        let data = await state.contract.tx.castVote({value, gasLimit},proposal_id,support).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+            dealResult(result)
+        });
+        data = formatResult(data);
+        return data
+    },
 }
 export default {
     namespaced: true,
