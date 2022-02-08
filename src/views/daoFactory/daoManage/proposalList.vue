@@ -1,7 +1,7 @@
 <template>
   <div class="proposal-list-box">
     <div class="proposal-nav">
-      <div class="nav-item" @click="chooseNav(item);activeIndex=index" :class="{'active':activeIndex == index}"
+      <div class="nav-item" @click="chooseNav(item);activeIndex= item.name" :class="{'active':activeIndex == item.name}"
            v-for="(item, index) in navList" :key="index">
         {{ item.name }}
       </div>
@@ -13,6 +13,7 @@
     </div>
     <div class="proposal-list">
       <div class="list-item"
+           v-show="item.state==activeIndex || activeIndex=='ALL'"
            @click="$router.push({name:'daoProposalDetail',params:{item:item,address:address,vault:vault,coinAddress:coinAddress}})"
            v-for="(item, index) in proposalList" :key="index">
         <div class="index">
@@ -184,6 +185,7 @@ export default {
 
         .content {
           .item {
+            min-width: 300px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -206,9 +208,8 @@ export default {
           display: flex;
           align-items: center;
           color: rgba(255, 174, 37, 0.80);
-
+          justify-content: space-between;
           .stage {
-            margin-right: 30px;
             width: 120px;
             height: 24px;
             text-align: center;

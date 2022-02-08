@@ -21,6 +21,15 @@ const mutations = {
     }
 }
 const actions = {
+    async getDaoCategory({rootState},daoManagerAddr) {
+        const AccountId = await Accounts.accountAddress();
+        console.log(daoManagerAddr)
+        await judgeContract(rootState.app.web3, daoManagerAddr)
+        console.log(state.contract)
+        let data = await state.contract.query.getDaoCategory(AccountId, {value, gasLimit})
+        data = formatResult(data);
+        return data
+    },
     async getComponentAddress({rootState}, daoManagerAddr) {
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3, daoManagerAddr)

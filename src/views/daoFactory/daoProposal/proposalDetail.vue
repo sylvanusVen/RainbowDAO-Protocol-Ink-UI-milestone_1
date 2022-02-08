@@ -12,7 +12,7 @@
               {{ proposal.state }}
             </div>
             <div class="date">
-              active block:{{ parseInt(proposal.endBlock.toString().replace(',','')) - proposal.publicityDelay }} ~{{ proposal.endBlock}}
+              active block:{{ parseInt(proposal.endBlock.toString().replace(',','')) -  parseInt(proposal.publicityDelay.toString().replace(',','')) }} ~{{ proposal.endBlock}}
             </div>
           </div>
         </div>

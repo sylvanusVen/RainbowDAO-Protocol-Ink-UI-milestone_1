@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="right">
-        <div class="rainbow-btn">
+        <div class="rainbow-btn" @click="createDao(0)">
           CREATE
         </div>
       </div>
@@ -55,7 +55,7 @@
         </div>
       </div>
       <div class="right">
-        <div class="rainbow-btn">
+        <div class="rainbow-btn" @click="createDao(1)">
           CREATE
         </div>
       </div>
@@ -71,7 +71,7 @@
         </div>
       </div>
       <div class="right">
-        <div class="rainbow-btn">
+        <div class="rainbow-btn" @click="createDao(2)">
           CREATE
         </div>
       </div>
@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="right">
-        <div class="rainbow-btn" @click="isShowAddDepartment=true">
+        <div class="rainbow-btn" @click="isShowAddDepartment=true" >
           CREATE
         </div>
       </div>
@@ -103,9 +103,7 @@
         </div>
       </div>
       <div class="right">
-        <div class="rainbow-btn">
-          CREATE
-        </div>
+
       </div>
     </div>
     <div class="dao-address">

@@ -84,7 +84,7 @@ export default {
   min-height: 600px;
   min-width: 1100px;
   height: 100vh;
-  background: url("../static/imgs/hk_bg.png");
+  background: url("../static/imgs/polka_bg.jpg");
   background-size: 100% 100%;
 
   .logo-box {
@@ -162,7 +162,7 @@ export default {
     text-align: center;
 
     .link {
-      margin-top: 40px;
+      margin-top: 60px;
 
       .link-img {
         width: 24px;

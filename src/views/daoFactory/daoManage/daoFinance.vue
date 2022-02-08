@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="right">
-        <line-chart :chart-data="datacollection" :options="datacollection" id="myChart" class="chart"></line-chart>
+        <line-chart :chart-data="datacollection" :options="options" :styles="myStyles" ></line-chart>
       </div>
     </div>
     <div class="finance-detail">
@@ -76,11 +76,16 @@ export default {
   data () {
     return {
       transactionList:[{
-        address:"asdas",
+        address:"",
         value:10
       }],
       myStyles:{
-        height:320,
+        width:300,
+        height:200,
+        position: 'relative'
+      },
+      options:{
+        responsive: true
       },
       datacollection: null
     }
@@ -92,7 +97,6 @@ export default {
   methods: {
     fillData () {
       this.datacollection = {
-        labels: [1,2],
         datasets: [
           {
             label: 'Data One',
@@ -101,7 +105,7 @@ export default {
           }, {
             label: 'Data One',
             backgroundColor: '#fff',
-            data: []
+            data: [2,1]
           }
         ]
       }
@@ -152,8 +156,11 @@ export default {
     }
     .right{
       flex: 1;
+      width: 300px;
+
       ::v-deep canvas{
-        height: 400px!important;
+        width: 800px!important;
+        height: 500px!important;
       }
 
     }

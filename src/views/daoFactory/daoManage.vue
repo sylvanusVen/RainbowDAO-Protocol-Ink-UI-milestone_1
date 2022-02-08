@@ -131,7 +131,7 @@ export default {
     },
     chooseDao(item) {
       this.curDao = item
-      this.curDaoAddress = "5D81NQ7VQ43PqokSVGGeEFAwJiXgDKGyyRR25kFoNhyRutZW"
+      this.curDaoAddress = "5ESB8FfLxwWwgUnMMkARg9RSiPfiuu9CuzkEXqtniuxbX8g7"
       this.getComponentAddrs()
       this.$store.dispatch("app/getBalance", this.curDaoAddress).then(balance => {
         console.log(balance)
@@ -145,7 +145,7 @@ export default {
 
     },
     getProposalList() {
-      if (this.isConnected) {
+      if (this.isConnected&&this.curDaoControlAddress) {
         this.$store.dispatch("daoProposal/listProposals", this.curDaoControlAddress.proposalAddr).then(async res => {
           for (let i=0;i <res.length;i++){
             await this.$store.dispatch("daoProposal/state", {proposalId:res[i].proposalId,address: this.curDaoControlAddress.proposalAddr}).then(state => {
@@ -156,27 +156,34 @@ export default {
         })
       }
     },
+    async getDaoCategory(addr){
+      return await this.$store.dispatch("daoManage/getDaoCategory", addr)
+    },
     getDaoByIndex(index) {
-      this.$store.dispatch("daoFactory/getDaoByIndex", index).then(res => {
+      this.$store.dispatch("daoFactory/getDaoByIndex", index).then(async res => {
         console.log(res)
         this.daoList.push(res)
+        let category =await this.getDaoCategory(res.daoManagerAddr)
+        console.log(category)
       })
-
     },
     getDaosByOwner() {
       this.$store.dispatch("daoFactory/getDaosByOwner").then(res => {
+        console.log(res)
         this.daoIndexList = res
-        res.forEach(item => {
-          this.getDaoByIndex(item)
+        res.forEach(async idx => {
+          console.log(idx)
+          this.getDaoByIndex(idx)
         })
+
       })
     },
     joinedDao(){
-      this.$store.dispatch("daoFactory/joinedDao").then(res => {
-        this.daoIndexList = res
-        console.log(res)
-
-      })
+      // this.$store.dispatch("daoFactory/joinedDao").then(res => {
+      //   this.daoIndexList = res
+      //   console.log(res)
+      //
+      // })
     },
     getData() {
       if (!this.isConnected) {

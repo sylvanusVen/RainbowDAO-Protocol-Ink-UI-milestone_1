@@ -18,6 +18,14 @@
           </div>
           <div class="stage-content" v-show="stage==0">
             <div class="stage-panel">
+              <div class="item">
+                <div class="name">
+                  DAO Category
+                </div>
+                <div class="input">
+                  {{category}}
+                </div>
+              </div>
               <div class="btn-box">
                 <div class="sub-btn" @click="initDao">
                   Init
@@ -254,6 +262,7 @@ export default {
       daoInfo: {
         name: '', logo: '', desc: ''
       },
+      category:'',
       tokenInfo: {
         name: "",
         symbol: "",
@@ -263,7 +272,11 @@ export default {
     }
   },
   created() {
-
+      if(this.$route.params.category){
+        this.category = this.$route.params.category
+      }else{
+        this.category = "mother"
+      }
   },
   computed: {
     ...mapGetters([
@@ -312,7 +325,7 @@ export default {
     },
     initDao(){
       let _this = this
-      this.$store.dispatch("daoFactory/initDaoByTemplate",{}).then(()=>{
+      this.$store.dispatch("daoFactory/initDaoByTemplate",{category:this.category}).then(()=>{
         this.$eventBus.$on('message', (message) => {
           if(message.type == "success"&& message.message=="Init DAO Success"){
             _this.getDaosByOwner()

@@ -20,6 +20,7 @@ const mutations = {
     }
 }
 const actions = {
+
     async getBaseInfo({rootState},baseAddress) {
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3,baseAddress)
@@ -27,7 +28,7 @@ const actions = {
         data = formatResult(data);
         return data
     },
- 
+
 }
 export default {
     namespaced: true,
