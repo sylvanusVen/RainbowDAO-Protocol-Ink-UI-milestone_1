@@ -9,13 +9,12 @@
     "docker:build": "docker build -t rainbow/ui1:v1."
   },
   "dependencies": {
+    "@polkadot/api": "^7.7.1",
     "@polkadot/api-contract": "^7.7.1",
     "@polkadot/extension-dapp": "^0.42.7",
     "animate.css": "^4.1.1",
     "chart.js": "^2.9.4",
     "core-js": "^3.6.5",
-    "highcharts": "^9.1.2",
-    "highcharts-vue": "^1.4.0",
     "jquery": "^3.6.0",
     "swiper": "^6.8.0",
     "vue": "^2.6.11",
@@ -32,6 +31,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "gsap": "^3.7.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"

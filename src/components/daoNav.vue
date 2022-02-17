@@ -12,10 +12,10 @@
             <a class="w-font" >Home</a>
             <a class="re-active" >Home</a>
           </li>
-          <li :class="{'active':$route.name=='allianceDao'}" @click="$router.push({name:'allianceDao'})">
-            <a class="w-font" >AllianceDao</a>
-            <a class="re-active" >AllianceDao</a>
-          </li>
+<!--          <li :class="{'active':$route.name=='allianceDao'}" @click="$router.push({name:'allianceDao'})">-->
+<!--            <a class="w-font" >AllianceDao</a>-->
+<!--            <a class="re-active" >AllianceDao</a>-->
+<!--          </li>-->
           <li :class="{'active':$route.name=='mineDao'}" @click="$router.push({name:'mineDao'})">
             <a class="w-font" >MineDao</a>
             <a class="re-active" >MineDao</a>

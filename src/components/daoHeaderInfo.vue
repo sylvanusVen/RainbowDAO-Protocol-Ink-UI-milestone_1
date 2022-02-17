@@ -7,9 +7,9 @@
       </div>
     </div>
     <div class="dao-finance-header" v-show="daoInfo.name">
-      <div class="dao-logo">
-        <img :src="daoInfo.logo" alt="logo">
-      </div>
+<!--      <div class="dao-logo">-->
+<!--        <img :src="daoInfo.logo" alt="logo">-->
+<!--      </div>-->
       <div class="dao-info">
         <div class="dao-name">
           {{ daoInfo.name }}

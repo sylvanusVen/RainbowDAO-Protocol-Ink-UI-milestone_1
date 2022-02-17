@@ -1,7 +1,6 @@
 
 const { ContractPromise } = require('@polkadot/api-contract');
 import erc20Abi from '../abi/erc20.json';
-import routerMap from '../abi/routerMap.json';
 import core from '../abi/core.json'
 import roleManage from '../abi/roleManage.json'
 import authManage from '../abi/authManage.json'
@@ -34,7 +33,7 @@ const ConnectContract = async (api,type,address) =>{
         incomeManage:{address:"5EGSkkJHe6nb99NVCuK4YUVY5gJkeeXVkVmuZedsNw9QFzHn", abi:incomeManage},
         tokenFactory:{address:"5G2sy7RCQxPxchVHsPo7YLWopxvbaM2LDscN7JHRyHBFFBGc", abi:tokenFactory},
         multisignFactory:{address:"5EkN9m2Ds29hzEJMSZLgkidtXAtE4sRyZJ8ZAqG4x1Vb56jx", abi:multisignFactory},
-        daoFactory:{address:"5CQVhbhgW32ZLTy837Uces2dZEvzK2XFWe9qFtN5xGbHJuPM", abi:daoFactory},
+        daoFactory:{address:"5GYqJDkAxJjcy5SMargrgwDLyG54bkF84Sw6psJcsbtAHLk3", abi:daoFactory},
         base:{abi:base},
         daoManage:{ abi:daoManage},
         daoUser:{ abi:daoUser},

@@ -1,3 +1,3 @@
 export default  {
-    connectPath:"ws://192.168.101.28:9901"
+    connectPath:"wss://pot.rainbow.kim"
 }

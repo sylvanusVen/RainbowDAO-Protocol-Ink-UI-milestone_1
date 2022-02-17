@@ -4,7 +4,11 @@
     <div class="nav-box">
       <img class="logo" src="../assets/imgs/RainbowDAOLogo.png" @click="$router.push('/')"/>
       <ul class="navbar-nav">
-        <li :class="{'active':$route.name=='RainbowDao'}" @click="openNew('/Hackathon')">
+        <li :class="{'active':$route.name=='RainbowDao'}" @click="openNew('/NearHackathon')">
+          <span class="w-font">Near Hackathon</span>
+          <span class="re-active" >Near Hackathon</span>
+        </li>
+        <li :class="{'active':$route.name=='Hackathon'}" @click="openNew('/Hackathon')">
           <span class="w-font">DAO Global Hackathon 2021</span>
           <span class="re-active" >DAO Global Hackathon 2021</span>
         </li>

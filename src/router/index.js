@@ -10,6 +10,11 @@ const routes = [
         component: () => import('@/home.vue'),
     },
     {
+        path: '/NearHackathon',
+        name: "NearHackathon",
+        component: () => import('@/views/nearHackathon.vue'),
+    },
+    {
         path: '/',
         name: "rainbow",
         component: () => import('@/layout.vue'),

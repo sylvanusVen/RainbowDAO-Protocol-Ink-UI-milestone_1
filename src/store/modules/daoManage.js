@@ -16,11 +16,18 @@ async function judgeContract(web3, address) {
 }
 
 const mutations = {
-    SET_WEB3(state, web3) {
-        state.web3 = web3
-    }
+
 }
 const actions = {
+    async getChildsDaos({rootState},daoManagerAddr) {
+        const AccountId = await Accounts.accountAddress();
+        console.log(daoManagerAddr)
+        await judgeContract(rootState.app.web3, daoManagerAddr)
+        console.log(state.contract)
+        let data = await state.contract.query.getChildsDaos(AccountId, {value, gasLimit})
+        data = formatResult(data);
+        return data
+    },
     async getDaoCategory({rootState},daoManagerAddr) {
         const AccountId = await Accounts.accountAddress();
         console.log(daoManagerAddr)
@@ -34,6 +41,35 @@ const actions = {
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3, daoManagerAddr)
         let data = await state.contract.query.getComponentAddrs(AccountId, {value, gasLimit})
+        data = formatResult(data);
+        return data
+    },
+    async createChildDao({rootState, dispatch}, {address, params}) {
+        console.log(address, params)
+        const injector = await Accounts.accountInjector();
+        const AccountId = await Accounts.accountAddress();
+        let version = "1"
+        dispatch("app/getBalance", address, {root: true}).then(res => {
+            console.log(res)
+        })
+
+        await judgeContract(rootState.app.web3, address)
+        if (rootState.app.balance < 1.01) {
+            eventBus.$emit('message', {
+                type: "error",
+                message: "Not enough gas"
+            })
+            return
+        }
+
+        console.log(params, version, contractHash.dao_base, contractHash.erc20_code_hash, contractHash.dao_user, contractHash.dao_setting, contractHash.dao_vault, contractHash.dao_proposal)
+        let data = await state.contract.tx.initByParams({
+            value,
+            gasLimit
+        }, params, parseInt(version), contractHash.dao_base, contractHash.erc20_code_hash, contractHash.dao_user, contractHash.dao_setting, contractHash.dao_vault, contractHash.dao_proposal).signAndSend(AccountId, {signer: injector.signer}, (result) => {
+            console.error(result)
+            dealResult(result, "Init DAO Info")
+        });
         data = formatResult(data);
         return data
     },
