@@ -7,7 +7,7 @@
         <a class="icon" href="https://t.me/RainbowDAO" target="_blank">
           <img src="../assets/nearImgs/telegram@2x.png" alt="">
         </a>
-        <a class="icon" href="https://twitter.com/RainbowcityDAO" target="_blank">
+        <a class="icon" href="https://twitter.com/RainbowDAOio" target="_blank">
           <img src="../assets/nearImgs/twitter@2x.png" alt="">
         </a>
         <a class="icon" href="https://medium.com/rainbowcity" target="_blank">
@@ -27,66 +27,91 @@
       <img src="../assets/nearImgs/title_icon.png" alt="">
     </div>
     <div class="link-list">
-      <a href="">
-        <img src="../assets/nearImgs/1@2x.png" alt="">
-        <span class="title">
+      <div class="item">
+        <a href="http://daofactorynear.rainbowdao.io"  target="_blank">
+          <img src="../assets/nearImgs/1@2x.png" alt="">
+          <span class="title">
                 1 - Rainbow DAO Factory
             </span>
-      </a>
-      <a href="">
-        <img src="../assets/nearImgs/2@2x.png" alt="">
-        <span class="title">
+        </a>
+      </div>
+      <div class="item">
+        <a href="http://nftbanknear.rainbowdao.io"  target="_blank">
+          <img src="../assets/nearImgs/2@2x.png" alt="">
+          <span class="title">
              2 - DAO NFT Bank System
             </span>
-      </a>
-      <a href="">
-        <img src="../assets/nearImgs/3@2x.png" alt="">
-        <span class="title">
+        </a>
+      </div>
+      <div class="item">
+        <a href="http://committeenear.rainbowdao.io"  target="_blank">
+          <img src="../assets/nearImgs/3@2x.png" alt="">
+          <span class="title">
            3 - DAO Multi-Signature Committee
             </span>
-      </a>
-      <a href="">
-        <img src="../assets/nearImgs/4@2x.png" alt="">
-        <span class="title">
+        </a>
+      </div>
+      <div class="item">
+        <a href="http://multisigwalletnear.rainbowdao.io"  target="_blank">
+          <img src="../assets/nearImgs/4@2x.png" alt="">
+          <span class="title">
  4 - DAO Multi-Signature Wallet System
             </span>
-      </a>
-      <a href="">
-        <img src="../assets/nearImgs/5@2x.png" alt="">
-        <span class="title">
+        </a>
+
+
+      </div>
+      <div class="item">
+        <a href="http://erc20factorynear.rainbowdao.io"  target="_blank">
+          <img src="../assets/nearImgs/5@2x.png" alt="">
+          <span class="title">
              5 - DAO ERC20 Factory System
             </span>
-      </a>
-      <a href="">
-        <img src="../assets/nearImgs/6@2x.png" alt="">
-        <span class="title">
+
+        </a>
+
+      </div>
+      <div class="item">
+        <a href="http://lockedvaultnear.rainbowdao.io"  target="_blank">
+          <img src="../assets/nearImgs/6@2x.png" alt="">
+          <span class="title">
            6 - DAO Locked Vault System
             </span>
-      </a>
-      <a href="">
-        <img src="../assets/nearImgs/7@2x.png" alt="">
-        <span class="title">
+        </a>
+      </div>
+      <div class="item">
+        <a href="http://fixedexnear.rainbowdao.io"  target="_blank">
+          <img src="../assets/nearImgs/7@2x.png" alt="">
+          <span class="title">
              7 - DAO Fixed Exchange System
             </span>
-      </a>
-      <a href="">
-        <img src="../assets/nearImgs/8@2x.png" alt="">
-        <span class="title">
+        </a>
+      </div>
+
+      <div class="item">
+        <a href="http://airdropnear.rainbowdao.io"  target="_blank">
+          <img src="../assets/nearImgs/8@2x.png" alt="">
+          <span class="title">
             8 - DAO Airdrop System
             </span>
-      </a>
-      <a href="">
-        <img src="../assets/nearImgs/9@2x.png" alt="">
-        <span class="title">
+        </a>
+      </div>
+      <div class="item">
+        <a href="http://expoolnear.rainbowdao.io"  target="_blank">
+          <img src="../assets/nearImgs/9@2x.png" alt="">
+          <span class="title">
            9 - DAO Exchange Pool System
             </span>
-      </a>
-      <a href="">
-        <img src="../assets/nearImgs/10@2x.png" alt="">
-        <span class="title">
+        </a>
+      </div>
+      <div class="item">
+        <a href="http://daofactorynear.rainbowdao.io"  target="_blank">
+          <img src="../assets/nearImgs/10@2x.png" alt="">
+          <span class="title">
           10 - Bit Civilization
             </span>
-      </a>
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -101,9 +126,8 @@ export default {
 <style scoped>
 
 .nearHackathon {
-  background: url("../assets/nearImgs/bg.png") no-repeat;
+  background: url("../assets/nearImgs/bg.png") ;
   background-size: 100% 100%;
-
 }
 
 .nearHackathon::-webkit-scrollbar-thumb {
@@ -146,7 +170,6 @@ header {
   background: rgba(20, 20, 35, 0.80);
   border: 1px solid;
   border-radius: 5px;
-  box-shadow: 0px 0px 20px 0px rgba(219, 31, 126, 0.50);
   margin-top: 20px;
   padding: 20px 10px;
   display: flex;
@@ -156,6 +179,7 @@ header {
 
 .link-list a:hover {
   border-image: linear-gradient(90deg, #12c2e9, #c471ed 55%, #f64f59) 1 1;
+  box-shadow: 0px 0px 20px 0px rgba(219, 31, 126, 0.50);
 }
 
 .link-list a img {
@@ -166,8 +190,9 @@ header {
 .link-list a .title {
   text-align: center;
   color: #ffffff;
-  line-height: 30px;
-  margin-top: 10px;
+  line-height: 20px;
+  margin-top: 30px;
+
 }
 
 .header-box {

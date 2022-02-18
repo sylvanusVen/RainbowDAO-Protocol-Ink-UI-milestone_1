@@ -10,8 +10,8 @@ const routes = [
         component: () => import('@/home.vue'),
     },
     {
-        path: '/NearHackathon',
-        name: "NearHackathon",
+        path: '/NearMetaBUILD',
+        name: "NearMetaBUILD",
         component: () => import('@/views/nearHackathon.vue'),
     },
     {

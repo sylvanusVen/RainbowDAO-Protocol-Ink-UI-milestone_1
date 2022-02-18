@@ -47,7 +47,7 @@
         <a href="https://t.me/RainbowDAO" target="_blank">
           <img class="link-img" src="../assets/imgs/telegram.png" alt="">
         </a>
-        <a href="https://twitter.com/RainbowcityDAO" target="_blank">
+        <a href="https://twitter.com/RainbowDAOio" target="_blank">
           <img class="link-img" src="../assets/imgs/twitter.png" alt="">
         </a>
         <a href="https://medium.com/rainbowcity" target="_blank">

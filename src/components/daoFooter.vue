@@ -81,7 +81,7 @@
       </div>
       <div class="icon-box">
         <span></span>
-        <a class="icon" href="https://twitter.com/RainbowcityDAO" target="_blank">
+        <a class="icon" href="https://twitter.com/RainbowDAOio" target="_blank">
           <svg t="1630482035608" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                p-id="4479" width="48" height="48">
             <path
