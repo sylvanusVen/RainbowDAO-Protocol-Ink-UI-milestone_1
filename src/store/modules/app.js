@@ -29,13 +29,11 @@ const actions = {
             api.rpc.system.name(),
             api.rpc.system.version()
         ]);
-        console.log(api,chain, nodeName, nodeVersion)
         commit("SET_WEB3", api)
     },
      async getBalance({commit},account){
         if(state.web3.query){
             let { data: balance } = await  state.web3.query.system.account(account);
-            console.log(balance)
             return balance.toHuman().free
         }else{
             return 0

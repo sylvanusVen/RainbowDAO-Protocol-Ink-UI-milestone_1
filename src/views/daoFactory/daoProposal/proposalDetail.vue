@@ -236,11 +236,11 @@ export default {
       proposal:{
         endBlock:0,
         supportArr:[],
-        refuseArr:[]
+        refuseArr:[],
+        publicityDelay:0
       },
       isShowMembers:false,
       statusIndex:0,
-      proposalAddress:"",
       myVotes:0,
       blockNumber:0
     }
@@ -256,11 +256,8 @@ export default {
   mounted() {
     console.log(this.$route.params)
     this.proposal = this.$route.params.item
-    this.coinAddress = this.$route.params.coinAddress
-    this.proposalAddress = this.$route.params.address
-    console.log(this.proposal)
-    this.proposal.forVotes = (this.proposal.forVotes.toString().replace(/,/g,''))/10**18
-    this.proposal.againstVotes = (this.proposal.againstVotes.toString().replace(/,/g,''))/10**18
+    this.coinAddress = this.$store.state.daoManage.curDaoControlAddress.erc20Addr
+
     this.proposal.receiptsArr = []
     this.proposal.supportArr = []
     this.proposal.refuseArr = []
@@ -310,17 +307,20 @@ export default {
         blockNumber:parseInt(this.proposal.endBlock.toString().replace(',','')) - this.proposal.publicityDelay,
         coinAddress:this.coinAddress
       })
-      this.$store.dispatch("erc20/getCurrentVotes", this.coinAddress).then(res=>{
+      this.$store.dispatch("erc20/getCurrentVotes", this.$store.state.daoManage.curDaoControlAddress.erc20Addr).then(res=>{
+        console.log(res)
         if(res){
           res = res.toString().replace(/,/g,'')
-          this.myVotes = res / 10**18
+          this.myVotes = res
         }
+      })
+      this.$store.dispatch("erc20/getBalance", this.$store.state.daoManage.curDaoControlAddress.erc20Addr).then(res=>{
         console.log(res)
       })
     },
     castVote(support){
       this.$store.dispatch("daoProposal/castVote", {
-        proposalAddress:this.proposalAddress,
+        proposalAddress:this.$store.state.daoManage.curDaoControlAddress.proposalAddr,
         coinAddress:this.coinAddress,
         proposal_id:this.proposal.proposalId,
         support

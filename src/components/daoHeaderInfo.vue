@@ -7,9 +7,9 @@
       </div>
     </div>
     <div class="dao-finance-header" v-show="daoInfo.name">
-<!--      <div class="dao-logo">-->
-<!--        <img :src="daoInfo.logo" alt="logo">-->
-<!--      </div>-->
+      <div class="dao-logo">
+        <img :src="daoInfo.logo" alt="logo">
+      </div>
       <div class="dao-info">
         <div class="dao-name">
           {{ daoInfo.name }}
@@ -19,7 +19,7 @@
           <!--          https://Rainbowdao.io/-->
           <!--        </div>-->
           <div class="dao-member">
-            {{ daoInfo.membersLength }} Members
+            {{ members }} Members
           </div>
         </div>
         <div class="dao-intro">
@@ -43,10 +43,22 @@
 <script>
 export default {
   name: "daoHeaderInfo",
-  props:["daoInfo"],
+  props:[],
   methods:{
     joinDao(){
       this.$emit("joinDao")
+    }
+  },
+  computed:{
+    daoInfo(){
+      if(this.$store.state.daoManage.curdao){
+        return this.$store.state.daoManage.curdao
+      }else{
+        return {}
+      }
+    },
+    members(){
+      return this.$store.state.daoManage.memberLength
     }
   }
 }

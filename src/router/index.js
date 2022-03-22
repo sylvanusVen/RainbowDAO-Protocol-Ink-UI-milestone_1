@@ -15,6 +15,11 @@ const routes = [
         component: () => import('@/views/nearHackathon.vue'),
     },
     {
+        path: '/ETHDanver2022',
+        name: "ETHDanver2022",
+        component: () => import('@/views/ETHDenver.vue'),
+    },
+    {
         path: '/',
         name: "rainbow",
         component: () => import('@/layout.vue'),
@@ -147,7 +152,16 @@ const routes = [
                 name: "mineDao",
                 component:()=> import('@/views/daoFactory/mineDao.vue')
             },
-
+            {
+                path: '/bitCity',
+                name: "bitCity",
+                component:()=> import('@/bitCity.vue')
+            },
+            {
+                path: '/connectMe',
+                name: "connectMe",
+                component:()=> import('@/connectMe.vue')
+            },
         ]
     },
 

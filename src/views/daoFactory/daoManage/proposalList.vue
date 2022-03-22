@@ -71,10 +71,10 @@ import {mapGetters} from "vuex";
 
 export default {
   name: "proposalList",
-  props: ["proposalList", "address", "vault", "coinAddress"],
+  props: ["proposalList", "vault", "coinAddress"],
   data() {
     return {
-      activeIndex: 0,
+      activeIndex: "ALL",
       navList: [
         {
           name: "ALL",
@@ -111,11 +111,10 @@ export default {
   },
   created() {
     console.log(this.proposalList)
-
   },
   methods: {
     intiate(){
-      this.$router.push({name:'createDaoProposal',params:{address:this.address}})
+      this.$router.push({name:'createDaoProposal'})
     },
     chooseNav() {
 
@@ -213,7 +212,6 @@ export default {
             width: 120px;
             height: 24px;
             text-align: center;
-            color: #333;
             font-weight: bold;
             line-height: 24px;
             background: rgba(255, 174, 37, 0.20);

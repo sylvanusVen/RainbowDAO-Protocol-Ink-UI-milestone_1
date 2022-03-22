@@ -66,12 +66,11 @@ const accountName = async () =>{
 }
 const accountInjector = async () => {
     let injector;
-    const Accounts = JSON.parse(sessionStorage.getItem('account'));
+    const AccountId = sessionStorage.getItem('currentAccount')
 
-    if (Accounts && Accounts.length > 0) {
-        const AccountId = Accounts[0].address;
-        console.log(AccountId)
+    if (AccountId) {
         injector = await web3FromAddress(AccountId);
+
     }
     return injector;
 

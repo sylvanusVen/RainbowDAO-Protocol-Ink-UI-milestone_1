@@ -2,18 +2,18 @@
   <div class="department">
     <dao-nav></dao-nav>
       <div class="department-box">
-        <daoHeaderInfo @joinDao="joinDao" :daoInfo="curDao"></daoHeaderInfo>
+        <daoHeaderInfo @joinDao="joinDao"></daoHeaderInfo>
         <div class="department-content">
           <div class="rainbow-nav-box">
             <div class="nav-item"  :class="{'active': 0 == activeNavIndex}" @click="activeNavIndex=0">
               HOME
             </div>
-            <div class="nav-item"  :class="{'active': 1 == activeNavIndex}" @click="activeNavIndex=1">
-              PROPOSAL
-            </div>
-            <div class="nav-item"  :class="{'active': 2 == activeNavIndex}" @click="activeNavIndex=2">
-              FINANCIAL
-            </div>
+<!--            <div class="nav-item"  :class="{'active': 1 == activeNavIndex}" @click="activeNavIndex=1">-->
+<!--              PROPOSAL-->
+<!--            </div>-->
+<!--            <div class="nav-item"  :class="{'active': 2 == activeNavIndex}" @click="activeNavIndex=2">-->
+<!--              FINANCIAL-->
+<!--            </div>-->
             <div class="nav-item"  :class="{'active': 3 == activeNavIndex}" @click="activeNavIndex=3">
               MEMBER
             </div>
@@ -58,6 +58,10 @@ export default {
       daoIndexList:[]
     }
   },
+  created() {
+    console.log( this.$route.params)
+    this.membersList = this.$route.params.departmentInfo.users
+  },
   computed: {
     ...mapGetters([
       'isConnected',
@@ -65,6 +69,12 @@ export default {
     ]),
   },
   methods: {
+    getBalance(){
+      this.$store.dispatch("app/getBalance", this.curDaoAddress).then(balance => {
+        console.log(balance)
+        this.balance = balance
+      })
+    },
     joinDao() {
 
     },

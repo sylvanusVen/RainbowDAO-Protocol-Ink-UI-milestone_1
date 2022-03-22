@@ -27,7 +27,14 @@ const actions = {
         data = formatResult(data);
         return data
     },
+    async listDao({rootState}) {
+        const AccountId = await Accounts.accountAddress();
 
+        await judgeContract(rootState.app.web3)
+        let data = await state.contract.query.listDao(AccountId, {value, gasLimit})
+        data = formatResult(data);
+        return data
+    },
     async getDaoByIndex({rootState},index) {
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3)
@@ -46,7 +53,7 @@ const actions = {
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
 
-        let dao_manager_code_hash= contractHash["dao_hash"]
+        let dao_manager_code_hash= contractHash["dao_manage"]
         let controller = AccountId
         let controller_type = 1
         category?'':category = "mother"
@@ -61,7 +68,7 @@ const actions = {
         console.log("initDAO")
         console.log(state.contract.tx.initDaoByTemplate)
         // Invalid params: unknown field `storageDepositLimit`, expected one of `origin`, `dest`, `value`, `gasLimit`, `inputData`.
-        let data = await state.contract.tx.initDaoByTemplate({value, gasLimit},dao_manager_code_hash,controller,controller_type,category,).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        let data = await state.contract.tx.initDaoByTemplate({value, gasLimit},dao_manager_code_hash,controller,controller_type,category).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
             dealResult(result,"Init DAO")
         });

@@ -56,7 +56,7 @@ export default {
   async created(){
     let accountList = await Accounts.accountList();
     this.accountList = accountList.allAccounts
-    let account = sessionStorage.getItem('currentAccount')
+    let account = sessionStorage.getItem('account')
     if(account){
       this.account = account
     }
@@ -76,7 +76,7 @@ export default {
     async polkaConnect(address) {
       if(address){
         this.account = address
-        sessionStorage.setItem('currentAccount', address);
+        sessionStorage.setItem('account', address);
         this.isShowConnect = false
       }
     },

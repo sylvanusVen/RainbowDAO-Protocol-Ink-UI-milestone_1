@@ -75,12 +75,13 @@ export default {
       this.form.transaction={
         calle: this.account,
       }
-      this.form.address = this.$route.params.address
+      this.form.address = this.$store.state.daoManage.curDaoControlAddress.proposalAddr
       this.$store.dispatch("daoProposal/propose",this.form).then(()=>{
         this.$eventBus.$on('message', (message) => {
           if(message.type == "success"&& message.message=="Create Proposal Success" &&this.$route.path=="/createDaoProposal"){
-            console.log(message)
-            this.$router.push({name:"daoManage"})
+            this.$router.push({name:"daoManage",params:{
+                activeNavIndex:1
+              }})
             this.$eventBus.$on('message',null)
           }
         })

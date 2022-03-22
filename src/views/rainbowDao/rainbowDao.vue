@@ -153,20 +153,48 @@
                   </div>
 
                   <div class="info2">
-                    <div class="item">
-                      BSC
+                    <div class="in-line">
+                      <div class="item">
+                        BNB
+                      </div>
+                      <div class="item">
+                        Polygon
+                      </div>
+                      <div class="item">
+                        Avalanche
+                      </div>
+                      <div class="item">
+                        Fantom
+                      </div>
+                      <div class="item">
+                        Celo
+                      </div>
+                      <div class="item">
+                        Harmony
+                      </div>
                     </div>
-                    <div class="item">
-                      Polygon
-                    </div>
-                    <div class="item">
-                      Avalanche
-                    </div>
-                    <div class="item">
-                      Fantom
-                    </div>
-                    <div class="other">
-                      Other
+                    <div class="in-line">
+                      <div class="item">
+                        xDAI
+                      </div>
+                      <div class="item">
+                        Cronos
+                      </div>
+                      <div class="item">
+                        HECO
+                      </div>
+                      <div class="item">
+                        Okex
+                      </div>
+                      <div class="item">
+                        Acala
+                      </div>
+                      <div class="item">
+                        Moonbeam
+                      </div>
+                      <div class="other">
+                        Other
+                      </div>
                     </div>
                   </div>
 
@@ -185,7 +213,7 @@
                     <img src="../../assets/imgs/eth_icon.png" alt="">
                   </div>
                   <div class="rainbow-icon">
-                    <img src="../../assets/imgs/R_icon.png" alt="">
+                    <img src="../../assets/imgs/near_icon.png" alt="">
                   </div>
 
                 </div>
@@ -238,19 +266,38 @@
                   </div>
                 </div>
                 <div class="protocol-bottom">
-                  <div class="token-economy">
-                    <div class="title-inner">
-                      Token Economy
+                  <div class="in-line">
+                    <div class="item">
+                      <div class="title-inner">
+                        Aurora Network
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="title-inner">
+                        Near Network
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="title-inner">
+                        Octopus Network
+                      </div>
                     </div>
                   </div>
-                  <div class="community-governance">
-                    <div class="title-inner">
-                      Community Governance
+                  <div class="in-line">
+                    <div class="item">
+                      <div class="title-inner">
+                        Solidity version on EVM
+                      </div>
                     </div>
-                  </div>
-                  <div class="tip-box">
-                    <div class="tip-content">
-                      Rainbow chain will be build based on substrate
+                    <div class="item">
+                      <div class="title-inner">
+                        Near version on WASM
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="title-inner">
+                        Substrate version
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1178,7 +1225,7 @@ export default {
     box-shadow: 0 0 0px #e6f3ed;
   }
   50% {
-    box-shadow: 0 0 50px rgba(141, 42, 216, 0.7);
+    box-shadow: 0 0 50px #3EAF83;
   }
   100% {
     box-shadow: 0 0 0px #e6f3ed;
@@ -1190,7 +1237,7 @@ export default {
     box-shadow: 0 0 0px #e6f3ed;
   }
   50% {
-    box-shadow: 0 0 50px rgba(93,147,255,0.6);
+    box-shadow: 0 0 50px rgba(93, 147, 255, 0.6);
   }
   100% {
     box-shadow: 0 0 0px #e6f3ed;
@@ -1533,9 +1580,9 @@ export default {
 
       .protocol-line {
         position: absolute;
-        width: 1200px;
-        left: 6px;
-        top: 48px;
+        width: 1335px;
+        left: -132px;
+        top: 59px;
         z-index: 0;
       }
 
@@ -1559,6 +1606,7 @@ export default {
           font-size: 20px;
           animation: twinkleYellow 10s infinite linear;
           animation-delay: 5s !important;
+
           .title-inner {
             border-radius: 40px;
             background: #FFAF18;
@@ -1568,8 +1616,8 @@ export default {
 
       .protocol-left {
         position: absolute;
-        top: 100px;
-        left: -50px;
+        top: 106px;
+        left: -80px;
         height: 500px;
         text-align: center;
         color: #94F2F5;
@@ -1586,12 +1634,29 @@ export default {
           box-sizing: content-box;
           color: #ffffff;
           animation: twinkleBlue 11s infinite linear;
+
           .title-inner {
             border-radius: 40px;
             background: #5d93ff;
           }
         }
-
+        .info2{
+          display: block!important;
+          .in-line{
+            width: 570px;
+            margin-left: -60px;
+            display: flex;
+            justify-content: space-between;
+          }
+          .in-line:nth-child(2){
+            width: 620px;
+            margin-left: -80px;
+            margin-top: 10px;
+          }
+          .item,.other{
+            zoom: 0.8;
+          }
+        }
         .info1, .info2 {
           display: flex;
           position: relative;
@@ -1622,23 +1687,18 @@ export default {
         .title2 {
           width: 130px;
           left: 170px;
-          top: 66px;
+          top: 68px;
         }
 
         .title3 {
           width: 190px;
-          left: 130px;
-          top: 182px;
+          left: 126px;
+          top: 178px;
         }
 
         .info2 {
+          font-size: 12px;
           top: 220px;
-
-          .other {
-            position: relative;
-            left: -260px;
-            top: 60px;
-          }
         }
       }
 
@@ -1754,6 +1814,7 @@ export default {
           border-radius: 31px;
           color: #ffffff;
           box-sizing: content-box;
+
           .title-inner {
             border-radius: 40px;
             background: #e10082;
@@ -1816,35 +1877,41 @@ export default {
       .protocol-bottom {
         position: absolute;
         top: 656px;
-        left: 0px;
+        left: 200px;
         text-align: center;
+
+        .in-line {
+          display: flex;
+          width: 820px;
+          justify-content: space-between;
+
+          &:nth-child(1) {
+            margin-top: 14px;
+          }
+
+          &:nth-child(2) {
+            margin-top: 35px;
+          }
+        }
+
         color: #fff;
 
-        .token-economy, .community-governance {
-          position: absolute;
-          height: 40px;
+        .item {
+          height: 44px;
           border-radius: 21px;
           font-size: 20px;
           animation: twinklePurple 7s infinite linear;
           animation-delay: 5s !important;
-          border: 1px solid #c471ed;
+          border: 1px solid #3EAF83;
           padding: 1px;
-          box-sizing: content-box;
+          width: 250px;
+
           .title-inner {
             border-radius: 40px;
-            background: linear-gradient(90deg, #12c2e9, #c471ed 55%, #f64f59);
+            background: #3EAF83;
           }
         }
 
-        .token-economy {
-          width: 260px;
-          left: 320px;
-        }
-
-        .community-governance {
-          width: 260px;
-          left: 620px;
-        }
 
         .tip-box {
           width: 350px;
@@ -1869,7 +1936,7 @@ export default {
       .bottom {
         position: absolute;
         width: 800px;
-        top: 760px;
+        top: 830px;
         left: calc(50% - 400px);
         height: 33px;
         font-size: 26px;
@@ -2153,30 +2220,34 @@ export default {
 
   .part11 {
     overflow: hidden;
+
     .part11-img {
       width: 100%;
     }
   }
-  .bottom-line-box{
+
+  .bottom-line-box {
     height: 4px;
     width: 100%;
     position: relative;
-    z-index:1;
+    z-index: 1;
     background: #FF238B;
-    .left{
+
+    .left {
       position: absolute;
       width: 46px;
       height: 46px;
       background: #FF238B;
-      top:-21px;
+      top: -21px;
       left: 0;
     }
-    .right{
+
+    .right {
       position: absolute;
       width: 46px;
       height: 46px;
       background: #FF238B;
-      top:-21px;
+      top: -21px;
       right: 0;
     }
   }

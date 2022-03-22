@@ -7,7 +7,7 @@
       </div>
       <div class="number">
         <strong>{{ balance }}</strong>
-        RBD
+        {{ coinInfo.name }}
       </div>
       <div class="address">
         {{ daoAddress }}
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="dao-list">
-      <div class="item" @click="chooseDao(item)" v-for="(item,index) in daoList" :key="index">
+      <div class="item" v-if="item.name" @click="chooseDao(item)" v-for="(item,index) in daoList" :key="index">
         <div class="logo">
           <img :src="item.logo" alt="">
         </div>
@@ -60,6 +60,21 @@
         </div>
       </div>
     </div>
+    <div class="dao-list">
+      <div class="item" v-if="item.category=='union' && item.name"  @click="chooseDepartment(item,index)" v-for="(item,index) in daoList" :key="index">
+        <div class="logo">
+          <img :src="item.logo" alt="">
+        </div>
+        <div class="dao-info">
+          <div class="name">
+            {{ item.name }}
+          </div>
+          <div class="address">
+            {{ item.daoManagerAddr }}
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="part-title-box">
       <div class="left">
         <img src="../../../assets/daoImgs/title_icon1.png" alt="">
@@ -70,9 +85,24 @@
 
         </div>
       </div>
-      <div class="right">
+      <div class="right" v-show="curDaoAddress">
         <div class="rainbow-btn" @click="createDao(2)">
           CREATE
+        </div>
+      </div>
+    </div>
+    <div class="dao-list">
+      <div class="item" @click="chooseDepartment(item,index)" v-for="(item,index) in childDaoList" :key="index">
+        <div class="logo">
+          <img :src="item.logo" alt="">
+        </div>
+        <div class="dao-info">
+          <!--          <div class="name">-->
+          <!--            {{ item }}-->
+          <!--          </div>-->
+          <div class="address">
+            {{ item }}
+          </div>
         </div>
       </div>
     </div>
@@ -87,8 +117,23 @@
         </div>
       </div>
       <div class="right">
-        <div class="rainbow-btn" @click="isShowAddDepartment=true" >
+        <div class="rainbow-btn" @click="isShowAddDepartment=true">
           CREATE
+        </div>
+      </div>
+    </div>
+    <div class="dao-list">
+      <div class="item" @click="chooseDepartment(item,index)" v-for="(item,index) in departmentList" :key="index">
+        <div class="logo">
+          <img :src="item.logo" alt="">
+        </div>
+        <div class="dao-info">
+          <div class="name">
+            {{ item.name }}
+          </div>
+          <div class="address">
+            {{ item.departmentList }}
+          </div>
         </div>
       </div>
     </div>
@@ -120,7 +165,7 @@
           ERC20:
         </div>
         <div class="dao-address-value">
-          {{ curDaoControlAddress.baseAddr }}
+          {{ curDaoControlAddress.erc20Addr }}
         </div>
       </div>
       <div class="dao-address-item">
@@ -156,9 +201,7 @@
         </div>
       </div>
     </div>
-    <div class="nodata" v-show="daoList.length==0">
-      No Data
-    </div>
+
     <div class="rainbow-dialog-box" v-show="isShowAddDepartment">
       <div class="mask" @click="isShowAddDepartment=false"></div>
       <div class="rainbow-dialog">
@@ -202,26 +245,96 @@
 </template>
 
 <script>
+import {mapGetters} from "_vuex@3.6.2@vuex";
+
 export default {
   name: "daoHome",
   props: ["daoList", "balance", "daoAddress", "curDaoControlAddress"],
   data() {
     return {
       balance: 0,
+      departmentList: [],
       department: {},
-      isShowAddDepartment:false
+      isShowAddDepartment: false
     }
   },
+
+  computed: {
+    ...mapGetters([
+      'isConnected',
+      'account'
+    ]),
+    coinInfo() {
+      if (this.$store.state.erc20.coinInfo) {
+        return this.$store.state.erc20.coinInfo
+      } else {
+        return {}
+      }
+    },
+    curDaoAddress() {
+      return this.$store.state.daoManage.curDaoAddress
+    },
+    childDaoList() {
+      return this.$store.state.daoManage.childDaoList
+    }
+  },
+  watch: {
+
+    isConnected() {
+      this.getData()
+    },
+    curDaoControlAddress() {
+      this.getData()
+    },
+
+  },
   created() {
+    if (this.$route.params) {
+      this.curDao = this.$route.params
+    }
+    this.getData()
+    this.$eventBus.$on('message', (message) => {
+      if (message.type == 'success') {
+        if (message.message == "Create Department Success") {
+          this.listGroup()
+        }
+      }
+    })
+
   },
   methods: {
+    createDao(index) {
+      this.$router.push({name: "createDao", params: {index}})
+    },
+    getData() {
+      if (this.curDaoControlAddress.daoUsersAddr) {
+        this.listGroup()
+      }
+    },
     chooseDao(item) {
       this.$emit("chooseDao", item)
     },
+    listGroup() {
+      this.$store.dispatch("daoUser/listGroup", this.curDaoControlAddress.daoUsersAddr).then(res => {
+        console.log(res)
+        this.departmentList = res
+      })
+    },
+    chooseDepartment(item, index) {
+      this.$router.push({
+        name: "department", params: {
+          departmentInfo: item,
+          departmentAddr: index
+        }
+      })
+    },
     addGroup() {
       this.$store.dispatch("daoUser/addGroup", {
-        daoUserAddress: this.daoAddress,
-        department:this.department
+        daoUserAddress: this.curDaoControlAddress.daoUsersAddr,
+        department: this.department
+      }).then(() => {
+        this.isShowAddDepartment = false
+
       })
     }
   }
@@ -231,18 +344,22 @@ export default {
 <style lang="scss" scoped>
 .dao-home {
   padding: 30px;
-  .rainbow-dialog{
-    .dialog-title{
+
+  .rainbow-dialog {
+    .dialog-title {
       font-weight: bold;
       line-height: 50px;
       font-size: 22px;
     }
-    .dialog-content{
+
+    .dialog-content {
       min-width: 500px;
-      .department-form{
-        .input-box{
+
+      .department-form {
+        .input-box {
           margin-top: 20px;
-          .input-box-title{
+
+          .input-box-title {
             font-size: 16px;
             font-weight: bold;
             line-height: 30px;
@@ -250,7 +367,8 @@ export default {
 
         }
       }
-      input{
+
+      input {
         width: 360px;
         padding: 0 10px;
         height: 46px;
@@ -260,6 +378,7 @@ export default {
       }
     }
   }
+
   .part-title-box {
     display: flex;
     justify-content: space-between;

@@ -1,7 +1,7 @@
 <template>
   <div class="polkaConnect">
     <button @click="showWallet" v-show="account.length>1" class="rainbow-btn button-connect">
-      {{ account.substr(0, 6) + '...' + account.substr(39, 3) }}
+      {{ account.substr(0, 6) + '...' + account.substr(account.length-4, 4) }}
     </button>
 
     <button size="mini" @click="showWallet" v-show="account.length<1" class="rainbow-btn button-connect">
@@ -51,7 +51,8 @@ export default {
   async created() {
     let accountList = await Accounts.accountList();
     this.accountList = accountList.allAccounts
-    sessionStorage.setItem('currentAccount', accountList.allAccounts[0].address);
+    sessionStorage.setItem('account', JSON.stringify(this.accountList));
+
 
     if(sessionStorage.getItem('currentAccount') && this.$store.state.app.isConnected){
       await this.polkaConnect(sessionStorage.getItem('currentAccount'))
@@ -62,16 +63,12 @@ export default {
       this.$store.dispatch('app/loginOutWeb3')
     },
     async polkaConnect(address) {
-      let account = sessionStorage.getItem('currentAccount')
-      if(account){
-        this.account = account
-      }
-      sessionStorage.setItem('account', JSON.stringify(this.accountList));
+
       if(address){
         this.account = address
         sessionStorage.setItem('currentAccount', address);
         this.$store.commit("app/SET_ACCOUNT", address)
-        console.log(address)
+
         this.$store.dispatch("app/getBalance", address).then(res=>{
           this.$store.commit("app/SET_BALANCE",res)
         })

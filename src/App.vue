@@ -473,5 +473,43 @@ export default {
     }
 
   }
+  .select-box{
+    width: 100%;
+    .select-title{
+      font-size: 16px;
+      font-weight: bold;
+      text-align: left;
+      color: #333333;
+      line-height: 50px;
+    }
+    select {
+      appearance: none;
+      border: 0;
+      outline: 0;
+      font: inherit;
+      /* Personalize */
+      height: 3em;
+      padding: 0 4em 0 1em;
+      background: #f6f5fa;
+      color: #333!important;
+      border-radius: 0.25em;
+      cursor: pointer;
+      /* <option> colors */
+      option {
+        color: inherit;
+        background-color: #fff;
+      }
+
+      /* Remove focus outline */
+      &:focus {
+        outline: none;
+      }
+
+      /* Remove IE arrow */
+      &::-ms-expand {
+        display: none;
+      }
+    }
+  }
 }
 </style>

@@ -28,7 +28,7 @@ const actions = {
         console.log(  name,
             incomeInfo)
         const injector = await Accounts.accountInjector();
-        const AccountId = await Accounts.accountAddress();
+        const AccountId = sessionStorage.getItem('currentAccount')
          await judgeContract(rootState.app.web3)
         if(rootState.app.balance < 1.01){
             eventBus.$emit('message', {
@@ -48,7 +48,7 @@ const actions = {
     },
     async transferOwner({rootState},account){
         const injector = await Accounts.accountInjector();
-        const AccountId = await Accounts.accountAddress();
+        const AccountId = sessionStorage.getItem('currentAccount')
          await judgeContract(rootState.app.web3)
         let data = await state.contract.tx.transferOwner( {value, gasLimit},account).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             console.error(result)
@@ -59,7 +59,7 @@ const actions = {
     },
     async listCategory({rootState}) {
          await judgeContract(rootState.app.web3)
-        const AccountId = await Accounts.accountAddress();
+        const AccountId = sessionStorage.getItem('currentAccount')
         let data = await state.contract.query.listCategory(AccountId, {value, gasLimit})
         data = formatResult(data);
         return data
@@ -67,7 +67,7 @@ const actions = {
     async getCategory({rootState},name) {
          await judgeContract(rootState.app.web3)
 
-        const AccountId = await Accounts.accountAddress();
+        const AccountId = sessionStorage.getItem('currentAccount')
         let data = await state.contract.query.getCategory(AccountId, {value, gasLimit},name)
         data = formatResult(data);
         return data
@@ -75,7 +75,7 @@ const actions = {
 
     async getUserPrivilege({rootState}) {
          await judgeContract(rootState.app.web3)
-        const AccountId = await Accounts.accountAddress();
+        const AccountId = sessionStorage.getItem('currentAccount')
         let data = await state.contract.query.getUserPrivilege(AccountId, {value, gasLimit}, AccountId)
         data = formatResult(data);
         return data

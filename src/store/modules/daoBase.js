@@ -10,7 +10,7 @@ const state = {
 const value = 0;
 const gasLimit = -1;
 async function  judgeContract(web3,address){
-    if(!state.contract){
+    if(true){
         state.contract = await connectContract(web3, "base",address)
     }
 }
@@ -22,7 +22,7 @@ const mutations = {
 const actions = {
 
     async getBaseInfo({rootState},baseAddress) {
-        const AccountId = await Accounts.accountAddress();
+        const AccountId = sessionStorage.getItem('currentAccount')
         await judgeContract(rootState.app.web3,baseAddress)
         let data = await state.contract.query.getBaseInfo(AccountId, {value, gasLimit})
         data = formatResult(data);

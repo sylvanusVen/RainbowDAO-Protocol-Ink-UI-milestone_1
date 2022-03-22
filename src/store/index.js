@@ -17,6 +17,7 @@ import daoManage from "./modules/daoManage";
 import daoBase from "./modules/daoBase";
 import daoUser from "./modules/daoUser"
 import daoProposal from "./modules/daoProposal"
+import daoVault from "./modules/daoVault"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -37,6 +38,7 @@ export default new Vuex.Store({
     daoManage,
     daoBase,
     daoUser,
-    daoProposal
+    daoProposal,
+    daoVault
   }
 })

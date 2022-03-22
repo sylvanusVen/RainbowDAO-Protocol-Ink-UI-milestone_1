@@ -29,8 +29,7 @@
           <img src="../../../assets/imgs/header-icon.png" alt="">
         </div>
         <div class="member-info">
-          <div class="name">Address</div>
-          <div class="address">{{item}}</div>
+          <div class="address">{{index}}</div>
         </div>
       </div>
     </div>
@@ -74,8 +73,8 @@ export default {
           line-height: 30px;
         }
         .address{
-          font-size: 12px;
           word-break: break-all;
+          font-size: 12px;
         }
       }
     }

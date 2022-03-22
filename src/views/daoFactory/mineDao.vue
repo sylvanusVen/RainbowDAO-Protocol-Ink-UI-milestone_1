@@ -3,7 +3,7 @@
     <dao-nav></dao-nav>
     <div class="mine-dao">
       <div class="dao-list">
-        <div class="item" @click="chooseDao(item)" v-for="(item,index) in daoList" :key="index">
+        <div class="item" v-if="item.name" @click="chooseDao(item)" v-for="(item,index) in daoList" :key="index">
           <div class="logo">
             <img :src="item.logo" alt="">
           </div>
@@ -11,8 +11,8 @@
             <div class="name">
               {{ item.name }}
             </div>
-            <div class="members">
-              Number of DAOs: {{ item.membersLength }}
+            <div class="addr">
+              {{ item.daoManagerAddr }}
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default {
   created() {
     this.getData()
   },
-  computed:{
+  computed: {
     ...mapGetters([
       'isConnected',
       'account'
@@ -52,31 +52,62 @@ export default {
   },
   methods: {
     chooseDao(item) {
-      this.$router.push({name:"daoManage",params:{
+      this.$router.push({
+        name: "daoManage", params: {
           ...item,
-          isOwner:true
-        }})
+          isOwner: true
+        }
+      })
+    },
+    getDaoControlAddr(address){
+      return this.$store.dispatch("daoManage/getComponentAddress", address)
+    },
+    getDaoBaseInfo(addr){
+      return this.$store.dispatch("daoBase/getBaseInfo",addr)
+    },
+    getDaoByIndex(index) {
+      this.$store.dispatch("daoFactory/getDaoByIndex", index).then(async res => {
+        console.log(res)
+        console.log(category)
+        let addrObj = await this.getDaoControlAddr(res.daoManagerAddr)
+        let category = await this.getDaoCategory(res.daoManagerAddr)
+        res.category = category
+
+        if(addrObj.baseAddr){
+          let daoInfo = await this.getDaoBaseInfo(addrObj.baseAddr)
+          res.logo = daoInfo.logo
+          res.name=daoInfo.name
+          res.desc = daoInfo.desc
+          res.owner =daoInfo.owner
+          res.category = category
+        }
+        this.daoList.push(res)
+
+
+      })
+    },
+    async getDaoCategory(addr) {
+      return await this.$store.dispatch("daoManage/getDaoCategory", addr)
+    },
+    getDaosByOwner() {
+      this.$store.dispatch("daoFactory/getDaosByOwner").then(res => {
+        console.log(res)
+        this.daoIndexList = res
+        if (res) {
+          res.forEach(async (idx,index) => {
+            console.log(idx)
+            this.getDaoByIndex(idx)
+
+          })
+        }
+
+
+      })
     },
     getData() {
       console.log(this.isConnected)
       if (this.isConnected) {
-        this.$store.dispatch("daoFactory/getOwnedDaos").then(myDaos=>{
-          if(myDaos.length>0){
-            for (let i=0;i<myDaos.length;i++){
-              this.$store.dispatch("daoFactory/getDaoInfo", myDaos[i]).then(res => {
-                console.log(res)
-                this.$store.dispatch("daoManage/getMemberLength", res.manage).then(memLen => {
-                  this.membersLength = memLen
-                  this.daoList.push({
-                    ...res,
-                    membersLength: memLen
-                  })
-                })
-              })
-            }
-          }
-        })
-
+        this.getDaosByOwner()
       }
     }
   }
@@ -84,7 +115,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.mine-dao{
+.mine-dao-box {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.mine-dao {
   box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   width: 1200px;
@@ -93,7 +130,9 @@ export default {
   margin: -100px auto 80px;
   background: #fff;
   padding-bottom: 20px;
+  flex: 1;
 }
+
 .dao-list {
   display: flex;
   flex-wrap: wrap;
@@ -116,8 +155,9 @@ export default {
         font-weight: bold;
       }
 
-      .members {
+      .addr {
         color: #666;
+        word-break: break-all;
       }
     }
 

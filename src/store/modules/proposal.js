@@ -26,7 +26,6 @@ const actions = {
 
         const AccountId = await Accounts.accountAddress();
         let data = await state.contract.query.listProposals(AccountId, {value, gasLimit})
-        console.log(data)
         data = formatResult(data);
         return data
     },

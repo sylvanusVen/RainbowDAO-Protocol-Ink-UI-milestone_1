@@ -54,16 +54,17 @@ const actions = {
         let data = await state.contract.tx.addGroup({
             value,
             gasLimit
-        },department).signAndSend(AccountId, {signer: injector.signer}, (result) => {
+        },department.name,department.joinDirectly,department.isOpen,department.manager).signAndSend(AccountId, {signer: injector.signer}, (result) => {
             console.error(result)
-            dealResult(result, "Join DAO")
+            dealResult(result, "Create Department")
         });
         data = formatResult(data);
         return data
     },
     async join({rootState, dispatch}, address) {
         const injector = await Accounts.accountInjector();
-        const AccountId = await Accounts.accountAddress();
+
+        const AccountId = sessionStorage.getItem('currentAccount')
 
         await judgeContract(rootState.app.web3, address)
         if (rootState.app.balance < 1.01) {

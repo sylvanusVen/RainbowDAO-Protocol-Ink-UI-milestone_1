@@ -22,8 +22,14 @@
                 <div class="name">
                   DAO Category
                 </div>
-                <div class="input">
-                  {{category}}
+                <div class="select-box" v-if="selectIndex!=2">
+                  <select v-model="selectIndex" @change="getSelected">
+                    <option selected value="0"> mother</option>
+                    <option value="1"> union</option>
+                  </select>
+                </div>
+                <div v-if="selectIndex==2">
+                  ChildDao
                 </div>
               </div>
               <div class="btn-box">
@@ -96,13 +102,12 @@
           </div>
           <div class="stage-content animate__animated  animate__fadeIn" v-show="stage==2">
             <div class="stage-panel">
-
               <div class="item">
                 <div class="name">
                   Token Name
                 </div>
                 <div class="input">
-                  <input type="text" v-model="tokenInfo.name" placeholder="Enter">
+                  <input type="text" v-model="tokenInfo.tokenName" placeholder="Enter">
                 </div>
               </div>
               <div class="item">
@@ -113,14 +118,6 @@
                   <input type="text" v-model="tokenInfo.symbol" placeholder="Enter">
                 </div>
               </div>
-              <!--              <div class="item">-->
-              <!--                <div class="name">-->
-              <!--                  Token Contract Address-->
-              <!--                </div>-->
-              <!--                <div class="input">-->
-              <!--                  <input type="text" v-model="tokenInfo.address" placeholder="Enter">-->
-              <!--                </div>-->
-              <!--              </div>-->
               <div class="item">
                 <div class="name">
                   Token Decimals
@@ -137,22 +134,7 @@
                   <input type="number" v-model="tokenInfo.totalSupply" placeholder="Enter">
                 </div>
               </div>
-              <!--              <div class="item">-->
-              <!--                <div class="name">-->
-              <!--                  Support-->
-              <!--                </div>-->
-              <!--                <div class="input">-->
-              <!--                  <input type="text" v-model="tokenInfo.support" placeholder="Enter">-->
-              <!--                </div>-->
-              <!--              </div>-->
-              <!--              <div class="item">-->
-              <!--                <div class="name">-->
-              <!--                  Token Manager-->
-              <!--                </div>-->
-              <!--                <div class="input">-->
-              <!--                  <input type="text" v-model="tokenInfo.namager" placeholder="Enter">-->
-              <!--                </div>-->
-              <!--              </div>-->
+
               <div class="btn-box">
                 <div class="back-btn" @click="stage>0?stage-=1:''">
                   back
@@ -164,56 +146,6 @@
             </div>
           </div>
         </div>
-        <!--        <div class="list-item" >-->
-        <!--          <div class="stage-header">-->
-        <!--            <div class="index">-->
-        <!--              3-->
-        <!--            </div>-->
-        <!--            <div class="stage-title">-->
-        <!--              Threshold to join DAO-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--          <div class="stage-content  animate__animated  animate__fadeIn" v-show="stage==2">-->
-        <!--            <div class="stage-panel">-->
-        <!--              <p>-->
-        <!--                Your Safe will have one or more owners. We have prefilled the first owner with your connected wallet-->
-        <!--                details, but you are free to change this to a different owner.-->
-        <!--              </p>-->
-        <!--              <p>-->
-        <!--                Add additional owners (e.g. wallets of-->
-        <!--                your teammates) and specify how many of them have to confirm a transaction before it gets executed. In-->
-        <!--                general, the more confirmations required, the more secure your Safe is.Learn about which Safe setup to-->
-        <!--                use. The new Safe will ONLY be available on-->
-        <!--              </p>-->
-        <!--              <div class="dao-member">-->
-        <!--                <div class="member-header">-->
-        <!--                  <div class="name">-->
-        <!--                    Owner Name-->
-        <!--                  </div>-->
-        <!--                  <div class="address">-->
-        <!--                    Owner Address-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--                <div class="member-content">-->
-
-        <!--                  <div class="item">-->
-        <!--                    <div class="add-btn" @click="memberLength++">-->
-        <!--                      ADD MORE-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--              <div class="btn-box">-->
-        <!--                <div class="back-btn" @click="stage>0?stage-=1:''">-->
-        <!--                  back-->
-        <!--                </div>-->
-        <!--                <div class="sub-btn" @click="next(2)">-->
-        <!--                  Continue-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--        </div>-->
         <div class="list-item ">
           <div class="stage-header">
             <div class="index">
@@ -255,28 +187,29 @@ export default {
   name: "createDao",
   data() {
     return {
-      daoAddress:"",
+      daoAddress: "",
       count: 1,
       stage: 0,
       memberLength: 1,
       daoInfo: {
         name: '', logo: '', desc: ''
       },
-      category:'',
+      selectIndex: 0,
+      category: "mother",
       tokenInfo: {
-        name: "",
+        tokenName: "",
         symbol: "",
-        decimals: 0,
+        decimals: 10,
         totalSupply: 0,
       }
     }
   },
   created() {
-      if(this.$route.params.category){
-        this.category = this.$route.params.category
-      }else{
-        this.category = "mother"
-      }
+    console.log(this.$route.params.index)
+    if (this.$route.params) {
+      this.selectIndex = this.$route.params.index
+    }
+
   },
   computed: {
     ...mapGetters([
@@ -288,51 +221,62 @@ export default {
     this.$eventBus.$on('message', null)
   },
   methods: {
-    initBase(){
-      this.daoInfo.owner = this.account
-      this.tokenInfo.owner = this.account
-      let params = {
-        base:this.daoInfo,
-        erc20: this.tokenInfo
+    getSelected() {
+      if (this.selectIndex == 1) {
+        this.category = "union"
+      } else {
+        this.category = "mother"
       }
-      let _this = this
-      this.$store.dispatch("daoManage/initByParams", {address:this.daoAddress,params}).then(()=>{
-        this.$eventBus.$on('message', (message) => {
-          if(message.type == "success"&& message.message=="Init DAO Info Success"){
-            console.log(message)
-            if(_this.stage<3){
-              _this.stage=3
-            }
-            _this.$eventBus.$on('message',null)
-          }
-        })
+    },
+    initBase() {
+      this.$store.dispatch("erc20/transfer", {
+        fromAddr: this.account,
+        amount: 8000 * 10 ** 12,
+        toAddr: this.daoAddress
+      }).then(() => {
+        if (this.stage < 3) {
+          this.stage = 3
+        }
+      }).catch(err => {
+        console.log(err)
       })
     },
-    getDaoByIndex(index){
-      this.$store.dispatch("daoFactory/getDaoByIndex",index).then(res=>{
+    async getDaoByIndex(index) {
+      await this.$store.dispatch("daoFactory/getDaoByIndex", index).then(res => {
         console.log(res.daoManagerAddr)
         this.daoAddress = res.daoManagerAddr
+
       })
     },
-    getDaosByOwner(){
-      this.$store.dispatch("daoFactory/getDaosByOwner").then(res=>{
+    async getDaosByOwner() {
+      this.$store.dispatch("daoFactory/getDaosByOwner").then(async res => {
         this.daoIndexList = res
-        this.getDaoByIndex(res[res.length-1])
-        if(this.stage<1){
-          this.stage= 1
+        await this.getDaoByIndex(res[res.length - 1])
+        if (this.stage < 1) {
+          this.stage = 1
+          if (this.selectIndex == 2) {
+            console.log("Create child Dao")
+            this.$store.dispatch("daoManage/createChildDao", {
+              childAddr: this.daoAddress,
+              address: this.$store.state.daoManage.curDaoAddress
+            })
+          }
         }
       })
     },
-    initDao(){
+    initDao() {
       let _this = this
-      this.$store.dispatch("daoFactory/initDaoByTemplate",{category:this.category}).then(()=>{
+
+      this.$store.dispatch("daoFactory/initDaoByTemplate", {category: this.category}).then(() => {
         this.$eventBus.$on('message', (message) => {
-          if(message.type == "success"&& message.message=="Init DAO Success"){
+
+          if (message.type == "success" && message.message == "Init DAO Success") {
             _this.getDaosByOwner()
-            _this.$eventBus.$on('message',null)
+            _this.$eventBus.$on('message', null)
           }
         })
       })
+
     },
     next(index) {
       switch (index) {
@@ -344,6 +288,23 @@ export default {
       this.stage += 1
     },
     createDao() {
+      this.tokenInfo.owner = this.account
+      let params = {
+        base: this.daoInfo,
+        erc20: this.tokenInfo
+      }
+      let _this = this
+      this.$store.dispatch("daoManage/initByParams", {address: this.daoAddress, params}).then(() => {
+        this.$eventBus.$on('message', (message) => {
+          if (message.type == "success" && message.message == "Init DAO Info Success") {
+            console.log(message)
+
+            _this.$eventBus.$on('message', null)
+            this.$router.push({name: "daoManage"})
+          }
+        })
+      })
+
     }
   }
 }

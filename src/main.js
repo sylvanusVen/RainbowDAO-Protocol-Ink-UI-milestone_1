@@ -14,6 +14,7 @@ import pageFooter from "./components/pageFooter";
 import daoHeaderInfo from "./components/daoHeaderInfo";
 import allianceHeaderInfo from "./components/allianceHeaderInfo";
 
+
 import daoFooter from "./components/daoFooter";
 Vue.prototype.$eventBus = eventBus
 Vue.config.debug = false

@@ -97,6 +97,11 @@ export default {
     background: #fff;
     border-radius: 20px;
     padding: 40px;
+    .dialog-title{
+      font-size: 30px;
+      font-weight: bold;
+      padding-bottom: 30px;
+    }
   }
 }
 ::v-deep .rainbow-btn{
@@ -271,10 +276,8 @@ export default {
         }
       }
       .logo{
-        width: 50px;
-        height: 50px;
         img{
-          width: 100%;
+          width: 50px;
         }
       }
     }

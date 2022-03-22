@@ -4,6 +4,10 @@
     <div class="nav-box">
       <img class="logo" src="../assets/imgs/RainbowDAOLogo.png" @click="$router.push('/')"/>
       <ul class="navbar-nav">
+        <li :class="{'active':$route.name=='ETHDanver2022'}" @click="openNew('/ETHDanver2022')">
+          <span class="w-font">ETHDanver2022</span>
+          <span class="re-active" >ETHDanver2022</span>
+        </li>
         <li :class="{'active':$route.name=='NearMetaBUILD'}" @click="openNew('/NearMetaBUILD')">
           <span class="w-font">NearMetaBUILD</span>
           <span class="re-active" >NearMetaBUILD</span>
@@ -15,6 +19,10 @@
         <li :class="{'active':$route.name=='polkadot'}" @click="openNew('/polkadot')">
           <span class="w-font">Test version</span>
           <span class="re-active" >Test version</span>
+        </li>
+        <li :class="{'active':$route.name=='polkadot'}" @click="openNew('/connectMe')">
+          <span class="w-font">Contact us</span>
+          <span class="re-active" >Contact us</span>
         </li>
       </ul>
     </div>
@@ -121,7 +129,7 @@ export default {
       overflow: hidden;
       cursor: pointer;
       padding-right: 23px;
-      &:nth-child(1):before,&:nth-child(2):before{
+      &:nth-child(1):before,&:nth-child(2):before,&:nth-child(3):before{
         height: 17px;
         width: 1px;
         background: rgba(255,255,255,0.4);

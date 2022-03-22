@@ -5,8 +5,11 @@ import {eventBus} from "../../utils/eventBus"
 import contractHash from "../../utils/contractHash.json"
 
 const state = {
-    web3: {},
-    contract: null
+    curdao: {},
+    memberLength: 0,
+    curDaoControlAddress: {},
+    curDaoAddress: "",
+    childDaoList:[]
 }
 const value = 0;
 const gasLimit = -1;
@@ -16,23 +19,35 @@ async function judgeContract(web3, address) {
 }
 
 const mutations = {
-
+    SET_CURDAO(state, curdao) {
+        state.curdao = curdao
+    },
+    SET_CURDAOMEMBERS(state, memberLength) {
+        state.memberLength = memberLength
+    },
+    SET_curDaoControlAddress(state, curDaoControlAddress) {
+        state.curDaoControlAddress = curDaoControlAddress
+    },
+    SET_CURDAOADDR(state, curDaoAddress) {
+        state.curDaoAddress = curDaoAddress
+    },
+    SET_CHILDDAOLIST(state, childDaoList) {
+        state.childDaoList = childDaoList
+    },
 }
 const actions = {
-    async getChildsDaos({rootState},daoManagerAddr) {
+    async getChildsDaos({rootState}, daoManagerAddr) {
         const AccountId = await Accounts.accountAddress();
-        console.log(daoManagerAddr)
+
         await judgeContract(rootState.app.web3, daoManagerAddr)
-        console.log(state.contract)
+
         let data = await state.contract.query.getChildsDaos(AccountId, {value, gasLimit})
         data = formatResult(data);
         return data
     },
-    async getDaoCategory({rootState},daoManagerAddr) {
+    async getDaoCategory({rootState}, daoManagerAddr) {
         const AccountId = await Accounts.accountAddress();
-        console.log(daoManagerAddr)
         await judgeContract(rootState.app.web3, daoManagerAddr)
-        console.log(state.contract)
         let data = await state.contract.query.getDaoCategory(AccountId, {value, gasLimit})
         data = formatResult(data);
         return data
@@ -44,40 +59,12 @@ const actions = {
         data = formatResult(data);
         return data
     },
-    async createChildDao({rootState, dispatch}, {address, params}) {
-        console.log(address, params)
-        const injector = await Accounts.accountInjector();
-        const AccountId = await Accounts.accountAddress();
-        let version = "1"
-        dispatch("app/getBalance", address, {root: true}).then(res => {
-            console.log(res)
-        })
 
-        await judgeContract(rootState.app.web3, address)
-        if (rootState.app.balance < 1.01) {
-            eventBus.$emit('message', {
-                type: "error",
-                message: "Not enough gas"
-            })
-            return
-        }
-
-        console.log(params, version, contractHash.dao_base, contractHash.erc20_code_hash, contractHash.dao_user, contractHash.dao_setting, contractHash.dao_vault, contractHash.dao_proposal)
-        let data = await state.contract.tx.initByParams({
-            value,
-            gasLimit
-        }, params, parseInt(version), contractHash.dao_base, contractHash.erc20_code_hash, contractHash.dao_user, contractHash.dao_setting, contractHash.dao_vault, contractHash.dao_proposal).signAndSend(AccountId, {signer: injector.signer}, (result) => {
-            console.error(result)
-            dealResult(result, "Init DAO Info")
-        });
-        data = formatResult(data);
-        return data
-    },
     async initByParams({rootState, dispatch}, {address, params}) {
-        console.log(address, params)
+
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
-        let version = "1"
+        let version = new Date().getTime()
         dispatch("app/getBalance", address, {root: true}).then(res => {
             console.log(res)
         })
@@ -90,13 +77,10 @@ const actions = {
             })
             return
         }
-
-        console.log(params, version, contractHash.dao_base, contractHash.erc20_code_hash, contractHash.dao_user, contractHash.dao_setting, contractHash.dao_vault, contractHash.dao_proposal)
         let data = await state.contract.tx.initByParams({
             value,
             gasLimit
-        }, params, parseInt(version), contractHash.dao_base, contractHash.erc20_code_hash, contractHash.dao_user, contractHash.dao_setting, contractHash.dao_vault, contractHash.dao_proposal).signAndSend(AccountId, {signer: injector.signer}, (result) => {
-            console.error(result)
+        }, params.base.logo, params.base.name, params.base.desc, params.erc20.totalSupply, params.erc20.tokenName, params.erc20.symbol, params.erc20.decimals, params.erc20.owner, parseInt(2), contractHash.dao_base, contractHash.erc20_code_hash, contractHash.dao_user, contractHash.dao_setting, contractHash.dao_vault, contractHash.dao_proposal).signAndSend(AccountId, {signer: injector.signer}, (result) => {
             dealResult(result, "Init DAO Info")
         });
         data = formatResult(data);
@@ -104,10 +88,11 @@ const actions = {
     },
     async baseAddr({rootState}, daoManagerAddr) {
         const AccountId = await Accounts.accountAddress();
+        console.log(AccountId)
+
         await judgeContract(rootState.app.web3, daoManagerAddr)
         let data = await state.contract.query.baseAddr(AccountId, {value, gasLimit})
         data = formatResult(data);
-        console.log(data)
         return data
     },
     async creatTransfer({rootState}, {to, amount, address}) {
@@ -131,7 +116,6 @@ const actions = {
             value,
             gasLimit
         }, transaction_id).signAndSend(AccountId, {signer: injector.signer}, (result) => {
-            console.error(result)
             dealResult(result)
         });
         data = formatResult(data);
@@ -145,7 +129,6 @@ const actions = {
         return data
     },
     async addManage({rootState}, {addr, address}) {
-        console.log(addr, address)
         const injector = await Accounts.accountInjector();
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3, address)
@@ -167,7 +150,6 @@ const actions = {
             value,
             gasLimit
         }, addr).signAndSend(AccountId, {signer: injector.signer}, (result) => {
-            console.error(result)
             dealResult(result)
         });
         data = formatResult(data);
@@ -181,10 +163,24 @@ const actions = {
         return data
     },
     async getManageList({rootState}, address) {
-        console.log(address)
         const AccountId = await Accounts.accountAddress();
         await judgeContract(rootState.app.web3, address)
         let data = await state.contract.query.getManageList(AccountId, {value, gasLimit})
+        data = formatResult(data);
+        return data
+    },
+
+    async createChildDao({rootState}, {childAddr, address}) {
+        const injector = await Accounts.accountInjector();
+        const AccountId = await Accounts.accountAddress();
+        await judgeContract(rootState.app.web3, address)
+
+        let data = await state.contract.tx.createChildDao({
+            value,
+            gasLimit
+        }, address, childAddr).signAndSend(AccountId, {signer: injector.signer}, (result) => {
+            dealResult(result,"childDao has init")
+        });
         data = formatResult(data);
         return data
     },

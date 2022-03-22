@@ -6,20 +6,21 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "docker:build": "docker build -t rainbow/ui1:v1."
+    "docker:build": "docker build -t rainbow/ui1:v1 ."
   },
   "dependencies": {
-    "@polkadot/api": "^7.7.1",
-    "@polkadot/api-contract": "^7.7.1",
-    "@polkadot/extension-dapp": "^0.42.7",
+    "@polkadot/api": "^6.12.1",
+    "@polkadot/api-contract": "^6.12.1",
+    "@polkadot/extension-dapp": "^0.42.2",
     "animate.css": "^4.1.1",
-    "chart.js": "^2.9.4",
     "core-js": "^3.6.5",
+    "dat.gui": "^0.7.7",
     "jquery": "^3.6.0",
+    "micro-base": "^0.10.2",
     "swiper": "^6.8.0",
+    "vec2": "^1.6.1",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
-    "vue-chartjs": "^3.5.1",
     "vue-router": "^3.5.2",
     "vuex": "^3.6.2",
     "web3": "^1.5.2"

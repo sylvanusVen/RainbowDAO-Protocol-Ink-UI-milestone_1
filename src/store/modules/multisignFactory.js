@@ -21,10 +21,9 @@ const mutations = {
 }
 const actions = {
     async userMultisig({rootState}){
-        const AccountId = await Accounts.accountAddress();
+        const AccountId = sessionStorage.getItem('currentAccount')
          await judgeContract(rootState.app.web3)
 
-        console.log(AccountId)
         let data = await state.contract.query.userMultisig(AccountId, {value, gasLimit}, AccountId)
         data = formatResult(data);
         return data
@@ -40,7 +39,7 @@ const actions = {
         }
         let multisig_hash = contractHash["multisig_hash"]
         const injector = await Accounts.accountInjector();
-        const AccountId = await Accounts.accountAddress();
+        const AccountId = sessionStorage.getItem('currentAccount')
         owners?'':owners = [AccountId]
         let ownersarr = [...owners]
         min_sign_count>0?'':min_sign_count=1

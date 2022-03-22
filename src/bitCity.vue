@@ -104,43 +104,17 @@
       </div>
       <div class="masking"></div>
       <div class="content-box">
-        <img :src="logoImg" alt="logo" class="logo">
+        <img src="logo" alt="">
         <div class="content">
-          <div v-if="!isShow" class="wait-box">
-            <div class="name">
-              {{ name }}
-            </div>
-            IS DEVELOPING<br>
-            COMING SOON!
+          <div class="title">
+            <div class="name">Bit</div>
+            <div>Civilization</div>
           </div>
-          <div class="title" v-if="isShow">
-            <img class="title-img" src="./assets/imgs/ddnc.png" alt="">
-          </div>
-          <div class="intro" v-if="isShow">
-            <img class="intro-title-img" src="./assets/imgs/DAOCONTROLVALUE.png" alt="">
-            <div class="intro-content">
-              RainbowDAO Protocol is developed under the authorization of the Rainbowcity Foundation, focusing on the creation of web3 basic component. Anyone can create and manage their own DAO organization through RainbowDAO Protocol, including independent DAO,alliance DAO, parent DAO and child DAO.Any DAO can also create a management department within the DAO to achieve multi-level management of the organization.
-            </div>
-          </div>
-          <div class="link">
-            <a href="https://t.me/RainbowDAO" target="_blank">
-              <img class="link-img" src="./assets/imgs/telegram.png" alt="">
-            </a>
-            <a href="https://twitter.com/RainbowDAOio" target="_blank">
-              <img class="link-img" src="./assets/imgs/twitter.png" alt="">
-            </a>
-            <a href="https://medium.com/rainbowcity" target="_blank">
-              <img class="link-img" src="./assets/imgs/medium.png" alt="">
-            </a>
-            <a href="https://discord.gg/vbnvFEeYRr" target="_blank">
-              <img class="link-img" src="./assets/imgs/Discord.png" alt="">
-            </a>
-            <a href="https://github.com/RainbowDAO" target="_blank">
-              <img class="link-img" src="./assets/imgs/github.png" alt="">
-            </a>
-          </div>
-          <div class="building" v-if="isShow" @click="$router.push('/index')">
-            ENTER
+          <div class="intro">
+            Bit Civilization is a higher civilization based on the idea of Bitcoin and will transform all aspects of
+            human society, including but not limited to organization, family concept, tool, language, word, belief, law,
+            system, city-state, country, assets, ethics, culture and art. The booming crypto world is the embryonic form
+            of Bit Civilization in the future.
           </div>
         </div>
       </div>
@@ -270,8 +244,8 @@ export default {
 
   .earth {
     position: fixed;
-    height: 340px;
-    width: 340px;
+    height: 320px;
+    width: 320px;
     top: -40px;
     left: -70px;
     border-radius: 50%;
@@ -652,73 +626,51 @@ export default {
     width: 660px;
     position: relative;
     z-index: 11;
+    height: 105vh;
 
-    .wait-box {
-      font-size: 46px;
-      padding: 30px 0;
-      text-transform: uppercase;
-      line-height: 70px;
-      font-family: Arial Black, Arial Black-Regular, serif;
-      letter-spacing: 6px;
-      font-weight: bold;
-      text-shadow: 6px 0px 10px rgba(255, 255, 255, 0.3);
-      background: linear-gradient(270deg, #45bcff 1%, #2ff1d2 100%);
-      -webkit-background-clip: text;
-      color: transparent;
 
-      .name {
-        font-size: 54px;
-        background: linear-gradient(-30deg, #fd095a 0%, #fe9b86 99%);
-        -webkit-background-clip: text;
-        text-shadow: 6px 0px 10px rgba(255, 255, 255, 0.3);
-        color: transparent;
-      }
-    }
 
-    .logo {
-      width: 120px;
-      margin: 20px 0 0 60px;
-    }
 
     .content {
 
       margin: 200px 0 0 60px;
 
       .title {
-        margin-left: -10px;
-        font-size: 30px;
-        display: flex;
-        align-items: center;
+        font-size: 46px;
+        padding: 30px 0;
+        text-transform: uppercase;
+        line-height: 70px;
+        font-family: Arial Black, Arial Black-Regular, serif;
+        letter-spacing: 6px;
         font-weight: bold;
-        width: 500px;
-        justify-content: space-between;
-        color: white;
+        text-shadow: 6px 0px 10px rgba(255, 255, 255, 0.3);
+        background: linear-gradient(270deg, #45bcff 1%, #2ff1d2 100%);
+        -webkit-background-clip: text;
+        color: transparent;
+        display: flex;
+        justify-content: flex-start;
+        align-items: baseline;
 
-        .title-img {
-          margin-left: 12px;
-          width: 750px;
+        .name {
+          font-size: 80px;
+          word-spacing: 60px;
+          background: linear-gradient(-30deg, #fd095a 0%, #fe9b86 99%);
+          -webkit-background-clip: text;
+          text-shadow: 6px 0px 10px rgba(255, 255, 255, 0.3);
+          color: transparent;
         }
       }
 
       .intro {
-        margin: 30px 0 0 4px;
+        width: 600px;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 22px;
+        color: white;
 
-        .intro-title-img {
-          width: 660px;
-        }
-
-        .intro-content {
-          width: 700px;
-          font-size: 14px;
-          font-weight: bold;
-          line-height: 22px;
-          margin-top: 40px;
-          color: white;
-
-          p {
-            margin-top: 4px;
-            font-size: 12px;
-          }
+        p {
+          margin-top: 4px;
+          font-size: 12px;
         }
       }
 

@@ -1,1238 +1,1597 @@
 {
-	"source": {
-		"hash": "0x11b822d183c7a585049e856f3cfd4cc98edd4e0f3d05462a82e8029262c66ba9",
-		"language": "ink! 3.0.0-rc5",
-		"compiler": "rustc 1.59.0-nightly",
-		"wasm": ""
-	},
-	"contract": {
-		"name": "dao_manager",
-		"version": "0.1.0",
-		"authors": ["[your_name] <[your_email]>"]
-	},
-	"V1": {
-		"spec": {
-			"constructors": [{
-				"args": [{
-					"name": "creator",
-					"type": {
-						"displayName": ["AccountId"],
-						"type": 0
-					}
-				}, {
-					"name": "owner",
-					"type": {
-						"displayName": ["AccountId"],
-						"type": 0
-					}
-				}, {
-					"name": "dao_id",
-					"type": {
-						"displayName": ["u64"],
-						"type": 3
-					}
-				}, {
-					"name": "controller_type",
-					"type": {
-						"displayName": ["u32"],
-						"type": 10
-					}
-				}, {
-					"name": "category",
-					"type": {
-						"displayName": ["String"],
-						"type": 4
-					}
-				}],
-				"docs": ["Create a new dao"],
-				"name": ["new"],
-				"selector": "0x9bae9d5e"
-			}],
-			"docs": [],
-			"events": [],
-			"messages": [{
-				"args": [],
-				"docs": [" get the category of dao"],
-				"mutates": false,
-				"name": ["get_dao_category"],
-				"payable": false,
-				"returnType": {
-					"displayName": ["String"],
-					"type": 4
-				},
-				"selector": "0xeeeda84a"
-			}, {
-				"args": [{
-					"name": "operate",
-					"type": {
-						"displayName": ["bool"],
-						"type": 9
-					}
-				}],
-				"docs": [" change the dao status"],
-				"mutates": true,
-				"name": ["operate_join"],
-				"payable": false,
-				"returnType": {
-					"displayName": ["bool"],
-					"type": 9
-				},
-				"selector": "0xa94b1896"
-			}, {
-				"args": [],
-				"docs": [" get the component_addrs"],
-				"mutates": false,
-				"name": ["get_component_addrs"],
-				"payable": false,
-				"returnType": {
-					"displayName": ["DAOComponentAddrs"],
-					"type": 20
-				},
-				"selector": "0x1c659fb9"
-			}, {
-				"args": [{
-					"name": "address",
-					"type": {
-						"displayName": ["AccountId"],
-						"type": 0
-					}
-				}],
-				"docs": [" get the child daos"],
-				"mutates": false,
-				"name": ["get_childs_daos"],
-				"payable": false,
-				"returnType": {
-					"displayName": ["Vec"],
-					"type": 19
-				},
-				"selector": "0x0043d945"
-			}, {
-				"args": [{
-					"name": "limit",
-					"type": {
-						"displayName": ["u128"],
-						"type": 11
-					}
-				}],
-				"docs": [" set the limit of join dao"],
-				"mutates": true,
-				"name": ["set_join_limit"],
-				"payable": false,
-				"returnType": {
-					"displayName": ["bool"],
-					"type": 9
-				},
-				"selector": "0x1530898c"
-			}, {
-				"args": [{
-					"name": "dao",
-					"type": {
-						"displayName": ["AccountId"],
-						"type": 0
-					}
-				}],
-				"docs": [" join the dao"],
-				"mutates": true,
-				"name": ["join_union_dao"],
-				"payable": false,
-				"returnType": {
-					"displayName": ["bool"],
-					"type": 9
-				},
-				"selector": "0x8be315e4"
-			}, {
-				"args": [{
-					"name": "dao",
-					"type": {
-						"displayName": ["AccountId"],
-						"type": 0
-					}
-				}],
-				"docs": [" leave a dao"],
-				"mutates": true,
-				"name": ["leave_union_dao"],
-				"payable": false,
-				"returnType": {
-					"displayName": ["bool"],
-					"type": 9
-				},
-				"selector": "0x66da628f"
-			}, {
-				"args": [],
-				"docs": [" show all union dao"],
-				"mutates": true,
-				"name": ["list_union_dao"],
-				"payable": false,
-				"returnType": {
-					"displayName": ["Vec"],
-					"type": 19
-				},
-				"selector": "0xa6b1b079"
-			}, {
-				"args": [{
-					"name": "dao_id",
-					"type": {
-						"displayName": ["AccountId"],
-						"type": 0
-					}
-				}, {
-					"name": "child_dao",
-					"type": {
-						"displayName": ["AccountId"],
-						"type": 0
-					}
-				}],
-				"docs": [" create a child dao"],
-				"mutates": true,
-				"name": ["create_child_dao"],
-				"payable": false,
-				"returnType": {
-					"displayName": ["bool"],
-					"type": 9
-				},
-				"selector": "0x90e6d62f"
-			}, {
-				"args": [{
-					"name": "template",
-					"type": {
-						"displayName": ["DAOTemplate"],
-						"type": 22
-					}
-				}],
-				"docs": [" Set the dao use which template"],
-				"mutates": true,
-				"name": ["set_template"],
-				"payable": false,
-				"returnType": {
-					"displayName": ["bool"],
-					"type": 9
-				},
-				"selector": "0x441c77a1"
-			}, {
-				"args": [{
-					"name": "params",
-					"type": {
-						"displayName": ["DAOInitParams"],
-						"type": 23
-					}
-				}, {
-					"name": "version",
-					"type": {
-						"displayName": ["u128"],
-						"type": 11
-					}
-				}, {
-					"name": "base_code_hash",
-					"type": {
-						"displayName": ["Hash"],
-						"type": 5
-					}
-				}, {
-					"name": "erc20_code_hash",
-					"type": {
-						"displayName": ["Hash"],
-						"type": 5
-					}
-				}, {
-					"name": "user_code_hash",
-					"type": {
-						"displayName": ["Hash"],
-						"type": 5
-					}
-				}, {
-					"name": "setting_code_hash",
-					"type": {
-						"displayName": ["Hash"],
-						"type": 5
-					}
-				}, {
-					"name": "vault_code_hash",
-					"type": {
-						"displayName": ["Hash"],
-						"type": 5
-					}
-				}, {
-					"name": "proposal_code_hash",
-					"type": {
-						"displayName": ["Hash"],
-						"type": 5
-					}
-				}],
-				"docs": [" Initialize Dao and generate various", " params:Generate basic contract information", " version:Random number for generating contract"],
-				"mutates": true,
-				"name": ["init_by_params"],
-				"payable": false,
-				"returnType": {
-					"displayName": ["bool"],
-					"type": 9
-				},
-				"selector": "0x9345b6c5"
-			}]
-		},
-		"storage": {
-			"struct": {
-				"fields": [{
-					"layout": {
-						"cell": {
-							"key": "0x0000000000000000000000000000000000000000000000000000000000000000",
-							"ty": 0
-						}
-					},
-					"name": "creator"
-				}, {
-					"layout": {
-						"cell": {
-							"key": "0x0100000000000000000000000000000000000000000000000000000000000000",
-							"ty": 0
-						}
-					},
-					"name": "owner"
-				}, {
-					"layout": {
-						"enum": {
-							"dispatchKey": "0x0200000000000000000000000000000000000000000000000000000000000000",
-							"variants": {
-								"0": {
-									"fields": [{
-										"layout": {
-											"struct": {
-												"fields": [{
-													"layout": {
-														"cell": {
-															"key": "0x0300000000000000000000000000000000000000000000000000000000000000",
-															"ty": 3
-														}
-													},
-													"name": "id"
-												}, {
-													"layout": {
-														"cell": {
-															"key": "0x0400000000000000000000000000000000000000000000000000000000000000",
-															"ty": 0
-														}
-													},
-													"name": "owner"
-												}, {
-													"layout": {
-														"cell": {
-															"key": "0x0500000000000000000000000000000000000000000000000000000000000000",
-															"ty": 4
-														}
-													},
-													"name": "name"
-												}, {
-													"layout": {
-														"cell": {
-															"key": "0x0600000000000000000000000000000000000000000000000000000000000000",
-															"ty": 5
-														}
-													},
-													"name": "dao_manager_code_hash"
-												}, {
-													"layout": {
-														"cell": {
-															"key": "0x0700000000000000000000000000000000000000000000000000000000000000",
-															"ty": 6
-														}
-													},
-													"name": "components"
-												}]
-											}
-										},
-										"name": null
-									}]
-								},
-								"1": {
-									"fields": []
-								}
-							}
-						}
-					},
-					"name": "template"
-				}, {
-					"layout": {
-						"cell": {
-							"key": "0x0300000000000000000000000000000000000000000000000000000000000000",
-							"ty": 9
-						}
-					},
-					"name": "active"
-				}, {
-					"layout": {
-						"cell": {
-							"key": "0x0400000000000000000000000000000000000000000000000000000000000000",
-							"ty": 3
-						}
-					},
-					"name": "dao_id"
-				}, {
-					"layout": {
-						"cell": {
-							"key": "0x0500000000000000000000000000000000000000000000000000000000000000",
-							"ty": 10
-						}
-					},
-					"name": "controller_type"
-				}, {
-					"layout": {
-						"struct": {
-							"fields": [{
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x0600000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"struct": {
-															"fields": [{
-																"layout": {
-																	"cell": {
-																		"key": "0x0700000000000000000000000000000000000000000000000000000000000000",
-																		"ty": 0
-																	}
-																},
-																"name": "account_id"
-															}]
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "base"
-							}, {
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x0700000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"struct": {
-															"fields": [{
-																"layout": {
-																	"cell": {
-																		"key": "0x0800000000000000000000000000000000000000000000000000000000000000",
-																		"ty": 0
-																	}
-																},
-																"name": "account_id"
-															}]
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "erc20"
-							}, {
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x0800000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"struct": {
-															"fields": [{
-																"layout": {
-																	"cell": {
-																		"key": "0x0900000000000000000000000000000000000000000000000000000000000000",
-																		"ty": 0
-																	}
-																},
-																"name": "account_id"
-															}]
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "dao_users"
-							}, {
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x0900000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"struct": {
-															"fields": [{
-																"layout": {
-																	"cell": {
-																		"key": "0x0a00000000000000000000000000000000000000000000000000000000000000",
-																		"ty": 0
-																	}
-																},
-																"name": "account_id"
-															}]
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "dao_setting"
-							}, {
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x0a00000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"struct": {
-															"fields": [{
-																"layout": {
-																	"cell": {
-																		"key": "0x0b00000000000000000000000000000000000000000000000000000000000000",
-																		"ty": 0
-																	}
-																},
-																"name": "account_id"
-															}]
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "vault"
-							}, {
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x0b00000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"struct": {
-															"fields": [{
-																"layout": {
-																	"cell": {
-																		"key": "0x0c00000000000000000000000000000000000000000000000000000000000000",
-																		"ty": 0
-																	}
-																},
-																"name": "account_id"
-															}]
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "proposal"
-							}]
-						}
-					},
-					"name": "components"
-				}, {
-					"layout": {
-						"struct": {
-							"fields": [{
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x0c00000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"cell": {
-															"key": "0x0d00000000000000000000000000000000000000000000000000000000000000",
-															"ty": 0
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "base_addr"
-							}, {
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x0d00000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"cell": {
-															"key": "0x0e00000000000000000000000000000000000000000000000000000000000000",
-															"ty": 0
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "erc20_addr"
-							}, {
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x0e00000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"cell": {
-															"key": "0x0f00000000000000000000000000000000000000000000000000000000000000",
-															"ty": 0
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "dao_users_addr"
-							}, {
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x0f00000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"cell": {
-															"key": "0x1000000000000000000000000000000000000000000000000000000000000000",
-															"ty": 0
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "dao_setting_addr"
-							}, {
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x1000000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"cell": {
-															"key": "0x1100000000000000000000000000000000000000000000000000000000000000",
-															"ty": 0
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "vault_addr"
-							}, {
-								"layout": {
-									"enum": {
-										"dispatchKey": "0x1100000000000000000000000000000000000000000000000000000000000000",
-										"variants": {
-											"0": {
-												"fields": [{
-													"layout": {
-														"cell": {
-															"key": "0x1200000000000000000000000000000000000000000000000000000000000000",
-															"ty": 0
-														}
-													},
-													"name": null
-												}]
-											},
-											"1": {
-												"fields": []
-											}
-										}
-									}
-								},
-								"name": "proposal_addr"
-							}]
-						}
-					},
-					"name": "component_addrs"
-				}, {
-					"layout": {
-						"cell": {
-							"key": "0x1200000000000000000000000000000000000000000000000000000000000000",
-							"ty": 4
-						}
-					},
-					"name": "category"
-				}, {
-					"layout": {
-						"struct": {
-							"fields": [{
-								"layout": {
-									"cell": {
-										"key": "0x1300000000000000000000000000000000000000000000000000000000000000",
-										"ty": 9
-									}
-								},
-								"name": "open"
-							}, {
-								"layout": {
-									"cell": {
-										"key": "0x1400000000000000000000000000000000000000000000000000000000000000",
-										"ty": 11
-									}
-								},
-								"name": "join_limit"
-							}, {
-								"layout": {
-									"cell": {
-										"key": "0x1500000000000000000000000000000000000000000000000000000000000000",
-										"ty": 12
-									}
-								},
-								"name": "daos"
-							}, {
-								"layout": {
-									"cell": {
-										"key": "0x1600000000000000000000000000000000000000000000000000000000000000",
-										"ty": 0
-									}
-								},
-								"name": "manager"
-							}]
-						}
-					},
-					"name": "union"
-				}, {
-					"layout": {
-						"struct": {
-							"fields": [{
-								"layout": {
-									"struct": {
-										"fields": [{
-											"layout": {
-												"cell": {
-													"key": "0x1700000000000000000000000000000000000000000000000000000000000000",
-													"ty": 15
-												}
-											},
-											"name": "header"
-										}, {
-											"layout": {
-												"struct": {
-													"fields": [{
-														"layout": {
-															"cell": {
-																"key": "0x1800000000000000000000000000000000000000000000000000000000000000",
-																"ty": 10
-															}
-														},
-														"name": "len"
-													}, {
-														"layout": {
-															"array": {
-																"cellsPerElem": 1,
-																"layout": {
-																	"cell": {
-																		"key": "0x1800000001000000000000000000000000000000000000000000000000000000",
-																		"ty": 16
-																	}
-																},
-																"len": 4294967295,
-																"offset": "0x1900000000000000000000000000000000000000000000000000000000000000"
-															}
-														},
-														"name": "elems"
-													}]
-												}
-											},
-											"name": "entries"
-										}]
-									}
-								},
-								"name": "keys"
-							}, {
-								"layout": {
-									"hash": {
-										"layout": {
-											"cell": {
-												"key": "0x1900000001000000000000000000000000000000000000000000000000000000",
-												"ty": 18
-											}
-										},
-										"offset": "0x1800000001000000000000000000000000000000000000000000000000000000",
-										"strategy": {
-											"hasher": "Blake2x256",
-											"postfix": "",
-											"prefix": "0x696e6b20686173686d6170"
-										}
-									}
-								},
-								"name": "values"
-							}]
-						}
-					},
-					"name": "childs_dao"
-				}]
-			}
-		},
-		"types": [{
-			"id": 0,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"type": 1,
-							"typeName": "[u8; 32]"
-						}]
-					}
-				},
-				"path": ["ink_env", "types", "AccountId"]
-			}
-		}, {
-			"id": 1,
-			"type": {
-				"def": {
-					"array": {
-						"len": 32,
-						"type": 2
-					}
-				}
-			}
-		}, {
-			"id": 2,
-			"type": {
-				"def": {
-					"primitive": "u8"
-				}
-			}
-		}, {
-			"id": 3,
-			"type": {
-				"def": {
-					"primitive": "u64"
-				}
-			}
-		}, {
-			"id": 4,
-			"type": {
-				"def": {
-					"primitive": "str"
-				}
-			}
-		}, {
-			"id": 5,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"type": 1,
-							"typeName": "[u8; 32]"
-						}]
-					}
-				},
-				"path": ["ink_env", "types", "Hash"]
-			}
-		}, {
-			"id": 6,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"type": 7
-						}]
-					}
-				},
-				"params": [{
-					"name": "K",
-					"type": 4
-				}, {
-					"name": "V",
-					"type": 5
-				}],
-				"path": ["BTreeMap"]
-			}
-		}, {
-			"id": 7,
-			"type": {
-				"def": {
-					"sequence": {
-						"type": 8
-					}
-				}
-			}
-		}, {
-			"id": 8,
-			"type": {
-				"def": {
-					"tuple": [4, 5]
-				}
-			}
-		}, {
-			"id": 9,
-			"type": {
-				"def": {
-					"primitive": "bool"
-				}
-			}
-		}, {
-			"id": 10,
-			"type": {
-				"def": {
-					"primitive": "u32"
-				}
-			}
-		}, {
-			"id": 11,
-			"type": {
-				"def": {
-					"primitive": "u128"
-				}
-			}
-		}, {
-			"id": 12,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"type": 13
-						}]
-					}
-				},
-				"params": [{
-					"name": "K",
-					"type": 0
-				}, {
-					"name": "V",
-					"type": 9
-				}],
-				"path": ["BTreeMap"]
-			}
-		}, {
-			"id": 13,
-			"type": {
-				"def": {
-					"sequence": {
-						"type": 14
-					}
-				}
-			}
-		}, {
-			"id": 14,
-			"type": {
-				"def": {
-					"tuple": [0, 9]
-				}
-			}
-		}, {
-			"id": 15,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"name": "last_vacant",
-							"type": 10,
-							"typeName": "Index"
-						}, {
-							"name": "len",
-							"type": 10,
-							"typeName": "u32"
-						}, {
-							"name": "len_entries",
-							"type": 10,
-							"typeName": "u32"
-						}]
-					}
-				},
-				"path": ["ink_storage", "collections", "stash", "Header"]
-			}
-		}, {
-			"id": 16,
-			"type": {
-				"def": {
-					"variant": {
-						"variants": [{
-							"fields": [{
-								"type": 17,
-								"typeName": "VacantEntry"
-							}],
-							"index": 0,
-							"name": "Vacant"
-						}, {
-							"fields": [{
-								"type": 0,
-								"typeName": "T"
-							}],
-							"index": 1,
-							"name": "Occupied"
-						}]
-					}
-				},
-				"params": [{
-					"name": "T",
-					"type": 0
-				}],
-				"path": ["ink_storage", "collections", "stash", "Entry"]
-			}
-		}, {
-			"id": 17,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"name": "next",
-							"type": 10,
-							"typeName": "Index"
-						}, {
-							"name": "prev",
-							"type": 10,
-							"typeName": "Index"
-						}]
-					}
-				},
-				"path": ["ink_storage", "collections", "stash", "VacantEntry"]
-			}
-		}, {
-			"id": 18,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"name": "value",
-							"type": 19,
-							"typeName": "V"
-						}, {
-							"name": "key_index",
-							"type": 10,
-							"typeName": "KeyIndex"
-						}]
-					}
-				},
-				"params": [{
-					"name": "V",
-					"type": 19
-				}],
-				"path": ["ink_storage", "collections", "hashmap", "ValueEntry"]
-			}
-		}, {
-			"id": 19,
-			"type": {
-				"def": {
-					"sequence": {
-						"type": 0
-					}
-				}
-			}
-		}, {
-			"id": 20,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"name": "base_addr",
-							"type": 21,
-							"typeName": "Option<AccountId>"
-						}, {
-							"name": "erc20_addr",
-							"type": 21,
-							"typeName": "Option<AccountId>"
-						}, {
-							"name": "dao_users_addr",
-							"type": 21,
-							"typeName": "Option<AccountId>"
-						}, {
-							"name": "dao_setting_addr",
-							"type": 21,
-							"typeName": "Option<AccountId>"
-						}, {
-							"name": "vault_addr",
-							"type": 21,
-							"typeName": "Option<AccountId>"
-						}, {
-							"name": "proposal_addr",
-							"type": 21,
-							"typeName": "Option<AccountId>"
-						}]
-					}
-				},
-				"path": ["dao_manager", "dao_manager", "DAOComponentAddrs"]
-			}
-		}, {
-			"id": 21,
-			"type": {
-				"def": {
-					"variant": {
-						"variants": [{
-							"index": 0,
-							"name": "None"
-						}, {
-							"fields": [{
-								"type": 0
-							}],
-							"index": 1,
-							"name": "Some"
-						}]
-					}
-				},
-				"params": [{
-					"name": "T",
-					"type": 0
-				}],
-				"path": ["Option"]
-			}
-		}, {
-			"id": 22,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"name": "id",
-							"type": 3,
-							"typeName": "u64"
-						}, {
-							"name": "owner",
-							"type": 0,
-							"typeName": "AccountId"
-						}, {
-							"name": "name",
-							"type": 4,
-							"typeName": "String"
-						}, {
-							"name": "dao_manager_code_hash",
-							"type": 5,
-							"typeName": "Hash"
-						}, {
-							"name": "components",
-							"type": 6,
-							"typeName": "BTreeMap<String, Hash>"
-						}]
-					}
-				},
-				"path": ["template_manager", "template_manager", "DAOTemplate"]
-			}
-		}, {
-			"id": 23,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"name": "base",
-							"type": 24,
-							"typeName": "BaseParam"
-						}, {
-							"name": "erc20",
-							"type": 25,
-							"typeName": "ERC20Param"
-						}]
-					}
-				},
-				"path": ["dao_manager", "dao_manager", "DAOInitParams"]
-			}
-		}, {
-			"id": 24,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"name": "owner",
-							"type": 0,
-							"typeName": "AccountId"
-						}, {
-							"name": "name",
-							"type": 4,
-							"typeName": "String"
-						}, {
-							"name": "logo",
-							"type": 4,
-							"typeName": "String"
-						}, {
-							"name": "desc",
-							"type": 4,
-							"typeName": "String"
-						}]
-					}
-				},
-				"path": ["dao_manager", "dao_manager", "BaseParam"]
-			}
-		}, {
-			"id": 25,
-			"type": {
-				"def": {
-					"composite": {
-						"fields": [{
-							"name": "owner",
-							"type": 0,
-							"typeName": "AccountId"
-						}, {
-							"name": "name",
-							"type": 4,
-							"typeName": "String"
-						}, {
-							"name": "symbol",
-							"type": 4,
-							"typeName": "String"
-						}, {
-							"name": "total_supply",
-							"type": 11,
-							"typeName": "u128"
-						}, {
-							"name": "decimals",
-							"type": 2,
-							"typeName": "u8"
-						}]
-					}
-				},
-				"path": ["dao_manager", "dao_manager", "ERC20Param"]
-			}
-		}]
-	}
+  "source": {
+    "hash": "0xaf523ff4cb2cb6ae077242ec3f450e9a0bbcb78228732955a15373f8e7e7863c",
+    "language": "ink! 3.0.0-rc5",
+    "compiler": "rustc 1.59.0-nightly"
+  },
+  "contract": {
+    "name": "dao_manager",
+    "version": "0.1.0",
+    "authors": [
+      "[your_name] <[your_email]>"
+    ]
+  },
+  "V1": {
+    "spec": {
+      "constructors": [
+        {
+          "args": [
+            {
+              "name": "creator",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            },
+            {
+              "name": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            },
+            {
+              "name": "dao_id",
+              "type": {
+                "displayName": [
+                  "u64"
+                ],
+                "type": 3
+              }
+            },
+            {
+              "name": "controller_type",
+              "type": {
+                "displayName": [
+                  "u32"
+                ],
+                "type": 10
+              }
+            },
+            {
+              "name": "category",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 4
+              }
+            }
+          ],
+          "docs": [
+            "Create a new dao"
+          ],
+          "name": [
+            "new"
+          ],
+          "selector": "0x9bae9d5e"
+        }
+      ],
+      "docs": [],
+      "events": [],
+      "messages": [
+        {
+          "args": [],
+          "docs": [
+            " get the category of dao"
+          ],
+          "mutates": false,
+          "name": [
+            "get_dao_category"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "String"
+            ],
+            "type": 4
+          },
+          "selector": "0xeeeda84a"
+        },
+        {
+          "args": [
+            {
+              "name": "operate",
+              "type": {
+                "displayName": [
+                  "bool"
+                ],
+                "type": 9
+              }
+            }
+          ],
+          "docs": [
+            " change the dao status"
+          ],
+          "mutates": true,
+          "name": [
+            "operate_join"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 9
+          },
+          "selector": "0xa94b1896"
+        },
+        {
+          "args": [],
+          "docs": [
+            " get the component_addrs"
+          ],
+          "mutates": false,
+          "name": [
+            "get_component_addrs"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "DAOComponentAddrs"
+            ],
+            "type": 20
+          },
+          "selector": "0x1c659fb9"
+        },
+        {
+          "args": [
+            {
+              "name": "address",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            }
+          ],
+          "docs": [
+            " get the child daos"
+          ],
+          "mutates": false,
+          "name": [
+            "get_childs_daos"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Vec"
+            ],
+            "type": 19
+          },
+          "selector": "0x0043d945"
+        },
+        {
+          "args": [
+            {
+              "name": "limit",
+              "type": {
+                "displayName": [
+                  "u128"
+                ],
+                "type": 11
+              }
+            }
+          ],
+          "docs": [
+            " set the limit of join dao"
+          ],
+          "mutates": true,
+          "name": [
+            "set_join_limit"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 9
+          },
+          "selector": "0x1530898c"
+        },
+        {
+          "args": [
+            {
+              "name": "dao",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            }
+          ],
+          "docs": [
+            " join the dao"
+          ],
+          "mutates": true,
+          "name": [
+            "join_union_dao"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 9
+          },
+          "selector": "0x8be315e4"
+        },
+        {
+          "args": [
+            {
+              "name": "dao",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            }
+          ],
+          "docs": [
+            " leave a dao"
+          ],
+          "mutates": true,
+          "name": [
+            "leave_union_dao"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 9
+          },
+          "selector": "0x66da628f"
+        },
+        {
+          "args": [],
+          "docs": [
+            " show all union dao"
+          ],
+          "mutates": true,
+          "name": [
+            "list_union_dao"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Vec"
+            ],
+            "type": 19
+          },
+          "selector": "0xa6b1b079"
+        },
+        {
+          "args": [
+            {
+              "name": "dao_id",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            },
+            {
+              "name": "child_dao",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            }
+          ],
+          "docs": [
+            " create a child dao"
+          ],
+          "mutates": true,
+          "name": [
+            "create_child_dao"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 9
+          },
+          "selector": "0x90e6d62f"
+        },
+        {
+          "args": [
+            {
+              "name": "template",
+              "type": {
+                "displayName": [
+                  "DAOTemplate"
+                ],
+                "type": 22
+              }
+            }
+          ],
+          "docs": [
+            " Set the dao use which template"
+          ],
+          "mutates": true,
+          "name": [
+            "set_template"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 9
+          },
+          "selector": "0x441c77a1"
+        },
+        {
+          "args": [
+            {
+              "name": "logo",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 4
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 4
+              }
+            },
+            {
+              "name": "desc",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 4
+              }
+            },
+            {
+              "name": "total_supply",
+              "type": {
+                "displayName": [
+                  "u128"
+                ],
+                "type": 11
+              }
+            },
+            {
+              "name": "token_name",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 4
+              }
+            },
+            {
+              "name": "symbol",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 4
+              }
+            },
+            {
+              "name": "decimals",
+              "type": {
+                "displayName": [
+                  "u8"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "name": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            },
+            {
+              "name": "version",
+              "type": {
+                "displayName": [
+                  "u128"
+                ],
+                "type": 11
+              }
+            },
+            {
+              "name": "base_code_hash",
+              "type": {
+                "displayName": [
+                  "Hash"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "name": "erc20_code_hash",
+              "type": {
+                "displayName": [
+                  "Hash"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "name": "user_code_hash",
+              "type": {
+                "displayName": [
+                  "Hash"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "name": "setting_code_hash",
+              "type": {
+                "displayName": [
+                  "Hash"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "name": "vault_code_hash",
+              "type": {
+                "displayName": [
+                  "Hash"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "name": "proposal_code_hash",
+              "type": {
+                "displayName": [
+                  "Hash"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " Initialize Dao and generate various",
+            " params:Generate basic contract information",
+            " version:Random number for generating contract"
+          ],
+          "mutates": true,
+          "name": [
+            "init_by_params"
+          ],
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 9
+          },
+          "selector": "0x9345b6c5"
+        }
+      ]
+    },
+    "storage": {
+      "struct": {
+        "fields": [
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "ty": 0
+              }
+            },
+            "name": "creator"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0100000000000000000000000000000000000000000000000000000000000000",
+                "ty": 0
+              }
+            },
+            "name": "owner"
+          },
+          {
+            "layout": {
+              "enum": {
+                "dispatchKey": "0x0200000000000000000000000000000000000000000000000000000000000000",
+                "variants": {
+                  "0": {
+                    "fields": [
+                      {
+                        "layout": {
+                          "struct": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "cell": {
+                                    "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                                    "ty": 3
+                                  }
+                                },
+                                "name": "id"
+                              },
+                              {
+                                "layout": {
+                                  "cell": {
+                                    "key": "0x0400000000000000000000000000000000000000000000000000000000000000",
+                                    "ty": 0
+                                  }
+                                },
+                                "name": "owner"
+                              },
+                              {
+                                "layout": {
+                                  "cell": {
+                                    "key": "0x0500000000000000000000000000000000000000000000000000000000000000",
+                                    "ty": 4
+                                  }
+                                },
+                                "name": "name"
+                              },
+                              {
+                                "layout": {
+                                  "cell": {
+                                    "key": "0x0600000000000000000000000000000000000000000000000000000000000000",
+                                    "ty": 5
+                                  }
+                                },
+                                "name": "dao_manager_code_hash"
+                              },
+                              {
+                                "layout": {
+                                  "cell": {
+                                    "key": "0x0700000000000000000000000000000000000000000000000000000000000000",
+                                    "ty": 6
+                                  }
+                                },
+                                "name": "components"
+                              }
+                            ]
+                          }
+                        },
+                        "name": null
+                      }
+                    ]
+                  },
+                  "1": {
+                    "fields": []
+                  }
+                }
+              }
+            },
+            "name": "template"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                "ty": 9
+              }
+            },
+            "name": "active"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0400000000000000000000000000000000000000000000000000000000000000",
+                "ty": 3
+              }
+            },
+            "name": "dao_id"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0500000000000000000000000000000000000000000000000000000000000000",
+                "ty": 10
+              }
+            },
+            "name": "controller_type"
+          },
+          {
+            "layout": {
+              "struct": {
+                "fields": [
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x0600000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "struct": {
+                                    "fields": [
+                                      {
+                                        "layout": {
+                                          "cell": {
+                                            "key": "0x0700000000000000000000000000000000000000000000000000000000000000",
+                                            "ty": 0
+                                          }
+                                        },
+                                        "name": "account_id"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "base"
+                  },
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x0700000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "struct": {
+                                    "fields": [
+                                      {
+                                        "layout": {
+                                          "cell": {
+                                            "key": "0x0800000000000000000000000000000000000000000000000000000000000000",
+                                            "ty": 0
+                                          }
+                                        },
+                                        "name": "account_id"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "erc20"
+                  },
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x0800000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "struct": {
+                                    "fields": [
+                                      {
+                                        "layout": {
+                                          "cell": {
+                                            "key": "0x0900000000000000000000000000000000000000000000000000000000000000",
+                                            "ty": 0
+                                          }
+                                        },
+                                        "name": "account_id"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "dao_users"
+                  },
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x0900000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "struct": {
+                                    "fields": [
+                                      {
+                                        "layout": {
+                                          "cell": {
+                                            "key": "0x0a00000000000000000000000000000000000000000000000000000000000000",
+                                            "ty": 0
+                                          }
+                                        },
+                                        "name": "account_id"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "dao_setting"
+                  },
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x0a00000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "struct": {
+                                    "fields": [
+                                      {
+                                        "layout": {
+                                          "cell": {
+                                            "key": "0x0b00000000000000000000000000000000000000000000000000000000000000",
+                                            "ty": 0
+                                          }
+                                        },
+                                        "name": "account_id"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "vault"
+                  },
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x0b00000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "struct": {
+                                    "fields": [
+                                      {
+                                        "layout": {
+                                          "cell": {
+                                            "key": "0x0c00000000000000000000000000000000000000000000000000000000000000",
+                                            "ty": 0
+                                          }
+                                        },
+                                        "name": "account_id"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "proposal"
+                  }
+                ]
+              }
+            },
+            "name": "components"
+          },
+          {
+            "layout": {
+              "struct": {
+                "fields": [
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x0c00000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "cell": {
+                                    "key": "0x0d00000000000000000000000000000000000000000000000000000000000000",
+                                    "ty": 0
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "base_addr"
+                  },
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x0d00000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "cell": {
+                                    "key": "0x0e00000000000000000000000000000000000000000000000000000000000000",
+                                    "ty": 0
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "erc20_addr"
+                  },
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x0e00000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "cell": {
+                                    "key": "0x0f00000000000000000000000000000000000000000000000000000000000000",
+                                    "ty": 0
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "dao_users_addr"
+                  },
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x0f00000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "cell": {
+                                    "key": "0x1000000000000000000000000000000000000000000000000000000000000000",
+                                    "ty": 0
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "dao_setting_addr"
+                  },
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x1000000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "cell": {
+                                    "key": "0x1100000000000000000000000000000000000000000000000000000000000000",
+                                    "ty": 0
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "vault_addr"
+                  },
+                  {
+                    "layout": {
+                      "enum": {
+                        "dispatchKey": "0x1100000000000000000000000000000000000000000000000000000000000000",
+                        "variants": {
+                          "0": {
+                            "fields": [
+                              {
+                                "layout": {
+                                  "cell": {
+                                    "key": "0x1200000000000000000000000000000000000000000000000000000000000000",
+                                    "ty": 0
+                                  }
+                                },
+                                "name": null
+                              }
+                            ]
+                          },
+                          "1": {
+                            "fields": []
+                          }
+                        }
+                      }
+                    },
+                    "name": "proposal_addr"
+                  }
+                ]
+              }
+            },
+            "name": "component_addrs"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x1200000000000000000000000000000000000000000000000000000000000000",
+                "ty": 4
+              }
+            },
+            "name": "category"
+          },
+          {
+            "layout": {
+              "struct": {
+                "fields": [
+                  {
+                    "layout": {
+                      "cell": {
+                        "key": "0x1300000000000000000000000000000000000000000000000000000000000000",
+                        "ty": 9
+                      }
+                    },
+                    "name": "open"
+                  },
+                  {
+                    "layout": {
+                      "cell": {
+                        "key": "0x1400000000000000000000000000000000000000000000000000000000000000",
+                        "ty": 11
+                      }
+                    },
+                    "name": "join_limit"
+                  },
+                  {
+                    "layout": {
+                      "cell": {
+                        "key": "0x1500000000000000000000000000000000000000000000000000000000000000",
+                        "ty": 12
+                      }
+                    },
+                    "name": "daos"
+                  },
+                  {
+                    "layout": {
+                      "cell": {
+                        "key": "0x1600000000000000000000000000000000000000000000000000000000000000",
+                        "ty": 0
+                      }
+                    },
+                    "name": "manager"
+                  }
+                ]
+              }
+            },
+            "name": "union"
+          },
+          {
+            "layout": {
+              "struct": {
+                "fields": [
+                  {
+                    "layout": {
+                      "struct": {
+                        "fields": [
+                          {
+                            "layout": {
+                              "cell": {
+                                "key": "0x1700000000000000000000000000000000000000000000000000000000000000",
+                                "ty": 15
+                              }
+                            },
+                            "name": "header"
+                          },
+                          {
+                            "layout": {
+                              "struct": {
+                                "fields": [
+                                  {
+                                    "layout": {
+                                      "cell": {
+                                        "key": "0x1800000000000000000000000000000000000000000000000000000000000000",
+                                        "ty": 10
+                                      }
+                                    },
+                                    "name": "len"
+                                  },
+                                  {
+                                    "layout": {
+                                      "array": {
+                                        "cellsPerElem": 1,
+                                        "layout": {
+                                          "cell": {
+                                            "key": "0x1800000001000000000000000000000000000000000000000000000000000000",
+                                            "ty": 16
+                                          }
+                                        },
+                                        "len": 4294967295,
+                                        "offset": "0x1900000000000000000000000000000000000000000000000000000000000000"
+                                      }
+                                    },
+                                    "name": "elems"
+                                  }
+                                ]
+                              }
+                            },
+                            "name": "entries"
+                          }
+                        ]
+                      }
+                    },
+                    "name": "keys"
+                  },
+                  {
+                    "layout": {
+                      "hash": {
+                        "layout": {
+                          "cell": {
+                            "key": "0x1900000001000000000000000000000000000000000000000000000000000000",
+                            "ty": 18
+                          }
+                        },
+                        "offset": "0x1800000001000000000000000000000000000000000000000000000000000000",
+                        "strategy": {
+                          "hasher": "Blake2x256",
+                          "postfix": "",
+                          "prefix": "0x696e6b20686173686d6170"
+                        }
+                      }
+                    },
+                    "name": "values"
+                  }
+                ]
+              }
+            },
+            "name": "childs_dao"
+          }
+        ]
+      }
+    },
+    "types": [
+      {
+        "id": 0,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 1,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_env",
+            "types",
+            "AccountId"
+          ]
+        }
+      },
+      {
+        "id": 1,
+        "type": {
+          "def": {
+            "array": {
+              "len": 32,
+              "type": 2
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "type": {
+          "def": {
+            "primitive": "u8"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "type": {
+          "def": {
+            "primitive": "u64"
+          }
+        }
+      },
+      {
+        "id": 4,
+        "type": {
+          "def": {
+            "primitive": "str"
+          }
+        }
+      },
+      {
+        "id": 5,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 1,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_env",
+            "types",
+            "Hash"
+          ]
+        }
+      },
+      {
+        "id": 6,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 7
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 4
+            },
+            {
+              "name": "V",
+              "type": 5
+            }
+          ],
+          "path": [
+            "BTreeMap"
+          ]
+        }
+      },
+      {
+        "id": 7,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 8
+            }
+          }
+        }
+      },
+      {
+        "id": 8,
+        "type": {
+          "def": {
+            "tuple": [
+              4,
+              5
+            ]
+          }
+        }
+      },
+      {
+        "id": 9,
+        "type": {
+          "def": {
+            "primitive": "bool"
+          }
+        }
+      },
+      {
+        "id": 10,
+        "type": {
+          "def": {
+            "primitive": "u32"
+          }
+        }
+      },
+      {
+        "id": 11,
+        "type": {
+          "def": {
+            "primitive": "u128"
+          }
+        }
+      },
+      {
+        "id": 12,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 13
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 0
+            },
+            {
+              "name": "V",
+              "type": 9
+            }
+          ],
+          "path": [
+            "BTreeMap"
+          ]
+        }
+      },
+      {
+        "id": 13,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 14
+            }
+          }
+        }
+      },
+      {
+        "id": 14,
+        "type": {
+          "def": {
+            "tuple": [
+              0,
+              9
+            ]
+          }
+        }
+      },
+      {
+        "id": 15,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "last_vacant",
+                  "type": 10,
+                  "typeName": "Index"
+                },
+                {
+                  "name": "len",
+                  "type": 10,
+                  "typeName": "u32"
+                },
+                {
+                  "name": "len_entries",
+                  "type": 10,
+                  "typeName": "u32"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_storage",
+            "collections",
+            "stash",
+            "Header"
+          ]
+        }
+      },
+      {
+        "id": 16,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 17,
+                      "typeName": "VacantEntry"
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Vacant"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 0,
+                      "typeName": "T"
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Occupied"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 0
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "collections",
+            "stash",
+            "Entry"
+          ]
+        }
+      },
+      {
+        "id": 17,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "next",
+                  "type": 10,
+                  "typeName": "Index"
+                },
+                {
+                  "name": "prev",
+                  "type": 10,
+                  "typeName": "Index"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_storage",
+            "collections",
+            "stash",
+            "VacantEntry"
+          ]
+        }
+      },
+      {
+        "id": 18,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "value",
+                  "type": 19,
+                  "typeName": "V"
+                },
+                {
+                  "name": "key_index",
+                  "type": 10,
+                  "typeName": "KeyIndex"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "V",
+              "type": 19
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "collections",
+            "hashmap",
+            "ValueEntry"
+          ]
+        }
+      },
+      {
+        "id": 19,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 0
+            }
+          }
+        }
+      },
+      {
+        "id": 20,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "base_addr",
+                  "type": 21,
+                  "typeName": "Option<AccountId>"
+                },
+                {
+                  "name": "erc20_addr",
+                  "type": 21,
+                  "typeName": "Option<AccountId>"
+                },
+                {
+                  "name": "dao_users_addr",
+                  "type": 21,
+                  "typeName": "Option<AccountId>"
+                },
+                {
+                  "name": "dao_setting_addr",
+                  "type": 21,
+                  "typeName": "Option<AccountId>"
+                },
+                {
+                  "name": "vault_addr",
+                  "type": 21,
+                  "typeName": "Option<AccountId>"
+                },
+                {
+                  "name": "proposal_addr",
+                  "type": 21,
+                  "typeName": "Option<AccountId>"
+                }
+              ]
+            }
+          },
+          "path": [
+            "dao_manager",
+            "dao_manager",
+            "DAOComponentAddrs"
+          ]
+        }
+      },
+      {
+        "id": 21,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "index": 0,
+                  "name": "None"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 0
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Some"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 0
+            }
+          ],
+          "path": [
+            "Option"
+          ]
+        }
+      },
+      {
+        "id": 22,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "id",
+                  "type": 3,
+                  "typeName": "u64"
+                },
+                {
+                  "name": "owner",
+                  "type": 0,
+                  "typeName": "AccountId"
+                },
+                {
+                  "name": "name",
+                  "type": 4,
+                  "typeName": "String"
+                },
+                {
+                  "name": "dao_manager_code_hash",
+                  "type": 5,
+                  "typeName": "Hash"
+                },
+                {
+                  "name": "components",
+                  "type": 6,
+                  "typeName": "BTreeMap<String, Hash>"
+                }
+              ]
+            }
+          },
+          "path": [
+            "template_manager",
+            "template_manager",
+            "DAOTemplate"
+          ]
+        }
+      }
+    ]
+  }
 }

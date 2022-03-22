@@ -45,7 +45,6 @@ const actions = {
             value,
             gasLimit
         }, name, address).signAndSend(AccountId, {signer: injector.signer}, (result) => {
-            console.error(result)
             dealResult(result)
         });
         data = formatResult(data);
