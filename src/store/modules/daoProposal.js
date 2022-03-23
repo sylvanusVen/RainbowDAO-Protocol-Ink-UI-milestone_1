@@ -2,7 +2,6 @@ import connectContract from "../../api/connectContract"
 import {dealResult, formatResult} from "../../utils/formatUtils"
 import Accounts from "../../api/Account.js";
 import {eventBus} from "../../utils/eventBus"
-import contractHash from "../../utils/contractHash.json"
 
 const state = {
     web3: {},
@@ -70,7 +69,7 @@ const actions = {
         return data
     },
     async castVote({rootState},{proposal_id,support,proposalAddress}) {
-        console.log(proposalAddress)
+        console.log(proposal_id,support,proposalAddress)
         const injector = await Accounts.accountInjector();
         await judgeContract(rootState.app.web3,proposalAddress)
         if(rootState.app.balance < 1.01){
@@ -82,7 +81,7 @@ const actions = {
         }
         const AccountId = sessionStorage.getItem('currentAccount')
 
-        let data = await state.contract.tx.castVote({value, gasLimit},proposal_id,support).signAndSend(AccountId, { signer: injector.signer }, (result) => {
+        let data = await state.contract.tx.castVote({value, gasLimit},proposal_id,true).signAndSend(AccountId, { signer: injector.signer }, (result) => {
             dealResult(result)
         });
         data = formatResult(data);

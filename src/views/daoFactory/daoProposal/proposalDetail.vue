@@ -303,6 +303,7 @@ export default {
       })
     },
     getData(){
+      console.log(this.proposal)
       this.$store.dispatch("erc20/getPriorVotes",{
         blockNumber:parseInt(this.proposal.endBlock.toString().replace(',','')) - this.proposal.publicityDelay,
         coinAddress:this.coinAddress

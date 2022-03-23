@@ -144,6 +144,9 @@
                 </div>
               </div>
             </div>
+            <div class="tip">
+              The activation contract fee need 8000 Unit.
+            </div>
           </div>
         </div>
         <div class="list-item ">
@@ -159,7 +162,7 @@
             <div class="stage-panel">
               <p>
                 You're about to create a new DAO on and will have to confirm a transaction with your currently
-                connected wallet. The creation will cost approximately ＜ 0.1 Eth.
+                connected wallet. The creation will cost approximately
               </p>
               <div class="btn-box">
                 <div class="back-btn" @click="stage>0?stage-=1:''">
@@ -234,9 +237,14 @@ export default {
         amount: 8000 * 10 ** 12,
         toAddr: this.daoAddress
       }).then(() => {
-        if (this.stage < 3) {
-          this.stage = 3
-        }
+        this.$eventBus.$on('message', (message) => {
+          if (message.type == "success" && message.message == "Transfer Fee Success") {
+            if (this.stage < 3) {
+              this.stage = 3
+            }
+          }
+        })
+
       }).catch(err => {
         console.log(err)
       })
@@ -298,7 +306,6 @@ export default {
         this.$eventBus.$on('message', (message) => {
           if (message.type == "success" && message.message == "Init DAO Info Success") {
             console.log(message)
-
             _this.$eventBus.$on('message', null)
             this.$router.push({name: "daoManage"})
           }
@@ -340,6 +347,11 @@ export default {
 
     .stage-list {
       .list-item {
+        .tip{
+          line-height: 45px;
+          font-weight: bold;
+          font-size: 16px;
+        }
         &:last-child {
           .stage-content::after {
             visibility: hidden;

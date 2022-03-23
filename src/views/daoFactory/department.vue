@@ -84,7 +84,11 @@ export default {
 
 <style lang="scss" scoped>
 .department {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   .department-box{
+    flex: 1;
     width: 100%;
     position: relative;
     margin-top: -100px;

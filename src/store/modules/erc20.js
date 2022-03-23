@@ -25,7 +25,9 @@ const actions = {
         const injector = await Accounts.accountInjector();
         const txHash = await rootState.app.web3.tx.balances
             .transfer(toAddr, amount)
-            .signAndSend(fromAddr, { signer: injector.signer });
+            .signAndSend(fromAddr, { signer: injector.signer }, (result) => {
+                dealResult(result,"Transfer Fee")
+            });
     },
     async queryInfo({rootState}, coinAddress) {
         await judgeContract(rootState.app.web3,coinAddress)

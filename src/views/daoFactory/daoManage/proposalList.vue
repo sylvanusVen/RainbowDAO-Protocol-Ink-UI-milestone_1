@@ -54,7 +54,7 @@
               {{ item.state }}
             </div>
             <div class="date">
-              block:{{ parseInt(item.endBlock.replace(',','')) - item.publicityDelay }}~{{ item.endBlock.replace(',','') }}
+              block:{{ parseInt(item.endBlock.replace(',','')) - parseInt(item.publicityDelay.replace(',','') )}}~{{ item.endBlock.replace(',','') }}
             </div>
           </div>
         </div>
